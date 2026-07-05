@@ -5,11 +5,23 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A1 Movers 單字冒險</title>
     <!-- INJECT_CSS -->
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js"></script>
 </head>
 <body>
+    <!-- DQ11 Style BGM -->
+    <audio id="bgm" loop preload="auto">
+        <!-- INJECT_BGM -->
+    </audio>
+
     <div id="game-container">
+        <!-- Cinematic Intro Screen -->
+        <div id="screen-intro-cinematic" class="screen hidden" style="background-image: url('<!-- INJECT_BG_IMG -->'); background-size: cover; background-position: center; align-items: center; justify-content: flex-end; padding-bottom: 10%;">
+            <div id="cinematic-text-container" style="width: 80%; text-align: center; min-height: 150px;">
+                <p id="cinematic-text" style="font-family: 'Cinzel', 'Noto Sans TC', serif; font-size: 2rem; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8), 2px 2px 4px #000; opacity: 0; transition: opacity 2s ease-in-out;"></p>
+            </div>
+            <button class="small-btn btn-gray" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.5);" onclick="Game.skipIntro()">跳過劇情 (Skip)</button>
+        </div>
         <!-- Error Reporter -->
         <div id="error-reporter" style="display:none; position:absolute; top:0; left:0; right:0; background:red; color:white; z-index:9999; padding:20px; font-size:20px;"></div>
         <script>

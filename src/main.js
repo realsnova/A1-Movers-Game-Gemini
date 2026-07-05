@@ -1,4 +1,4 @@
-const SPRITE_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
+const SPRITE_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 
 const REGION_NAMES = {
     'animals': '新手草原',
@@ -124,37 +124,77 @@ const Game = {
         if (!this.state.soundEnabled) return;
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
-
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'square';
-
+        
+        // High quality DQ-style synths
         const now = audioCtx.currentTime;
+        
         if (type === 'correct') {
-            osc.frequency.setValueAtTime(440, now);
-            osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
-            gain.gain.setValueAtTime(0.1, now);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-            osc.start(now);
-            osc.stop(now + 0.1);
+            // Magical chime (major chord harp/bell)
+            const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+            freqs.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                gain.gain.setValueAtTime(0, now + (i * 0.05));
+                gain.gain.linearRampToValueAtTime(0.15, now + (i * 0.05) + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + (i * 0.05) + 0.6);
+                
+                osc.start(now + (i * 0.05));
+                osc.stop(now + (i * 0.05) + 1);
+            });
         } else if (type === 'wrong') {
-            osc.frequency.setValueAtTime(300, now);
-            osc.frequency.exponentialRampToValueAtTime(150, now + 0.2);
-            gain.gain.setValueAtTime(0.1, now);
+            // Sword slash / physical hit (noise burst)
+            const bufferSize = audioCtx.sampleRate * 0.2; 
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1000, now);
+            filter.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+            
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.3, now);
             gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-            osc.start(now);
-            osc.stop(now + 0.2);
+            
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            noise.start(now);
         } else if (type === 'win') {
-            osc.frequency.setValueAtTime(440, now);
-            osc.frequency.setValueAtTime(554.37, now + 0.1);
-            osc.frequency.setValueAtTime(659.25, now + 0.2);
-            osc.frequency.setValueAtTime(880, now + 0.3);
-            gain.gain.setValueAtTime(0.1, now);
-            gain.gain.linearRampToValueAtTime(0, now + 0.6);
-            osc.start(now);
-            osc.stop(now + 0.6);
+            // Level Up / Victory fanfare (brass-like synth)
+            const freqs = [440, 554.37, 659.25, 880];
+            freqs.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.value = freq;
+                
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 2000;
+                
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                const t = now + (i * 0.15);
+                gain.gain.setValueAtTime(0, t);
+                gain.gain.linearRampToValueAtTime(0.1, t + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.01, t + 0.8);
+                
+                osc.start(t);
+                osc.stop(t + 1);
+            });
         }
     },
 
@@ -170,6 +210,12 @@ const Game = {
             gain.gain.value = 0;
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.01);
+            
+            const bgm = document.getElementById('bgm');
+            if (bgm && bgm.paused) {
+                bgm.volume = 0.3;
+                bgm.play().catch(e => console.log('BGM play blocked'));
+            }
         } catch (e) {}
     },
 
@@ -177,6 +223,16 @@ const Game = {
         this.state.soundEnabled = !this.state.soundEnabled;
         this.updateSoundIcon();
         this.saveState();
+        
+        const bgm = document.getElementById('bgm');
+        if (bgm) {
+            if (this.state.soundEnabled) {
+                bgm.volume = 0.3;
+                bgm.play().catch(e => {});
+            } else {
+                bgm.pause();
+            }
+        }
     },
 
     updateSoundIcon() {
@@ -207,11 +263,8 @@ const Game = {
     startAdventure() {
         this.preWarmAudio();
         if (!this.state.storySeen.includes('intro')) {
-            this.showStory("歡迎來到單字冒險世界！", "年輕的勇者啊！\n我是大木博士。這個世界充滿了奇妙的寶可夢，但牠們只聽從懂得英語單字的人。\n\n出發吧！前往各個區域學習單字，收服寶可夢，挑戰道館，最後前往冠軍之路吧！", () => {
-                this.state.storySeen.push('intro');
-                this.saveState();
-                this.showScreen('map');
-            });
+            this.showScreen('intro-cinematic');
+            this.playIntroSequence();
         } else {
             this.showScreen('map');
         }
@@ -219,6 +272,51 @@ const Game = {
         if (speechSynthesis.getVoices().length === 0) {
             speechSynthesis.addEventListener('voiceschanged', () => {});
         }
+    },
+
+    introInterval: null,
+    playIntroSequence() {
+        const textElement = document.getElementById('cinematic-text');
+        const script = [
+            "在古老的洛德賽特亞 (Erdrea) 大陸中心...",
+            "矗立著散發著生命光輝的『單字世界樹』...",
+            "傳說中，掌握了遠古語言力量的勇者...",
+            "能夠喚醒沉睡在世界各地的奇幻生物...",
+            "如今，黑暗的文盲之力逐漸吞噬大地...",
+            "世界樹的光芒正在消退...",
+            "被選召的年輕勇者啊...",
+            "拿起你的語言之劍...",
+            "踏上收服寶可夢的冒險吧！"
+        ];
+        let line = 0;
+        
+        const showNextLine = () => {
+            if (line >= script.length) {
+                this.skipIntro();
+                return;
+            }
+            textElement.style.opacity = 0;
+            setTimeout(() => {
+                textElement.innerText = script[line];
+                textElement.style.opacity = 1;
+                line++;
+            }, 1000); // Wait for fade out before changing text
+        };
+        
+        showNextLine();
+        this.introInterval = setInterval(showNextLine, 4000);
+    },
+
+    skipIntro() {
+        if (this.introInterval) {
+            clearInterval(this.introInterval);
+            this.introInterval = null;
+        }
+        if (!this.state.storySeen.includes('intro')) {
+            this.state.storySeen.push('intro');
+            this.saveState();
+        }
+        this.showScreen('map');
     },
 
     showStory(title, text, callback) {

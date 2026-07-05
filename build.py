@@ -39,6 +39,23 @@ def build():
     output = output.replace('<!-- INJECT_DATA -->', f"<script>\n{data_snippet}\n</script>")
     output = output.replace('<!-- INJECT_JS -->', f"<script>\n{js_content}\n</script>")
     
+    # Inject BGM
+    import base64
+    bgm_source = '<source src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Kevin_MacLeod_-_Fantasy_Intro.ogg" type="audio/ogg">'
+    if os.path.exists('BGM_no1.mp3'):
+        with open('BGM_no1.mp3', 'rb') as f:
+            bgm_b64 = base64.b64encode(f.read()).decode('utf-8')
+        bgm_source = f'<source src="data:audio/mp3;base64,{bgm_b64}" type="audio/mp3">'
+    output = output.replace('<!-- INJECT_BGM -->', bgm_source)
+    
+    # Inject BG Image
+    bg_img_source = ''
+    if os.path.exists('intro_bg.png'):
+        with open('intro_bg.png', 'rb') as f:
+            bg_img_b64 = base64.b64encode(f.read()).decode('utf-8')
+        bg_img_source = f'data:image/png;base64,{bg_img_b64}'
+    output = output.replace('<!-- INJECT_BG_IMG -->', bg_img_source)
+    
     with open('單字冒險_Gemini.html', 'w', encoding='utf-8') as f:
         f.write(output)
         

@@ -5,17 +5,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>A1 Movers 單字冒險</title>
     <style>
-/* Base Styles */
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+TC:wght@400;700&display=swap');
+
 :root {
-    --bg-color: #f0f8ff;
-    --text-color: #333;
-    --primary: #4CAF50;
-    --primary-hover: #45a049;
-    --danger: #f44336;
-    --danger-hover: #da190b;
-    --gray: #9e9e9e;
+    --bg-color: #0b132b; /* Deep royal night sky */
+    --text-color: #1a1a1a;
+    --primary: #D4AF37; /* Royal Gold */
+    --primary-hover: #b8960c;
+    --danger: #b71c1c;
+    --danger-hover: #7f0000;
+    --gray: #424242;
     --gold: #FFD700;
-    --card-bg: #fff;
+    
+    /* Parchment effect */
+    --card-bg: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    --card-border: 4px solid #8b5a2b; /* Wooden/leather brown border */
+    
+    /* UI Window */
+    --ui-border: 2px solid #D4AF37;
+    --ui-bg: rgba(11, 19, 43, 0.85); 
 }
 
 * {
@@ -27,7 +35,8 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #222;
+    background-color: #000;
+    background-image: radial-gradient(circle at center, #1c2541 0%, #0b132b 100%);
     display: flex;
     justify-content: center;
     align-items: center;
@@ -40,92 +49,127 @@ body {
     height: 100vh;
     max-width: 1366px;
     max-height: 768px;
-    background-color: var(--bg-color);
     position: relative;
     overflow-y: auto;
     overflow-x: hidden;
-    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    box-shadow: 0 0 50px rgba(0,0,0,0.8);
     display: flex;
     flex-direction: column;
+    background: radial-gradient(circle at top, #3a506b 0%, #0b132b 80%);
 }
 
+/* Premium Typography */
 .pixel-text {
-    font-family: 'Press Start 2P', monospace, 'Noto Sans TC';
-    line-height: 1.5;
+    font-family: 'Cinzel', 'Noto Sans TC', serif;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.title-text {
+    font-family: 'Cinzel', serif;
+    font-size: 3rem;
+    color: var(--primary);
+    text-shadow: 0 0 10px rgba(212,175,55,0.5), 2px 2px 4px #000;
 }
 
 /* Utilities */
 .hidden { display: none !important; }
 .text-center { text-align: center; }
 .text-success { color: var(--primary); }
+.text-primary { color: var(--primary); }
+.text-secondary { color: #555; }
 .mt-4 { margin-top: 1rem; }
 
-/* Buttons */
+/* 3D RPG Buttons */
 button {
     cursor: pointer;
-    border: none;
-    border-radius: 12px;
+    border: 2px solid #b8960c;
+    border-radius: 8px;
     font-size: 1.2rem;
     font-weight: bold;
-    transition: transform 0.1s, filter 0.1s;
+    font-family: 'Cinzel', 'Noto Sans TC', serif;
+    transition: all 0.2s ease-in-out;
     outline: none;
+    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    position: relative;
+    overflow: hidden;
+}
+
+button::after {
+    content: '';
+    position: absolute;
+    top: 0; left: -100%;
+    width: 50%; height: 100%;
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    transform: skewX(-25deg);
+    transition: all 0.5s;
+}
+
+button:hover::after {
+    left: 200%;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(212,175,55,0.4);
+    filter: brightness(1.1);
 }
 
 button:active {
-    transform: scale(0.95);
+    transform: translateY(2px);
+    box-shadow: 0 1px 2px rgba(0,0,0,0.8);
 }
 
 .big-btn {
     width: 90%;
     max-width: 300px;
-    min-height: 64px; /* >= 64px requirement */
+    min-height: 64px;
     padding: 16px 24px;
-    background-color: var(--primary);
+    background: linear-gradient(to bottom, #4a6fa5, #1c2541);
     color: white;
     margin: 8px auto;
-    box-shadow: 0 4px 0 #2e7d32;
+    border: var(--ui-border);
+    border-radius: 12px;
     display: block;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.3);
 }
 
 .btn-danger {
-    background-color: var(--danger);
-    box-shadow: 0 4px 0 #c62828;
+    background: linear-gradient(to bottom, #d32f2f, #b71c1c);
+    border-color: #ffcdd2;
 }
 
 .btn-gray {
-    background-color: var(--gray);
-    box-shadow: 0 4px 0 #616161;
+    background: linear-gradient(to bottom, #757575, #424242);
+    border-color: #bdbdbd;
 }
 
 .small-btn {
     min-height: 48px;
     padding: 8px 16px;
-    background-color: var(--gray);
+    background: linear-gradient(to bottom, #757575, #424242);
     color: white;
-}
-
-.action-btn {
-    min-height: 64px;
-    padding: 12px 24px;
-    background-color: #2196F3;
-    color: white;
-    box-shadow: 0 4px 0 #1565C0;
-    margin: 8px;
 }
 
 /* Option Buttons for Quiz */
 .option-btn {
     min-height: 80px;
-    font-size: 1.2rem;
-    background-color: white;
-    color: var(--text-color);
-    border: 3px solid var(--primary);
-    box-shadow: 0 4px 0 #ccc;
+    font-size: 1.5rem;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    color: #1a1a1a;
+    border: 3px solid #607d8b;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
     justify-content: center;
     padding: 10px;
     word-break: break-word;
+    text-shadow: none;
+}
+.option-btn:hover {
+    border-color: var(--primary);
+    background: linear-gradient(135deg, #fff 0%, #e0e0e0 100%);
 }
 
 /* Layouts */
@@ -140,34 +184,52 @@ button:active {
     position: absolute;
     top: 0;
     left: 0;
-    background-color: var(--bg-color);
     overflow-y: auto;
     padding: 10px;
+    animation: fadeIn 0.5s ease-out;
+}
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 .overlay {
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0,0,0,0.85);
     z-index: 100;
+    backdrop-filter: blur(4px);
 }
 
-.menu-box {
+/* DQ Style Panels */
+.menu-box, .study-card {
     background: var(--card-bg);
     padding: 32px 16px;
-    border-radius: 16px;
-    border: 4px solid var(--primary);
+    border-radius: 4px;
+    border: var(--card-border);
     text-align: center;
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 90%;
-    max-width: 400px;
+    max-width: 600px;
     margin: auto;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(139,90,43,0.2);
+    color: #1a1a1a;
+    position: relative;
+}
+.menu-box::before, .study-card::before {
+    content: '';
+    position: absolute;
+    top: -6px; left: -6px; right: -6px; bottom: -6px;
+    border: 2px solid #d4af37;
+    pointer-events: none;
+    border-radius: 6px;
 }
 
 /* Top Bar */
 #top-bar {
     min-height: 64px;
-    background-color: #333;
+    background: linear-gradient(to bottom, rgba(11,19,43,0.9), rgba(11,19,43,0.7));
+    border-bottom: 2px solid var(--primary);
     color: white;
     display: flex;
     flex-wrap: wrap;
@@ -176,12 +238,15 @@ button:active {
     padding: 8px 16px;
     z-index: 50;
     position: relative;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.5);
 }
 
 .stats span {
     margin-right: 12px;
-    font-size: 1rem;
+    font-size: 1.1rem;
     font-weight: bold;
+    text-shadow: 1px 1px 2px #000;
+    color: var(--primary);
 }
 
 .nav-buttons {
@@ -192,98 +257,105 @@ button:active {
 
 .nav-btn {
     min-height: 48px;
-    background-color: #555;
+    background: linear-gradient(to bottom, #3a506b, #1c2541);
     color: white;
-    padding: 8px 12px;
+    padding: 8px 16px;
+    border: 1px solid #5bc0be;
+    border-radius: 6px;
 }
 
 /* Title Screen */
+#screen-title {
+    background: radial-gradient(circle at center, rgba(42,66,105,0.8) 0%, rgba(11,19,43,1) 100%);
+}
 #screen-title h1 {
-    font-size: 2.5rem;
+    font-size: 4rem;
     text-align: center;
-    color: var(--primary);
-    text-shadow: 2px 2px 0px #333;
-    margin-bottom: 2rem;
-    width: 100%;
+    color: #fff;
+    text-shadow: 0 0 20px rgba(212,175,55,0.8), 2px 4px 6px #000;
+    margin-bottom: 3rem;
+    font-family: 'Cinzel', serif;
+    letter-spacing: 4px;
 }
 
 .save-controls {
-    margin-top: 32px;
+    margin-top: 48px;
 }
 
 /* Map Screen */
+#screen-map h2 {
+    color: white;
+    font-size: 2.5rem;
+    text-shadow: 0 0 10px #000;
+}
 #map-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 16px;
-    padding: 16px;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 24px;
+    padding: 24px;
     width: 100%;
-    max-width: 1000px;
+    max-width: 1100px;
     overflow-y: auto;
     max-height: 80vh;
 }
 
 .map-node {
-    background-color: #e0e0e0;
-    border: 4px solid #9e9e9e;
-    border-radius: 16px;
-    padding: 16px 8px;
+    background: linear-gradient(135deg, rgba(28,37,65,0.9) 0%, rgba(11,19,43,0.9) 100%);
+    border: 2px solid #5bc0be;
+    border-radius: 8px;
+    padding: 16px;
     text-align: center;
     cursor: pointer;
-    min-height: 100px;
+    min-height: 120px;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    transition: transform 0.2s;
+    transition: transform 0.3s, box-shadow 0.3s;
+    color: #fff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
 }
 
 .map-node.unlocked {
-    background-color: #c8e6c9;
+    background: linear-gradient(135deg, rgba(74,111,165,0.9) 0%, rgba(28,37,65,0.9) 100%);
     border-color: var(--primary);
 }
-
-.map-node:hover {
-    transform: scale(1.05);
+.map-node.unlocked:hover {
+    transform: scale(1.05) translateY(-5px);
+    box-shadow: 0 10px 20px rgba(212,175,55,0.4);
+    border-color: #fff;
 }
 
 /* Study Screen */
-.study-card {
-    background: white;
-    border-radius: 16px;
-    padding: 24px;
-    text-align: center;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
-    width: 90%;
-    max-width: 400px;
-    margin-bottom: 16px;
-}
-
 .emoji-large img.emoji, .emoji-large {
-    width: 100px;
-    height: 100px;
-    font-size: 80px;
+    width: 120px;
+    height: 120px;
+    font-size: 100px;
     margin: 0 auto;
+    filter: drop-shadow(0 4px 8px rgba(0,0,0,0.3));
 }
 
 .word-text {
-    font-size: 2rem;
-    color: var(--primary);
+    font-size: 2.5rem;
+    color: #1a1a1a;
     margin: 16px 0 8px 0;
+    font-family: 'Cinzel', serif;
 }
 
 .zh-text {
-    font-size: 1.2rem;
-    color: #666;
+    font-size: 1.4rem;
+    color: #424242;
     margin: 0 0 16px 0;
 }
 
 .sentence-box {
-    background: #f5f5f5;
-    padding: 12px;
-    border-radius: 8px;
+    background: rgba(0,0,0,0.05);
+    padding: 16px;
+    border-radius: 4px;
+    border-left: 4px solid #8b5a2b;
     margin-top: 16px;
-    font-size: 1rem;
+    font-size: 1.1rem;
+    line-height: 1.6;
 }
 
 .study-controls {
@@ -293,78 +365,22 @@ button:active {
     gap: 16px;
     width: 100%;
 }
-
 .study-controls .big-btn {
     min-width: 120px;
     width: auto;
 }
 
 /* Battle Screen */
-.battle-top {
-    height: 40%;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
+#screen-battle {
+    background: radial-gradient(circle at center, rgba(74,111,165,0.5) 0%, rgba(11,19,43,0.9) 100%);
 }
-
 #battle-sprite {
-    width: 150px;
-    height: 150px;
-    image-rendering: pixelated; /* For Pokemon sprites */
-}
-
-#battle-progress {
-    display: flex;
-    gap: 8px;
-    margin-top: 16px;
-    height: 32px;
-}
-
-.progress-ball {
-    width: 24px;
-    height: 24px;
-    border-radius: 50%;
-    background-color: #ccc;
-    border: 2px solid #999;
-}
-
-.progress-ball.filled {
-    background-color: var(--primary);
-    border-color: #2e7d32;
-}
-
-#battle-question-area {
-    height: 60%;
-    width: 100%;
-    background-color: #fff;
-    border-top: 4px solid var(--primary);
-    padding: 24px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-#question-prompt {
-    font-size: 2rem;
-    margin-bottom: 24px;
-    min-height: 80px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-#question-prompt img.emoji {
-    width: 80px;
-    height: 80px;
-}
-
-.options-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    width: 100%;
-    max-width: 800px;
+    width: 250px;
+    height: 250px;
+    object-fit: contain;
+    filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5));
+    transition: filter 1s, transform 0.2s;
+    /* High-res official artwork, no pixelation */
 }
 
 .feedback-msg {
@@ -394,6 +410,7 @@ button:active {
 }
 
 /* Pokedex */
+#screen-pokedex h2 { color: white; }
 .pokedex-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
@@ -406,47 +423,52 @@ button:active {
 }
 
 .dex-entry {
-    background: #fff;
-    border: 3px solid #ccc;
-    border-radius: 12px;
-    padding: 8px;
+    background: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
+    border: 3px solid #8b5a2b;
+    border-radius: 8px;
+    padding: 12px;
     text-align: center;
     cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    transition: transform 0.2s;
+}
+
+.dex-entry:hover {
+    transform: scale(1.05);
 }
 
 .dex-entry.caught {
     border-color: var(--primary);
+    background: linear-gradient(135deg, #fff 0%, #fff8e1 100%);
 }
 
 .dex-entry img {
-    width: 80px;
-    height: 80px;
-    image-rendering: pixelated;
+    width: 100px;
+    height: 100px;
+    object-fit: contain;
 }
 
 .dex-entry .unknown {
     font-size: 3rem;
     color: #ccc;
-    line-height: 80px;
+    line-height: 100px;
+    text-shadow: 1px 1px 0 #fff;
 }
 
-.close-btn {
-    position: absolute;
-    top: 16px;
-    right: 16px;
-    background: transparent;
-    font-size: 2rem;
-    box-shadow: none;
-    min-width: auto;
-    min-height: auto;
-    padding: 0;
+#screen-shop h2, #screen-dashboard h2 {
+    color: white;
 }
 
 </style>
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js"></script>
 </head>
 <body>
+    <!-- DQ11 Style BGM -->
+    <audio id="bgm" loop preload="auto">
+        <source src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Kevin_MacLeod_-_Fantasy_Intro.ogg" type="audio/ogg">
+    </audio>
+
     <div id="game-container">
         <!-- Error Reporter -->
         <div id="error-reporter" style="display:none; position:absolute; top:0; left:0; right:0; background:red; color:white; z-index:9999; padding:20px; font-size:20px;"></div>
@@ -625,7 +647,7 @@ button:active {
     
 </script>
     <script>
-const SPRITE_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/";
+const SPRITE_BASE = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/";
 
 const REGION_NAMES = {
     'animals': '新手草原',
@@ -751,37 +773,77 @@ const Game = {
         if (!this.state.soundEnabled) return;
         if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
         if (audioCtx.state === 'suspended') audioCtx.resume();
-
-        const osc = audioCtx.createOscillator();
-        const gain = audioCtx.createGain();
-        osc.connect(gain);
-        gain.connect(audioCtx.destination);
-        osc.type = 'square';
-
+        
+        // High quality DQ-style synths
         const now = audioCtx.currentTime;
+        
         if (type === 'correct') {
-            osc.frequency.setValueAtTime(440, now);
-            osc.frequency.exponentialRampToValueAtTime(880, now + 0.1);
-            gain.gain.setValueAtTime(0.1, now);
-            gain.gain.exponentialRampToValueAtTime(0.01, now + 0.1);
-            osc.start(now);
-            osc.stop(now + 0.1);
+            // Magical chime (major chord harp/bell)
+            const freqs = [523.25, 659.25, 783.99, 1046.50]; // C5, E5, G5, C6
+            freqs.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sine';
+                osc.frequency.value = freq;
+                osc.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                gain.gain.setValueAtTime(0, now + (i * 0.05));
+                gain.gain.linearRampToValueAtTime(0.15, now + (i * 0.05) + 0.02);
+                gain.gain.exponentialRampToValueAtTime(0.001, now + (i * 0.05) + 0.6);
+                
+                osc.start(now + (i * 0.05));
+                osc.stop(now + (i * 0.05) + 1);
+            });
         } else if (type === 'wrong') {
-            osc.frequency.setValueAtTime(300, now);
-            osc.frequency.exponentialRampToValueAtTime(150, now + 0.2);
-            gain.gain.setValueAtTime(0.1, now);
+            // Sword slash / physical hit (noise burst)
+            const bufferSize = audioCtx.sampleRate * 0.2; 
+            const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+            const data = buffer.getChannelData(0);
+            for (let i = 0; i < bufferSize; i++) {
+                data[i] = Math.random() * 2 - 1;
+            }
+            const noise = audioCtx.createBufferSource();
+            noise.buffer = buffer;
+            const filter = audioCtx.createBiquadFilter();
+            filter.type = 'lowpass';
+            filter.frequency.setValueAtTime(1000, now);
+            filter.frequency.exponentialRampToValueAtTime(100, now + 0.2);
+            
+            const gain = audioCtx.createGain();
+            gain.gain.setValueAtTime(0.3, now);
             gain.gain.exponentialRampToValueAtTime(0.01, now + 0.2);
-            osc.start(now);
-            osc.stop(now + 0.2);
+            
+            noise.connect(filter);
+            filter.connect(gain);
+            gain.connect(audioCtx.destination);
+            
+            noise.start(now);
         } else if (type === 'win') {
-            osc.frequency.setValueAtTime(440, now);
-            osc.frequency.setValueAtTime(554.37, now + 0.1);
-            osc.frequency.setValueAtTime(659.25, now + 0.2);
-            osc.frequency.setValueAtTime(880, now + 0.3);
-            gain.gain.setValueAtTime(0.1, now);
-            gain.gain.linearRampToValueAtTime(0, now + 0.6);
-            osc.start(now);
-            osc.stop(now + 0.6);
+            // Level Up / Victory fanfare (brass-like synth)
+            const freqs = [440, 554.37, 659.25, 880];
+            freqs.forEach((freq, i) => {
+                const osc = audioCtx.createOscillator();
+                const gain = audioCtx.createGain();
+                osc.type = 'sawtooth';
+                osc.frequency.value = freq;
+                
+                const filter = audioCtx.createBiquadFilter();
+                filter.type = 'lowpass';
+                filter.frequency.value = 2000;
+                
+                osc.connect(filter);
+                filter.connect(gain);
+                gain.connect(audioCtx.destination);
+                
+                const t = now + (i * 0.15);
+                gain.gain.setValueAtTime(0, t);
+                gain.gain.linearRampToValueAtTime(0.1, t + 0.05);
+                gain.gain.exponentialRampToValueAtTime(0.01, t + 0.8);
+                
+                osc.start(t);
+                osc.stop(t + 1);
+            });
         }
     },
 
@@ -797,6 +859,12 @@ const Game = {
             gain.gain.value = 0;
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.01);
+            
+            const bgm = document.getElementById('bgm');
+            if (bgm && bgm.paused) {
+                bgm.volume = 0.3;
+                bgm.play().catch(e => console.log('BGM play blocked'));
+            }
         } catch (e) {}
     },
 
@@ -804,6 +872,16 @@ const Game = {
         this.state.soundEnabled = !this.state.soundEnabled;
         this.updateSoundIcon();
         this.saveState();
+        
+        const bgm = document.getElementById('bgm');
+        if (bgm) {
+            if (this.state.soundEnabled) {
+                bgm.volume = 0.3;
+                bgm.play().catch(e => {});
+            } else {
+                bgm.pause();
+            }
+        }
     },
 
     updateSoundIcon() {
