@@ -1,22 +1,24 @@
 @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@600;700&family=Noto+Sans+TC:wght@400;700&display=swap');
 
 :root {
-    --bg-color: #0b132b; /* Deep royal night sky */
-    --text-color: #1a1a1a;
-    --primary: #D4AF37; /* Royal Gold */
-    --primary-hover: #b8960c;
-    --danger: #b71c1c;
-    --danger-hover: #7f0000;
-    --gray: #424242;
-    --gold: #FFD700;
+    --bg-color: #0f172a; /* Modern slate dark */
+    --text-color: #1e293b;
+    --primary: #3b82f6; /* Modern Blue */
+    --primary-hover: #60a5fa;
+    --danger: #ef4444;
+    --danger-hover: #f87171;
+    --gray: #64748b;
+    --gold: #fbbf24;
     
-    /* Parchment effect */
-    --card-bg: linear-gradient(135deg, #fdfbfb 0%, #ebedee 100%);
-    --card-border: 4px solid #8b5a2b; /* Wooden/leather brown border */
+    /* Glassmorphism effect */
+    --card-bg: rgba(255, 255, 255, 0.85);
+    --card-border: 1px solid rgba(255, 255, 255, 0.5);
+    --card-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
     
     /* UI Window */
-    --ui-border: 2px solid #D4AF37;
-    --ui-bg: rgba(11, 19, 43, 0.85); 
+    --ui-border: 1px solid rgba(255, 255, 255, 0.15);
+    --ui-bg: rgba(15, 23, 42, 0.8); 
+    --ui-backdrop: blur(16px);
 }
 
 * {
@@ -48,7 +50,15 @@ body {
     box-shadow: 0 0 50px rgba(0,0,0,0.8);
     display: flex;
     flex-direction: column;
-    background: radial-gradient(circle at top, #3a506b 0%, #0b132b 80%);
+    background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+    background-size: 200% 200%;
+    animation: gradientBG 15s ease infinite;
+}
+
+@keyframes gradientBG {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
 }
 
 /* Premium Typography */
@@ -73,17 +83,17 @@ body {
 .text-secondary { color: #555; }
 .mt-4 { margin-top: 1rem; }
 
-/* 3D RPG Buttons */
+/* 3D RPG Buttons -> Modern Glass/Gradient Buttons */
 button {
     cursor: pointer;
-    border: 2px solid #b8960c;
-    border-radius: 8px;
+    border: none;
+    border-radius: 12px;
     font-size: 1.2rem;
     font-weight: bold;
     font-family: 'Cinzel', 'Noto Sans TC', serif;
-    transition: all 0.2s ease-in-out;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
     outline: none;
-    text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
     position: relative;
     overflow: hidden;
 }
@@ -93,38 +103,44 @@ button::after {
     position: absolute;
     top: 0; left: -100%;
     width: 50%; height: 100%;
-    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.3) 50%, rgba(255,255,255,0) 100%);
+    background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.4) 50%, rgba(255,255,255,0) 100%);
     transform: skewX(-25deg);
-    transition: all 0.5s;
+    transition: all 0.6s ease-out;
 }
 
 button:hover::after {
     left: 200%;
 }
 
-button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212,175,55,0.4);
-    filter: brightness(1.1);
-}
-
 button:active {
-    transform: translateY(2px);
-    box-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    transform: scale(0.95) translateY(2px);
+    box-shadow: 0 1px 5px rgba(0,0,0,0.2);
 }
 
 .big-btn {
-    width: 90%;
-    max-width: 300px;
+    width: 100%;
     min-height: 64px;
-    padding: 16px 24px;
-    background: linear-gradient(to bottom, #4a6fa5, #1c2541);
+    margin: 8px 0;
+    background: linear-gradient(45deg, var(--primary) 0%, #1e3a8a 100%);
     color: white;
-    margin: 8px auto;
-    border: var(--ui-border);
-    border-radius: 12px;
-    display: block;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.6), inset 0 1px 1px rgba(255,255,255,0.3);
+    text-shadow: 0 2px 4px rgba(0,0,0,0.4);
+}
+
+.big-btn:hover {
+    background: linear-gradient(45deg, var(--primary-hover) 0%, #2563eb 100%);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(59, 130, 246, 0.5);
+}
+
+.small-btn {
+    padding: 10px 20px;
+    background: linear-gradient(45deg, var(--gray) 0%, #334155 100%);
+    color: white;
+}
+
+.small-btn:hover {
+    background: linear-gradient(45deg, #94a3b8 0%, #475569 100%);
+    transform: translateY(-2px);
 }
 
 .btn-danger {
@@ -135,13 +151,6 @@ button:active {
 .btn-gray {
     background: linear-gradient(to bottom, #757575, #424242);
     border-color: #bdbdbd;
-}
-
-.small-btn {
-    min-height: 48px;
-    padding: 8px 16px;
-    background: linear-gradient(to bottom, #757575, #424242);
-    color: white;
 }
 
 /* Option Buttons for Quiz */
@@ -195,19 +204,17 @@ button:active {
 /* DQ Style Panels */
 .menu-box, .study-card {
     background: var(--card-bg);
-    padding: 32px 16px;
-    border-radius: 4px;
     border: var(--card-border);
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 90%;
+    border-radius: 16px;
+    padding: 24px;
+    margin: 0 16px;
+    width: calc(100% - 32px);
     max-width: 600px;
-    margin: auto;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.8), inset 0 0 20px rgba(139,90,43,0.2);
-    color: #1a1a1a;
-    position: relative;
+    text-align: center;
+    box-shadow: var(--card-shadow);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    color: var(--text-color);
 }
 .menu-box::before, .study-card::before {
     content: '';
@@ -292,26 +299,23 @@ button:active {
     max-height: 80vh;
 }
 
+/* Map & Nodes (Glassmorphism) */
 .map-node {
-    background: linear-gradient(135deg, rgba(28,37,65,0.9) 0%, rgba(11,19,43,0.9) 100%);
-    border: 2px solid #5bc0be;
-    border-radius: 8px;
+    background: rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 16px;
     padding: 16px;
     text-align: center;
-    cursor: pointer;
-    min-height: 120px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    transition: transform 0.3s, box-shadow 0.3s;
-    color: #fff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.5);
+    color: rgba(255,255,255,0.6);
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
 }
 
 .map-node.unlocked {
-    background: linear-gradient(135deg, rgba(74,111,165,0.9) 0%, rgba(28,37,65,0.9) 100%);
-    border-color: var(--primary);
 }
 .map-node.unlocked:hover {
     transform: scale(1.05) translateY(-5px);
@@ -450,4 +454,130 @@ button:active {
 
 #screen-shop h2, #screen-dashboard h2 {
     color: white;
+}
+
+/* === Phase 3: 每日獎勵彈窗 === */
+#screen-daily-reward .menu-box {
+    animation: fadeIn 0.3s ease-in-out;
+    border: 3px solid var(--gold) !important;
+    box-shadow: 0 0 30px rgba(251, 191, 36, 0.4);
+}
+
+/* === Phase 3: 進化動畫 === */
+#screen-evolution {
+    background: rgba(15, 23, 42, 0.95);
+    backdrop-filter: blur(20px);
+}
+
+#evo-sprite {
+    animation: evolutionPulse 1.5s ease-in-out infinite;
+}
+
+@keyframes evolutionPulse {
+    0%, 100% { filter: drop-shadow(0 0 20px var(--gold)); }
+    50% { filter: drop-shadow(0 0 40px var(--gold)) brightness(1.3); }
+}
+
+/* === Interactive Animations (Phase 6 Polish) === */
+.correct-flash {
+    animation: correctFlash 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    background: linear-gradient(45deg, #10b981 0%, #34d399 100%) !important; /* Emerald Green */
+    color: white !important;
+    border-color: #059669 !important;
+}
+
+@keyframes correctFlash {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.1); box-shadow: 0 0 30px rgba(16, 185, 129, 0.8); }
+    100% { transform: scale(1); }
+}
+
+.shake {
+    animation: wrongShake 0.4s ease-in-out;
+    background: linear-gradient(45deg, var(--danger) 0%, #f43f5e 100%) !important;
+    color: white !important;
+    border-color: #9f1239 !important;
+}
+
+@keyframes wrongShake {
+    0%, 100% { transform: translateX(0); }
+    20% { transform: translateX(-8px); }
+    40% { transform: translateX(8px); }
+    60% { transform: translateX(-4px); }
+    80% { transform: translateX(4px); }
+}
+
+/* === Phase 4: 儀表板精熟度條 === */
+#dashboard-stats p {
+    margin: 4px 0;
+}
+
+/* === Phase 5: 響應式設計 === */
+@media (max-width: 768px) {
+    .title-text, #screen-title h1 {
+        font-size: 2rem;
+    }
+    .big-btn {
+        min-height: 56px;
+        font-size: 1.1rem;
+    }
+    .option-btn {
+        min-height: 64px;
+        font-size: 1rem;
+    }
+    .small-btn {
+        min-height: 48px;
+    }
+    .study-card {
+        padding: 20px;
+    }
+    #map-grid {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)) !important;
+    }
+    .map-node h3 {
+        font-size: 1rem;
+    }
+    #cinematic-text {
+        font-size: 1.5rem !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .big-btn {
+        min-height: 52px;
+        font-size: 1rem;
+        padding: 8px 12px;
+    }
+    .option-btn {
+        min-height: 56px;
+        font-size: 0.9rem;
+    }
+    #map-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 8px !important;
+    }
+    .study-card {
+        padding: 16px;
+        margin: 0 8px;
+    }
+    .emoji-large {
+        width: 80px;
+        height: 80px;
+        font-size: 3rem;
+    }
+    .nav-buttons {
+        flex-wrap: wrap;
+        gap: 4px;
+    }
+    .nav-btn {
+        font-size: 0.75rem;
+        padding: 6px 8px;
+    }
+    .stats span {
+        font-size: 0.8rem;
+    }
+    #battle-sprite {
+        width: 100px !important;
+        height: 100px !important;
+    }
 }

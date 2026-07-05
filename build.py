@@ -37,7 +37,6 @@ def build():
     # Inject CSS, JS, and Data into HTML
     output = html_template.replace('<!-- INJECT_CSS -->', f"<style>\n{css_content}\n</style>")
     output = output.replace('<!-- INJECT_DATA -->', f"<script>\n{data_snippet}\n</script>")
-    output = output.replace('<!-- INJECT_JS -->', f"<script>\n{js_content}\n</script>")
     
     # Inject BGM
     import base64
@@ -48,18 +47,30 @@ def build():
         bgm_source = f'<source src="data:audio/mp3;base64,{bgm_b64}" type="audio/mp3">'
     output = output.replace('<!-- INJECT_BGM -->', bgm_source)
     
-    # Inject BG Image
-    bg_img_source = ''
-    if os.path.exists('intro_bg.png'):
-        with open('intro_bg.png', 'rb') as f:
-            bg_img_b64 = base64.b64encode(f.read()).decode('utf-8')
-        bg_img_source = f'data:image/png;base64,{bg_img_b64}'
-    output = output.replace('<!-- INJECT_BG_IMG -->', bg_img_source)
+    # Inject 4 BG Images for cinematic
+    intro_images = []
+    for i in range(1, 13):
+        img_name = f'intro_scene{i}.jpg'
+        if os.path.exists(img_name):
+            with open(img_name, 'rb') as f:
+                img_b64 = base64.b64encode(f.read()).decode('utf-8')
+            intro_images.append(f'"data:image/jpeg;base64,{img_b64}"')
+        else:
+            intro_images.append('""')
+            
+    images_js = f"const INTRO_IMAGES = [{','.join(intro_images)}];\n"
+    output = output.replace('<!-- INJECT_JS -->', f"<script>\n{images_js}{js_content}\n</script>")
+    
+    # Also remove INJECT_BG_IMG from HTML if it exists, since we now handle it via JS
+    output = output.replace('<!-- INJECT_BG_IMG -->', '')
     
     with open('單字冒險_Gemini.html', 'w', encoding='utf-8') as f:
         f.write(output)
         
-    print("Build complete: 單字冒險_Gemini.html generated.")
+    with open('index.html', 'w', encoding='utf-8') as f:
+        f.write(output)
+
+    print("Build complete: 單字冒險_Gemini.html and index.html generated.")
 
 if __name__ == "__main__":
     build()

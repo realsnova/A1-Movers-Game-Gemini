@@ -16,8 +16,8 @@
 
     <div id="game-container">
         <!-- Cinematic Intro Screen -->
-        <div id="screen-intro-cinematic" class="screen hidden" style="background-image: url('<!-- INJECT_BG_IMG -->'); background-size: cover; background-position: center; align-items: center; justify-content: flex-end; padding-bottom: 10%;">
-            <div id="cinematic-text-container" style="width: 80%; text-align: center; min-height: 150px;">
+        <div id="screen-intro-cinematic" class="screen hidden" style="background-size: cover; background-position: center; align-items: center; justify-content: flex-end; padding-bottom: 10%; transition: background-image 1.5s ease-in-out; position: relative;">
+            <div id="cinematic-text-container" style="width: 80%; text-align: center; min-height: 150px; z-index: 2;">
                 <p id="cinematic-text" style="font-family: 'Cinzel', 'Noto Sans TC', serif; font-size: 2rem; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8), 2px 2px 4px #000; opacity: 0; transition: opacity 2s ease-in-out;"></p>
             </div>
             <button class="small-btn btn-gray" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.5);" onclick="Game.skipIntro()">跳過劇情 (Skip)</button>
@@ -54,9 +54,13 @@
         <div id="screen-title" class="screen">
             <h1 class="pixel-text">A1 Movers<br>單字冒險</h1>
             <button class="big-btn pixel-text" onclick="Game.startAdventure()">開始冒險</button>
-            <div class="save-controls">
+            <div class="save-controls" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:20px;">
+                <button class="small-btn btn-secondary pixel-text" onclick="Game.replayIntro()">🎬 重看開場</button>
+                <button class="small-btn btn-primary pixel-text" onclick="Game.downloadSaveFile()">💾 備份進度</button>
+                <button class="small-btn btn-primary pixel-text" onclick="document.getElementById('save-file-input').click()">📂 讀取進度</button>
                 <button class="small-btn btn-danger pixel-text" onclick="Game.resetProgress()">重置進度</button>
             </div>
+            <input type="file" id="save-file-input" style="display:none" accept=".json" onchange="Game.handleSaveFileUpload(event)">
         </div>
         
         <!-- Story Screen -->
@@ -80,6 +84,14 @@
         <div id="screen-region-menu" class="screen overlay hidden">
             <div class="menu-box">
                 <h2 id="menu-region-name" class="pixel-text">區域名稱</h2>
+                <div id="mixed-chapters" class="hidden" style="margin-bottom: 16px;">
+                    <label class="pixel-text" style="color: #333; display: block; margin-bottom: 8px;">選擇冠軍之路章節：</label>
+                    <select id="mixed-chapter-select" style="font-family: inherit; font-size: 1.2rem; padding: 4px 8px; border: 3px solid var(--primary); border-radius: 8px; cursor: pointer;">
+                        <option value="1">第一章 (第 1-42 字)</option>
+                        <option value="2">第二章 (第 43-84 字)</option>
+                        <option value="3">第三章 (第 85-125 字)</option>
+                    </select>
+                </div>
                 <button class="big-btn" onclick="Game.startStudy()">📖 學習單字</button>
                 <button class="big-btn btn-danger" onclick="Game.startBattle()">⚔️ 野外戰鬥</button>
                 <button id="btn-gym" class="big-btn" style="background-color: #9c27b0;" onclick="Game.startGym()">🏛️ 挑戰道館</button>
@@ -185,9 +197,43 @@
         <!-- Dashboard Screen -->
         <div id="screen-dashboard" class="screen hidden" style="justify-content: flex-start; padding-top: 20px;">
             <h2 class="pixel-text text-center">學習儀表板</h2>
-            <div class="menu-box" style="width: 90%; max-width: 800px;">
+            <div class="menu-box" style="width: 90%; max-width: 800px; max-height: 70vh; overflow-y: auto;">
                 <h3 class="pixel-text text-center" style="color: var(--primary);">熟練度統計</h3>
                 <div id="dashboard-stats" style="text-align: left; width: 100%; font-size: 1.2rem; line-height: 2;"></div>
+            </div>
+        </div>
+
+        <!-- 每日獎勵彈窗 -->
+        <div id="screen-daily-reward" class="screen overlay hidden" style="z-index: 1000;">
+            <div class="menu-box" style="max-width: 400px; text-align: center; border-color: gold; border-width: 3px;">
+                <h2 class="pixel-text" style="color: var(--gold);">🎁 每日獎勵</h2>
+                <p id="daily-reward-streak" class="pixel-text" style="font-size: 1.5rem; margin: 16px 0;">🔥 連續登入 1 天</p>
+                <p id="daily-reward-gold" class="pixel-text" style="font-size: 2rem; color: var(--gold); margin: 16px 0;">+10 💰</p>
+                <p id="daily-reward-shiny" class="pixel-text hidden" style="font-size: 1rem; color: #9c27b0; margin: 8px 0;">✨ 下場野戰將遇到異色寶可夢！</p>
+                <button class="big-btn mt-4" onclick="Game.closeDailyReward()">領取！</button>
+            </div>
+        </div>
+
+        <!-- 進化動畫 Overlay -->
+        <div id="screen-evolution" class="screen overlay hidden" style="z-index: 1001;">
+            <div style="text-align: center;">
+                <h2 class="pixel-text" style="color: var(--gold); margin-bottom: 20px;">進化中...</h2>
+                <div style="margin: 30px 0;">
+                    <img id="evo-sprite" src="" alt="Evolution" style="width:180px; height:180px; image-rendering:pixelated; filter:drop-shadow(0 0 15px gold); transition: filter 0.3s;">
+                </div>
+                <p id="evo-text" class="pixel-text" style="font-size: 1.5rem; color: #fff; text-shadow: 0 0 10px gold; min-height: 40px; margin: 20px 0;"></p>
+                <button id="evo-close-btn" class="big-btn mt-4" onclick="Game.closeEvolution()">太棒了！</button>
+            </div>
+        </div>
+        <!-- 史詩結局動畫 Overlay -->
+        <div id="screen-epic-ending" class="screen overlay hidden" style="z-index: 2000; background: rgba(0,0,0,0.9); flex-direction: column; justify-content: center;">
+            <h1 id="epic-ending-title" class="title-text" style="font-size: 4rem; text-align: center; margin-bottom: 20px;">名人堂</h1>
+            <div id="epic-badge-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px; margin: 40px auto;">
+                <!-- Badges will be injected here -->
+            </div>
+            <div id="epic-ending-text" class="hidden" style="text-align: center; margin-top: 40px;">
+                <h2 class="pixel-text" style="color: var(--gold); font-size: 2.5rem; text-shadow: 0 0 20px var(--gold);">👑 恭喜成為單字大師！</h2>
+                <p class="pixel-text" style="color: white; font-size: 1.2rem; margin-top: 20px;">自由挑戰模式已開啟，請點擊畫面繼續冒險</p>
             </div>
         </div>
 

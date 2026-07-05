@@ -27,21 +27,27 @@ let audioCtx = null;
 
 const Game = {
     state: {
-        caught: [], // { id, region, wordId, evolvedStage }
-        wordStats: {}, // { wordId: { correct, wrong, nextReview, box } }
+        caught: [], // { id, region, words: [wordId...], evolvedStage: 0 }
+        wordStats: {}, // { wordId: { correct, wrong, box, lastSeen, correctDays } }
         gold: 0,
         badges: [], // ['animals', ...]
         unlockedRegions: ['animals'],
-        items: [], // Includes hats, backgrounds
+        items: [],
         consumables: { potion_hint: 0 },
         equippedHat: null,
         equippedBg: null,
         soundEnabled: true,
-        lastLogin: 0,
-        storySeen: []
+        lastLogin: "",       // "YYYY-MM-DD" 格式
+        streak: 0,           // 連續登入天數
+        shinyCaught: [],     // 異色寶可夢 id
+        shinyNextBattle: false, // 下場野戰是否遇異色
+        storySeen: [],
+        saveVersion: 5
     },
 
     pendingEndingStory: false,
+    pendingEvolutions: [], // 進化佇列
+    hasTTSEnglish: true,   // TTS 英文語音是否可用
 
     currentRegion: null,
     studyWords: [],
@@ -52,21 +58,24 @@ const Game = {
         currentIndex: 0,
         monster: null,
         isGym: false,
+        isShiny: false,
         timer: null,
         timeLeft: 20,
         gymCorrect: 0,
         spellingTarget: "",
         spellingAnswer: [],
-        letterBtnsMap: {} // keep track of letter buttons for backspace
+        letterBtnsMap: {},
+        answering: false // 防狂點鎖定
     },
 
     init() {
         this.loadState();
+        this.migrateState();
         this.applyEquipment();
         this.renderMap();
         this.updateTopBar();
-        this.checkDailyLogin();
         this.updateSoundIcon();
+        this.detectTTS();
         twemoji.parse(document.body);
     },
 
@@ -81,22 +90,102 @@ const Game = {
                 if (!Array.isArray(this.state.items)) this.state.items = [];
                 if (!Array.isArray(this.state.storySeen)) this.state.storySeen = [];
                 if (!this.state.consumables) this.state.consumables = { potion_hint: 0 };
+                if (!Array.isArray(this.state.shinyCaught)) this.state.shinyCaught = [];
+                if (typeof this.state.streak !== 'number') this.state.streak = 0;
             } catch (e) {
-                console.error("Save file corrupted, resetting.");
+                console.error("存檔損壞，備份後重置。");
+                localStorage.setItem('A1MoversState_backup', saved);
+                // 重置 state 回預設值（已由宣告時初始化）
             }
         }
     },
 
+    // 存檔遷移：補齊舊版存檔缺少的欄位
+    migrateState() {
+        // 遷移 wordStats：補齊 box/lastSeen/correctDays，移除舊的 nextReview
+        Object.keys(this.state.wordStats).forEach(id => {
+            const s = this.state.wordStats[id];
+            if (typeof s.box !== 'number') s.box = 1;
+            if (s.box > 3) s.box = 3; // 從舊版 max=5 降回 max=3
+            if (!s.lastSeen) s.lastSeen = "";
+            if (!Array.isArray(s.correctDays)) s.correctDays = [];
+            delete s.nextReview; // 移除舊的時間戳欄位
+        });
+        // 遷移 caught：從 wordId 單字綁定轉為 words 多字綁定
+        this.state.caught.forEach(c => {
+            if (!Array.isArray(c.words)) {
+                c.words = c.wordId ? [c.wordId] : [];
+                delete c.wordId;
+            }
+            if (typeof c.evolvedStage !== 'number') c.evolvedStage = 0;
+        });
+        // 遷移 lastLogin：從舊的 timestamp 轉為日期字串
+        if (typeof this.state.lastLogin === 'number' && this.state.lastLogin > 0) {
+            const d = new Date(this.state.lastLogin);
+            this.state.lastLogin = d.toISOString().slice(0, 10);
+        }
+        this.saveState();
+    },
+
     saveState() {
+        this.state.saveVersion = 5;
         localStorage.setItem('A1MoversState', JSON.stringify(this.state));
         this.updateTopBar();
     },
 
     resetProgress() {
-        if (confirm("確定要重置所有進度嗎？金幣與寶可夢都會消失！")) {
+        if (confirm('確定要重置所有進度嗎？這將會清除所有已解鎖的徽章與收集到的寶可夢，且無法復原！\n(如果您想保留進度，請先點擊「備份進度」)')) {
             localStorage.removeItem('A1MoversState');
-            location.reload();
+            window.location.reload();
         }
+    },
+
+    downloadSaveFile() {
+        const dataStr = JSON.stringify(this.state, null, 2);
+        const blob = new Blob([dataStr], { type: "application/json" });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        const date = new Date().toISOString().split('T')[0];
+        a.href = url;
+        a.download = `A1_Movers_Save_${date}.json`;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+        alert("進度已成功備份下載！請妥善保存該檔案。");
+    },
+
+    handleSaveFileUpload(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            try {
+                const importedState = JSON.parse(e.target.result);
+                if (importedState && typeof importedState === 'object') {
+                    if (confirm('確定要讀取此進度檔嗎？目前的進度將會被覆蓋！')) {
+                        localStorage.setItem('A1MoversState', JSON.stringify(importedState));
+                        alert('讀取成功！遊戲即將重新載入。');
+                        window.location.reload();
+                    }
+                } else {
+                    alert('無效的存檔格式！');
+                }
+            } catch (err) {
+                alert('讀取失敗，存檔可能已損毀！');
+                console.error(err);
+            }
+        };
+        reader.readAsText(file);
+        // Reset input
+        event.target.value = '';
+    },
+
+    replayIntro() {
+        this.state.storySeen = [];
+        this.saveState();
+        location.reload();
     },
 
     updateTopBar() {
@@ -109,7 +198,7 @@ const Game = {
     showScreen(screenId) {
         document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
         document.getElementById('screen-' + screenId).classList.remove('hidden');
-        if (screenId !== 'title' && screenId !== 'story') {
+        if (screenId !== 'title' && screenId !== 'story' && screenId !== 'intro-cinematic') {
             document.getElementById('top-bar').classList.remove('hidden');
         } else {
             document.getElementById('top-bar').classList.add('hidden');
@@ -118,6 +207,12 @@ const Game = {
         if (screenId === 'pokedex') this.renderPokedex();
         if (screenId === 'shop') this.renderShop();
         if (screenId === 'dashboard') this.renderDashboard();
+        // 進入地圖時檢查每日登入與進化
+        if (screenId === 'map') {
+            this.renderMap();
+            this.checkDailyLogin();
+            this.checkAllEvolutions();
+        }
     },
 
     play8BitSound(type) {
@@ -211,11 +306,7 @@ const Game = {
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.01);
             
-            const bgm = document.getElementById('bgm');
-            if (bgm && bgm.paused) {
-                bgm.volume = 0.3;
-                bgm.play().catch(e => console.log('BGM play blocked'));
-            }
+            // 移除這裡自動播放 BGM 的邏輯，避免在不需要 BGM 的主頁/地圖也播音樂
         } catch (e) {}
     },
 
@@ -239,15 +330,74 @@ const Game = {
         document.getElementById('btn-sound-toggle').innerText = this.state.soundEnabled ? '🔊' : '🔇';
     },
 
-    checkDailyLogin() {
-        const today = new Date().toDateString();
-        const last = new Date(this.state.lastLogin).toDateString();
-        if (today !== last) {
-            this.state.gold += 50;
-            this.state.lastLogin = Date.now();
-            this.saveState();
-            alert("每日登入獎勵：獲得 50 💰！");
+    // TTS 英文語音偵測
+    detectTTS() {
+        const checkVoices = () => {
+            const voices = speechSynthesis.getVoices();
+            this.hasTTSEnglish = voices.some(v => v.lang.startsWith('en'));
+            // 若無英文語音，禁用發音按鈕
+            if (!this.hasTTSEnglish) {
+                document.querySelectorAll('[onclick*="studyPlayAudio"]').forEach(b => {
+                    b.style.opacity = 0.4;
+                    b.title = '此裝置無英文語音';
+                });
+            }
+        };
+        if (speechSynthesis.getVoices().length > 0) {
+            checkVoices();
+        } else {
+            speechSynthesis.addEventListener('voiceschanged', checkVoices, { once: true });
         }
+    },
+
+    // === 每日登入獎勵（Phase 3）===
+    checkDailyLogin() {
+        const today = this.SRS.today();
+        if (this.state.lastLogin === today) return; // 今天已領過
+        
+        // 計算連續登入
+        if (this.state.lastLogin) {
+            const lastDate = new Date(this.state.lastLogin);
+            const todayDate = new Date(today);
+            const diffDays = Math.round((todayDate - lastDate) / 86400000);
+            if (diffDays === 1) {
+                this.state.streak++;
+            } else {
+                this.state.streak = 1;
+            }
+        } else {
+            this.state.streak = 1;
+        }
+        
+        this.state.gold += 10;
+        // 連續 3 天以上：下場野戰必遇異色
+        if (this.state.streak >= 3) {
+            this.state.shinyNextBattle = true;
+        }
+        this.state.lastLogin = today;
+        this.saveState();
+        
+        // 顯示每日獎勵彈窗
+        this.showDailyRewardPopup();
+    },
+
+    showDailyRewardPopup() {
+        const popup = document.getElementById('screen-daily-reward');
+        if (!popup) return;
+        document.getElementById('daily-reward-streak').innerText = `🔥 連續登入 ${this.state.streak} 天`;
+        document.getElementById('daily-reward-gold').innerText = '+10 💰';
+        const shinyMsg = document.getElementById('daily-reward-shiny');
+        if (this.state.streak >= 3) {
+            shinyMsg.innerText = '✨ 下場野戰將遇到異色寶可夢！';
+            shinyMsg.classList.remove('hidden');
+        } else {
+            shinyMsg.classList.add('hidden');
+        }
+        popup.classList.remove('hidden');
+    },
+
+    closeDailyReward() {
+        document.getElementById('screen-daily-reward').classList.add('hidden');
     },
 
     applyEquipment() {
@@ -263,6 +413,7 @@ const Game = {
     startAdventure() {
         this.preWarmAudio();
         if (!this.state.storySeen.includes('intro')) {
+            this.isReplayingIntro = false;
             this.showScreen('intro-cinematic');
             this.playIntroSequence();
         } else {
@@ -274,37 +425,76 @@ const Game = {
         }
     },
 
+    isReplayingIntro: false,
+    replayIntro() {
+        this.preWarmAudio();
+        this.isReplayingIntro = true;
+        this.showScreen('intro-cinematic');
+        this.playIntroSequence();
+    },
+
     introInterval: null,
     playIntroSequence() {
         const textElement = document.getElementById('cinematic-text');
+        const container = document.getElementById('screen-intro-cinematic');
+        
+        // 確保 BGM 從頭開始播放 (因為之前可能被暫停了)
+        const bgm = document.getElementById('bgm');
+        if (bgm && this.state.soundEnabled) {
+            bgm.currentTime = 0;
+            bgm.volume = 0.4;
+            bgm.play().catch(e => {});
+        }
+        
+        // 12 個場景的圖與文案 (與 INTRO_IMAGES 陣列對應: 0~11)
+        // 播放速度放慢三倍：每句停留 6 秒 (1秒fade-out, 5秒顯示)，總長約 72 秒
         const script = [
-            "在古老的洛德賽特亞 (Erdrea) 大陸中心...",
-            "矗立著散發著生命光輝的『單字世界樹』...",
-            "傳說中，掌握了遠古語言力量的勇者...",
-            "能夠喚醒沉睡在世界各地的奇幻生物...",
-            "如今，黑暗的文盲之力逐漸吞噬大地...",
-            "世界樹的光芒正在消退...",
-            "被選召的年輕勇者啊...",
-            "拿起你的語言之劍...",
-            "踏上收服寶可夢的冒險吧！"
+            { text: "在古老的洛德賽特亞 (Erdrea) 大陸中心...", scene: 0 },
+            { text: "矗立著散發生命光輝的『單字世界樹』...", scene: 1 },
+            { text: "傳說中，名為「卡比獸」的巨型精靈總是在樹下安詳地沉睡著...", scene: 2 },
+            
+            { text: "然而，名為「文盲」的黑暗之力突然籠罩天空...", scene: 3 },
+            { text: "狂風驟雨襲來，知識的光芒正一點一滴地消退...", scene: 4 },
+            { text: "曾經快樂的「皮卡丘」與「伊布」驚恐地望著變異的天空...", scene: 5 },
+            
+            { text: "失去語言力量保護的守護精靈們...", scene: 6 },
+            { text: "就連強大的「噴火龍」也抵擋不住這股黑暗的侵蝕...", scene: 7 },
+            { text: "最終紛紛被封印成了冰冷的石板卡片...", scene: 8 },
+            
+            { text: "直到，被選召的年輕勇者來到了這個世界...", scene: 9 },
+            { text: "身旁跟著帥氣的「路卡利歐」，拔出了那把發光的語言之劍...", scene: 10 },
+            { text: "踏上解救寶可夢的史詩冒險吧！", scene: 11 }
         ];
         let line = 0;
         
+        // 初始第一張圖
+        if (typeof INTRO_IMAGES !== 'undefined' && INTRO_IMAGES[0]) {
+            container.style.backgroundImage = `url('${INTRO_IMAGES[0]}')`;
+        }
+        
         const showNextLine = () => {
             if (line >= script.length) {
-                this.skipIntro();
+                // 等待最後一句播完，給一點時間讓結尾 BGM 放完再切
+                setTimeout(() => this.skipIntro(), 4000);
                 return;
             }
             textElement.style.opacity = 0;
             setTimeout(() => {
-                textElement.innerText = script[line];
+                const currentData = script[line];
+                textElement.innerText = currentData.text;
+                
+                // 切換背景圖
+                if (typeof INTRO_IMAGES !== 'undefined' && INTRO_IMAGES[currentData.scene]) {
+                    container.style.backgroundImage = `url('${INTRO_IMAGES[currentData.scene]}')`;
+                }
+                
                 textElement.style.opacity = 1;
                 line++;
-            }, 1000); // Wait for fade out before changing text
+            }, 1000); // 配合變慢的節奏，Fade-out wait 改為 1000ms
         };
         
         showNextLine();
-        this.introInterval = setInterval(showNextLine, 4000);
+        this.introInterval = setInterval(showNextLine, 6000); // 放慢三倍：6 秒換一句
     },
 
     skipIntro() {
@@ -312,11 +502,35 @@ const Game = {
             clearInterval(this.introInterval);
             this.introInterval = null;
         }
+        const layer = document.getElementById('intro-sprites-layer');
+        if (layer) layer.innerHTML = ''; // Clear sprites
+        
+        // BUG4 修復：開場 BGM 在劇情結束後停止播放
+        const bgm = document.getElementById('bgm');
+        if (bgm) {
+            // 平滑淡出 (Fade out) 而非直接切斷
+            let vol = bgm.volume;
+            const fade = setInterval(() => {
+                if (vol > 0.05) {
+                    vol -= 0.05;
+                    bgm.volume = vol;
+                } else {
+                    clearInterval(fade);
+                    bgm.pause();
+                    bgm.currentTime = 0;
+                }
+            }, 100);
+        }
         if (!this.state.storySeen.includes('intro')) {
             this.state.storySeen.push('intro');
             this.saveState();
         }
-        this.showScreen('map');
+        
+        if (this.isReplayingIntro) {
+            this.showScreen('title');
+        } else {
+            this.showScreen('map');
+        }
     },
 
     showStory(title, text, callback) {
@@ -362,16 +576,36 @@ const Game = {
         this.currentRegion = regionKey;
         document.getElementById('menu-region-name').innerText = REGION_NAMES[regionKey];
         
-        const caughtInRegion = this.state.caught.filter(c => c.region === regionKey).length;
         const btnGym = document.getElementById('btn-gym');
-        if (caughtInRegion >= 6 || this.currentRegion === 'mixed') {
-            btnGym.innerText = "🏛️ 挑戰道館";
-            btnGym.style.opacity = 1;
-            btnGym.disabled = false;
+        
+        if (regionKey === 'mixed') {
+            document.getElementById('mixed-chapters').classList.remove('hidden');
+            const allMixedWords = WORDS_ALL.filter(w => w.topic === 'mixed');
+            const ch1 = allMixedWords.slice(0, 42).filter(w => (this.state.wordStats[w.id]?.correct || 0) > 0).length;
+            const ch2 = allMixedWords.slice(42, 84).filter(w => (this.state.wordStats[w.id]?.correct || 0) > 0).length;
+            const ch3 = allMixedWords.slice(84).filter(w => (this.state.wordStats[w.id]?.correct || 0) > 0).length;
+            const gymUnlocked = (ch1 >= 30 && ch2 >= 30 && ch3 >= 30);
+            if (gymUnlocked) {
+                btnGym.innerText = '🏛️ 挑戰超夢道館';
+                btnGym.style.opacity = 1;
+                btnGym.disabled = false;
+            } else {
+                btnGym.innerText = `🔒 道館 (每章需答對30字, 目前:${ch1},${ch2},${ch3})`;
+                btnGym.style.opacity = 0.5;
+                btnGym.disabled = true;
+            }
         } else {
-            btnGym.innerText = `🏛️ 道館 (需收服 ${caughtInRegion}/6)`;
-            btnGym.style.opacity = 0.5;
-            btnGym.disabled = true;
+            document.getElementById('mixed-chapters').classList.add('hidden');
+            const caughtInRegion = this.state.caught.filter(c => c.region === regionKey).length;
+            if (caughtInRegion >= 6) {
+                btnGym.innerText = "🏛️ 挑戰道館";
+                btnGym.style.opacity = 1;
+                btnGym.disabled = false;
+            } else {
+                btnGym.innerText = `🏛️ 道館 (需收服 ${caughtInRegion}/6)`;
+                btnGym.style.opacity = 0.5;
+                btnGym.disabled = true;
+            }
         }
 
         this.showScreen('map'); 
@@ -379,8 +613,95 @@ const Game = {
     },
 
     getWordsForRegion(regionKey) {
-        if (regionKey === 'mixed') return WORDS_ALL;
+        if (regionKey === 'mixed') {
+            const words = WORDS_ALL.filter(w => w.topic === regionKey);
+            const chSelect = document.getElementById('mixed-chapter-select');
+            const ch = parseInt(chSelect ? chSelect.value : "1") || 1;
+            if (ch === 1) return words.slice(0, 42);
+            if (ch === 2) return words.slice(42, 84);
+            return words.slice(84);
+        }
         return WORDS_ALL.filter(w => w.topic === regionKey);
+    },
+
+    // === SRS 間隔重複系統（Leitner 3 盒）===
+    SRS: {
+        today() {
+            const d = new Date();
+            const tzOffset = d.getTimezoneOffset() * 60000;
+            return new Date(d.getTime() - tzOffset).toISOString().slice(0, 10);
+        },
+        grade(state, id, isCorrect) {
+            if (!state.wordStats[id]) {
+                state.wordStats[id] = { correct: 0, wrong: 0, box: 1, lastSeen: "", correctDays: [] };
+            }
+            const s = state.wordStats[id];
+            const today = this.today();
+            s.lastSeen = today;
+            if (isCorrect) {
+                s.correct++;
+                s.box = Math.min(3, s.box + 1);
+                if (!s.correctDays.includes(today)) {
+                    s.correctDays.push(today);
+                    if (s.correctDays.length > 5) s.correctDays = s.correctDays.slice(-5);
+                }
+            } else {
+                s.wrong++;
+                s.box = 1;
+            }
+        },
+        isDue(state, id) {
+            const s = state.wordStats[id];
+            if (!s) return true; // 新字
+            if (s.box === 1) return true;
+            if (!s.lastSeen) return true;
+            const today = new Date(this.today());
+            const last = new Date(s.lastSeen);
+            const diffDays = Math.round((today - last) / 86400000);
+            if (s.box === 2) return diffDays >= 1;
+            if (s.box === 3) return diffDays >= 3;
+            return true;
+        },
+        buildQuiz(state, regionWords, n) {
+            // 智慧組卷：錯題優先 → 新字 → 到期複習 → 最少答對
+            const result = [];
+            const used = new Set();
+            const pick = (arr, max) => {
+                let count = 0;
+                for (const w of arr) {
+                    if (result.length >= n || count >= max) break;
+                    if (used.has(w.id)) continue;
+                    result.push(w);
+                    used.add(w.id);
+                    count++;
+                }
+            };
+            // 1. 錯題（box=1 且 wrong > correct）
+            const wrongWords = regionWords.filter(w => {
+                const s = state.wordStats[w.id];
+                return s && s.box === 1 && s.wrong > s.correct;
+            }).sort((a, b) => (state.wordStats[b.id].wrong - state.wordStats[b.id].correct) - (state.wordStats[a.id].wrong - state.wordStats[a.id].correct));
+            pick(wrongWords, 2);
+            // 2. 新字（correct = 0）
+            const newWords = regionWords.filter(w => {
+                const s = state.wordStats[w.id];
+                return !s || s.correct === 0;
+            }).sort(() => 0.5 - Math.random());
+            pick(newWords, 3);
+            // 3. 到期複習字
+            const dueWords = regionWords.filter(w => {
+                const s = state.wordStats[w.id];
+                return s && s.correct > 0 && this.isDue(state, w.id);
+            }).sort(() => 0.5 - Math.random());
+            pick(dueWords, n);
+            // 4. 不足時補答對次數最少的
+            if (result.length < n) {
+                const remaining = regionWords.filter(w => !used.has(w.id))
+                    .sort((a, b) => ((state.wordStats[a.id]?.correct || 0) - (state.wordStats[b.id]?.correct || 0)));
+                pick(remaining, n);
+            }
+            return result.sort(() => 0.5 - Math.random());
+        }
     },
 
     // --- Study ---
@@ -390,12 +711,13 @@ const Game = {
             alert("此區域沒有單字！");
             return;
         }
+        // 排序：新字與到期字優先
         regionWords.sort((a, b) => {
-            let sa = this.state.wordStats[a.id] || { correct: 0, nextReview: 0 };
-            let sb = this.state.wordStats[b.id] || { correct: 0, nextReview: 0 };
-            if (sa.nextReview < sb.nextReview) return -1;
-            if (sa.nextReview > sb.nextReview) return 1;
-            return sa.correct - sb.correct;
+            let sa = this.state.wordStats[a.id];
+            let sb = this.state.wordStats[b.id];
+            let pa = sa ? sa.box : 0;
+            let pb = sb ? sb.box : 0;
+            return pa - pb;
         });
         this.studyWords = regionWords;
         this.studyIndex = 0;
@@ -416,8 +738,8 @@ const Game = {
         document.getElementById('study-word').innerText = wordObj.word;
         document.getElementById('study-zh').innerText = wordObj.zh;
         
-        if (wordObj.example && wordObj.example_zh) {
-            document.getElementById('study-sentence').innerHTML = `${wordObj.example}<br><small>${wordObj.example_zh}</small>`;
+        if (wordObj.sentence && wordObj.sentence_zh) {
+            document.getElementById('study-sentence').innerHTML = `${wordObj.sentence}<br><small>${wordObj.sentence_zh}</small>`;
         } else {
             document.getElementById('study-sentence').innerHTML = '';
         }
@@ -440,9 +762,10 @@ const Game = {
     },
 
     playTTS(text) {
-        if (!this.state.soundEnabled) return;
+        if (!this.state.soundEnabled || !this.hasTTSEnglish) return;
         const u = new SpeechSynthesisUtterance(text);
         u.lang = 'en-US';
+        u.rate = 0.85;
         speechSynthesis.speak(u);
     },
 
@@ -459,6 +782,7 @@ const Game = {
         document.getElementById('screen-region-menu').classList.add('hidden');
         this.battleState.isGym = isGym;
         this.battleState.gymCorrect = 0;
+        this.battleState.answering = false;
         
         let pool = this.getWordsForRegion(this.currentRegion);
         let count = isGym ? (this.currentRegion === 'mixed' ? 20 : 10) : 5;
@@ -468,8 +792,13 @@ const Game = {
             return;
         }
 
-        let shuffled = [...pool].sort(() => 0.5 - Math.random());
-        this.battleState.words = shuffled.slice(0, count);
+        // 使用 SRS 智慧組卷（野戰），道館仍為隨機
+        if (isGym) {
+            let shuffled = [...pool].sort(() => 0.5 - Math.random());
+            this.battleState.words = shuffled.slice(0, count);
+        } else {
+            this.battleState.words = this.SRS.buildQuiz(this.state, pool, count);
+        }
         this.battleState.currentIndex = 0;
         
         // Pick monster
@@ -483,7 +812,19 @@ const Game = {
             this.battleState.monster = uncaught[Math.floor(Math.random() * uncaught.length)];
         }
         
-        document.getElementById('battle-sprite').src = SPRITE_BASE + this.battleState.monster.chain[0] + ".png";
+        // 異色寶可夢處理
+        this.battleState.isShiny = false;
+        let spriteId = this.battleState.monster.chain[0];
+        if (!isGym && this.state.shinyNextBattle) {
+            this.battleState.isShiny = true;
+            this.state.shinyNextBattle = false;
+            this.saveState();
+            document.getElementById('battle-sprite').src = `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${spriteId}.png`;
+        } else {
+            document.getElementById('battle-sprite').src = SPRITE_BASE + spriteId + ".png";
+        }
+        // sprite 載入失敗 fallback
+        document.getElementById('battle-sprite').onerror = function() { this.style.display='none'; this.parentElement.innerText='👾'; };
         
         if (isGym) {
             document.getElementById('gym-timer-container').classList.remove('hidden');
@@ -539,25 +880,36 @@ const Game = {
         document.getElementById('battle-options').classList.add('hidden');
         document.getElementById('battle-spelling').classList.add('hidden');
 
-        // Determine Type: 0=A, 1=B, 2=C, 3=D
-        let type = Math.floor(Math.random() * 4);
-        if (type === 3 && !wordObj.example) type = Math.floor(Math.random() * 3);
+        // === Phase 4 題型智慧過濾 ===
+        // 判斷各題型是否可用
+        const canSpell = /^[a-z]{3,8}$/.test(wordObj.word); // 拼字題：僅限純小寫 3-8 字母
+        const hasEmoji = !!wordObj.emoji;
+        const poolEmoji = this.getWordsForRegion(this.currentRegion).filter(w => w.id !== wordObj.id && w.emoji);
+        const canListen = this.hasTTSEnglish && hasEmoji && poolEmoji.length >= 2; // 聽音題：需要 emoji 與 TTS
+        const canFill = !!wordObj.sentence; // 填空題：需要例句
+
+        // 建立可用題型列表
+        let availableTypes = [0]; // A 看圖選字永遠可用
+        if (canListen) availableTypes.push(1);
+        if (canSpell) availableTypes.push(2);
+        if (canFill) availableTypes.push(3);
+        
+        let type = availableTypes[Math.floor(Math.random() * availableTypes.length)];
         
         if (type === 3) {
-            // Smart Blanking Logic
-            const wordRegex = new RegExp("\\b" + wordObj.word + "(s|es|d|ed|ing)?\\b", "gi");
-            let sentence = wordObj.example.replace(wordRegex, "_____");
+            // Smart Blanking Logic（使用正確欄位 sentence）
+            const escapedWord = wordObj.word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const wordRegex = new RegExp("\\b" + escapedWord + "(s|es|d|ed|ing)?\\b", "gi");
+            let sentence = wordObj.sentence.replace(wordRegex, "_____$1"); // 修正：保留字尾變化
             
-            if (sentence === wordObj.example) {
-                // Try with hyphen escape
-                sentence = wordObj.example.replace(new RegExp(wordObj.word.replace("-", "\\-"), "gi"), "_____");
+            if (sentence === wordObj.sentence) {
+                // 多字詞整詞挖空
+                sentence = wordObj.sentence.replace(new RegExp(escapedWord, "gi"), "_____");
             }
 
-            if (sentence === wordObj.example) {
-                // Blanking completely failed! Fallback to Type A or B safely.
-                type = Math.floor(Math.random() * 2);
-                if (type === 0) this.renderTypeA(wordObj);
-                else this.renderTypeB(wordObj);
+            if (sentence === wordObj.sentence) {
+                // 挖空失敗，降級為看圖選字
+                this.renderTypeA(wordObj);
             } else {
                 this.renderTypeD(wordObj, sentence);
             }
@@ -583,13 +935,9 @@ const Game = {
             // Apply effect based on visible question type
             const opts = document.getElementById('battle-options').querySelectorAll('button');
             if (opts.length > 0) {
-                // Type A, B, D: Eliminate one wrong answer
+                // Type A, B, D: Eliminate one wrong answer (依靠 dataset.id)
                 const wordObj = this.battleState.words[this.battleState.currentIndex];
-                let wrongBtns = Array.from(opts).filter(b => b.onclick && b.innerText !== wordObj.word && !b.classList.contains('emoji-large'));
-                if (opts[0].classList.contains('emoji-large')) {
-                     wrongBtns = Array.from(opts).filter(b => b.innerText !== (wordObj.emoji||'❓'));
-                }
-                wrongBtns = wrongBtns.filter(b => b.style.visibility !== 'hidden');
+                let wrongBtns = Array.from(opts).filter(b => b.dataset.id && b.dataset.id !== wordObj.id && b.style.visibility !== 'hidden');
                 if (wrongBtns.length > 0) {
                     wrongBtns[0].style.visibility = 'hidden';
                 }
@@ -601,22 +949,44 @@ const Game = {
     },
 
     generateOptions(correctWord, prop, count) {
-        let pool = this.getWordsForRegion(this.currentRegion);
         let opts = [correctWord];
-        pool = pool.filter(w => w.id !== correctWord.id);
-        pool.sort(() => 0.5 - Math.random());
-        opts.push(...pool.slice(0, count - 1));
+        let pool = this.getWordsForRegion(this.currentRegion);
+        
+        if (correctWord.distractors && correctWord.distractors.length > 0) {
+            let dWords = [];
+            for (let d of correctWord.distractors) {
+                let found = WORDS_ALL.find(w => w.word === d);
+                if (found) dWords.push(found);
+            }
+            if (prop === 'emoji') dWords = dWords.filter(w => w.emoji);
+            dWords = dWords.filter(w => w.id !== correctWord.id);
+            dWords.sort(() => 0.5 - Math.random());
+            opts.push(...dWords.slice(0, count - 1));
+        }
+        
+        if (opts.length < count) {
+            if (prop === 'emoji') pool = pool.filter(w => w.emoji);
+            pool = pool.filter(w => !opts.some(o => o.id === w.id));
+            pool.sort(() => 0.5 - Math.random());
+            opts.push(...pool.slice(0, count - opts.length));
+        }
+        
         return opts.sort(() => 0.5 - Math.random());
     },
 
     renderTypeA(wordObj) {
-        document.getElementById('battle-question-content').innerHTML = `<div class="emoji-large">${wordObj.emoji || '❓'}</div><div style="font-size:1.2rem; margin-top:10px;">這指的是哪個單字？</div>`;
+        // 無 emoji 時顯示中文字卡
+        const displayContent = wordObj.emoji 
+            ? `<div class="emoji-large">${wordObj.emoji}</div>` 
+            : `<div style="font-size:2.5rem; background:#fff; padding:20px; border-radius:12px; border:3px solid var(--primary); color:#333;">${wordObj.zh}</div>`;
+        document.getElementById('battle-question-content').innerHTML = `${displayContent}<div style="font-size:1.2rem; margin-top:10px;">這指的是哪個單字？</div>`;
         document.getElementById('battle-options').classList.remove('hidden');
         
         const opts = this.generateOptions(wordObj, 'word', 4);
         opts.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'option-btn pixel-text';
+            btn.dataset.id = opt.id;
             btn.innerText = opt.word;
             btn.onclick = () => this.checkAnswer(opt.id === wordObj.id, wordObj);
             document.getElementById('battle-options').appendChild(btn);
@@ -632,6 +1002,7 @@ const Game = {
         opts.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'option-btn emoji-large';
+            btn.dataset.id = opt.id;
             btn.style.fontSize = '40px';
             btn.innerText = opt.emoji || '❓';
             btn.onclick = () => this.checkAnswer(opt.id === wordObj.id, wordObj);
@@ -728,13 +1099,14 @@ const Game = {
     },
 
     renderTypeD(wordObj, precomputedSentence) {
-        document.getElementById('battle-question-content').innerHTML = `<div style="font-size: 1.2rem; line-height:1.5;">${precomputedSentence}<br><small style="color:#666;">${wordObj.example_zh}</small></div>`;
+        document.getElementById('battle-question-content').innerHTML = `<div style="font-size: 1.2rem; line-height:1.5;">${precomputedSentence}<br><small style="color:#666;">${wordObj.sentence_zh}</small></div>`;
         document.getElementById('battle-options').classList.remove('hidden');
         
         const opts = this.generateOptions(wordObj, 'word', 3);
         opts.forEach(opt => {
             const btn = document.createElement('button');
             btn.className = 'option-btn pixel-text';
+            btn.dataset.id = opt.id;
             btn.innerText = opt.word;
             btn.onclick = () => this.checkAnswer(opt.id === wordObj.id, wordObj);
             document.getElementById('battle-options').appendChild(btn);
@@ -772,6 +1144,10 @@ const Game = {
     },
 
     checkAnswer(isCorrect, wordObj) {
+        // 防狂點鎖定
+        if (this.battleState.answering) return;
+        this.battleState.answering = true;
+        
         clearInterval(this.battleState.timer);
         const card = document.getElementById('battle-question-box');
         const sprite = document.getElementById('battle-sprite');
@@ -785,21 +1161,22 @@ const Game = {
         const btnHint = document.getElementById('btn-spelling-hint');
         if (btnHint) btnHint.disabled = true;
         
-        // Update stats
-        if (!this.state.wordStats[wordObj.id]) {
-            this.state.wordStats[wordObj.id] = { correct: 0, wrong: 0, nextReview: 0, box: 1 };
-        }
-        let stat = this.state.wordStats[wordObj.id];
+        // 使用 SRS 系統更新單字狀態
+        this.SRS.grade(this.state, wordObj.id, isCorrect);
 
         if (isCorrect) {
-            card.style.backgroundColor = '#c8e6c9';
+            card.style.backgroundColor = 'transparent'; // Let glassmorphism shine
+            document.getElementById('game-container').classList.add('correct-flash');
+            setTimeout(() => document.getElementById('game-container').classList.remove('correct-flash'), 600);
+            
             this.play8BitSound('correct');
+            this.playTTS(wordObj.word); // 答對自動朗讀
             if (this.battleState.isGym) this.battleState.gymCorrect++;
             
             // Monster hit animation
-            sprite.style.transform = 'translate(10px, 10px)';
-            setTimeout(() => sprite.style.transform = 'translate(-10px, -10px)', 100);
-            setTimeout(() => sprite.style.transform = 'translate(0, 0)', 200);
+            sprite.style.transform = 'translate(10px, 10px) scale(0.9)';
+            setTimeout(() => sprite.style.transform = 'translate(-10px, -10px) scale(1.05)', 100);
+            setTimeout(() => sprite.style.transform = 'translate(0, 0) scale(1)', 200);
 
             // Temporarily update HP bar early for effect
             const total = this.battleState.words.length;
@@ -811,56 +1188,127 @@ const Game = {
                 if (pct <= 30) hpBar.style.backgroundColor = 'var(--danger)';
                 else if (pct <= 60) hpBar.style.backgroundColor = '#ff9800';
             }
-
-            stat.correct++;
-            stat.box = Math.min(5, stat.box + 1);
-            stat.nextReview = Date.now() + (stat.box * 86400000);
-            this.checkEvolution(wordObj.id);
         } else {
-            card.style.backgroundColor = '#ffcdd2';
-            card.style.transform = 'translate(10px, 0)';
-            setTimeout(() => card.style.transform = 'translate(-10px, 0)', 100);
-            setTimeout(() => card.style.transform = 'translate(0, 0)', 200);
+            card.style.backgroundColor = 'transparent';
+            document.getElementById('game-container').classList.add('shake');
+            setTimeout(() => document.getElementById('game-container').classList.remove('shake'), 600);
+            
             this.play8BitSound('wrong');
             
             if (document.getElementById('battle-spelling').classList.contains('hidden') === false) {
                 document.getElementById('spelling-answer').innerText = this.battleState.spellingTarget;
-                document.getElementById('spelling-answer').style.color = 'red';
+                document.getElementById('spelling-answer').style.color = 'var(--danger)';
             }
-            
-            stat.wrong++;
-            stat.box = 1;
-            stat.nextReview = Date.now();
         }
         
+        this.state.gold += isCorrect ? 2 : 0;
         this.saveState();
         
         setTimeout(() => {
-            card.style.backgroundColor = 'white';
             if (document.getElementById('spelling-answer')) {
-                document.getElementById('spelling-answer').style.color = 'black';
+                document.getElementById('spelling-answer').style.color = 'var(--text-color)';
             }
+            this.battleState.answering = false;
             this.battleState.currentIndex++;
             this.nextBattleQuestion();
-        }, 1000);
+        }, 1200); // 稍微延長一點時間讓特效跑完
     },
 
-    checkEvolution(wordId) {
-        const stat = this.state.wordStats[wordId];
-        if (stat.correct >= 3) {
-            const caught = this.state.caught.find(c => c.wordId === wordId);
-            if (caught && caught.evolvedStage === 0) {
-                const rKey = caught.region;
-                if (!MONSTERS.regions[rKey]) return;
-                const m = MONSTERS.regions[rKey].monsters.find(x => x.chain[0] === caught.id);
-                if (m && m.chain.length > 1) {
-                    caught.evolvedStage = 1;
-                    caught.id = m.chain[1];
-                    setTimeout(() => {
-                        alert(`🌟 太棒了！與「${wordId}」連結的寶可夢進化了！\n趕快到圖鑑看看！`);
-                    }, 500);
+    // === 進化系統（Phase 3 重寫）===
+    // 檢查所有已收服寶可夢的進化條件
+    checkAllEvolutions() {
+        this.pendingEvolutions = [];
+        this.state.caught.forEach(c => {
+            if (!c.words || c.words.length === 0) return;
+            const rKey = c.region;
+            if (!MONSTERS.regions[rKey]) return;
+            const allMonsters = MONSTERS.regions[rKey].monsters;
+            // 找到 chain 中包含此 caught.id 的怪獸資料
+            const m = allMonsters.find(x => x.chain && x.chain.includes(c.id));
+            if (!m) return;
+            const baseId = m.chain[0];
+            
+            // Stage 0→1：所有綁定單字 box ≥ 2
+            if (c.evolvedStage === 0 && m.chain.length > 1) {
+                const allBox2 = c.words.every(wid => {
+                    const s = this.state.wordStats[wid];
+                    return s && s.box >= 2;
+                });
+                if (allBox2) {
+                    this.pendingEvolutions.push({
+                        caught: c, monster: m,
+                        fromId: c.id, toId: m.chain[1],
+                        fromName: m.names[0], toName: m.names[1] || m.names[0],
+                        newStage: 1
+                    });
                 }
             }
+            // Stage 1→2：所有綁定單字 correctDays.length ≥ 3
+            if (c.evolvedStage === 1 && m.chain.length > 2) {
+                const allDays3 = c.words.every(wid => {
+                    const s = this.state.wordStats[wid];
+                    return s && s.correctDays && s.correctDays.length >= 3;
+                });
+                if (allDays3) {
+                    this.pendingEvolutions.push({
+                        caught: c, monster: m,
+                        fromId: c.id, toId: m.chain[2],
+                        fromName: m.names[1] || m.names[0], toName: m.names[2] || m.names[1],
+                        newStage: 2
+                    });
+                }
+            }
+        });
+        // 逐一播放進化動畫
+        if (this.pendingEvolutions.length > 0) {
+            this.playNextEvolution();
+        }
+    },
+
+    playNextEvolution() {
+        if (this.pendingEvolutions.length === 0) return;
+        const evo = this.pendingEvolutions.shift();
+        
+        // 更新資料
+        evo.caught.evolvedStage = evo.newStage;
+        evo.caught.id = evo.toId;
+        this.saveState();
+        
+        // 顯示進化動畫 overlay
+        const overlay = document.getElementById('screen-evolution');
+        if (!overlay) { this.playNextEvolution(); return; }
+        
+        const spriteEl = document.getElementById('evo-sprite');
+        const textEl = document.getElementById('evo-text');
+        spriteEl.src = SPRITE_BASE + evo.fromId + '.png';
+        spriteEl.onerror = function() { this.style.display='none'; };
+        textEl.innerText = '';
+        overlay.classList.remove('hidden');
+        
+        const closeBtn = document.getElementById('evo-close-btn');
+        if (closeBtn) closeBtn.style.display = 'none'; // 動畫期間隱藏按鈕
+        
+        // 閃爍動畫 3 次 → 換圖 → 音效 → 文字
+        let flashCount = 0;
+        const flashInterval = setInterval(() => {
+            spriteEl.style.filter = flashCount % 2 === 0 ? 'brightness(5)' : 'brightness(1)';
+            flashCount++;
+            if (flashCount >= 6) {
+                clearInterval(flashInterval);
+                spriteEl.style.filter = 'brightness(1)';
+                spriteEl.src = SPRITE_BASE + evo.toId + '.png';
+                this.play8BitSound('win');
+                textEl.innerText = `🌟 ${evo.fromName} 進化成 ${evo.toName}！`;
+                if (closeBtn) closeBtn.style.display = 'inline-block'; // 動畫結束顯示按鈕
+            }
+        }, 300);
+    },
+
+    closeEvolution() {
+        document.getElementById('screen-evolution').classList.add('hidden');
+        // 繼續播放佇列中的下一個進化
+        if (this.pendingEvolutions.length > 0) {
+            setTimeout(() => this.playNextEvolution(), 500);
         }
     },
 
@@ -881,21 +1329,30 @@ const Game = {
     triggerCapture() {
         this.play8BitSound('win');
         const m = this.battleState.monster;
-        const wordObj = this.battleState.words[Math.floor(Math.random() * this.battleState.words.length)];
+        // 綁定本場戰鬥的所有單字（最多 5 個）
+        const boundWords = this.battleState.words.map(w => w.id).slice(0, 5);
         
-        if (!this.state.caught.some(c => c.id === m.chain[0] || (m.chain.length>1 && c.id === m.chain[1]))) {
+        const baseId = m.chain[0];
+        if (!this.state.caught.some(c => c.id === baseId || (m.chain.length > 1 && c.id === m.chain[1]) || (m.chain.length > 2 && c.id === m.chain[2]))) {
             this.state.caught.push({
-                id: m.chain[0],
+                id: baseId,
                 region: this.currentRegion,
-                wordId: wordObj.id,
+                words: boundWords,
                 evolvedStage: 0
             });
+            // 異色寶可夢記錄
+            if (this.battleState.isShiny) {
+                this.state.shinyCaught.push(baseId);
+            }
         }
         this.state.gold += 10;
         this.saveState();
         
-        document.getElementById('capture-sprite').src = SPRITE_BASE + m.chain[0] + ".png";
-        document.getElementById('capture-name').innerText = m.names[0].toUpperCase();
+        const spriteUrl = this.battleState.isShiny
+            ? `https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/shiny/${baseId}.png`
+            : SPRITE_BASE + baseId + ".png";
+        document.getElementById('capture-sprite').src = spriteUrl;
+        document.getElementById('capture-name').innerText = (this.battleState.isShiny ? '✨ ' : '') + m.names[0].toUpperCase();
         document.getElementById('capture-title').innerText = "收服成功！";
         document.getElementById('capture-rewards').innerText = "獲得 10 💰";
         this.showScreen('capture');
@@ -933,7 +1390,7 @@ const Game = {
             this.pendingEndingStory = false;
             this.state.storySeen.push('ending');
             this.saveState();
-            this.showStory("恭喜通關！", "你已經精通了所有單字，成為了真正的單字大師！\n遊戲尚未結束，你可以繼續捕捉寶可夢、購買外觀，或在道館刷新紀錄！", null);
+            this.showEpicEnding();
         } else {
             this.showScreen('map');
         }
@@ -977,7 +1434,12 @@ const Game = {
 
         uniqueM.forEach(m => {
             const baseId = m.chain ? m.chain[0] : m.id;
-            const isCaught = this.state.caught.find(c => c.id === baseId || (m.chain && m.chain.length > 1 && c.id === m.chain[1]));
+            // 檢查是否已收服（包含已進化的 id）
+            const isCaught = this.state.caught.find(c => {
+                if (!m.chain) return c.id === baseId;
+                return m.chain.includes(c.id);
+            });
+            const isShiny = this.state.shinyCaught.includes(baseId);
             
             const box = document.createElement('div');
             box.style.display = 'flex';
@@ -993,20 +1455,25 @@ const Game = {
             let nameHtml = `<div class="pixel-text" style="color:#ccc; font-size:1rem; margin-top:8px;">???</div>`;
             
             if (isCaught) {
-                displayId = isCaught.id; // Could be evolved
-                const wordObj = WORDS_ALL.find(w => w.id === isCaught.wordId);
-                nameHtml = `<div class="pixel-text" style="color:var(--primary); font-size:1rem; margin-top:8px;">${wordObj ? wordObj.word : '???'}</div>
+                displayId = isCaught.id; // 使用進化後的 id
+                // 顯示綁定的第一個單字
+                const firstWordId = Array.isArray(isCaught.words) ? isCaught.words[0] : null;
+                const wordObj = firstWordId ? WORDS_ALL.find(w => w.id === firstWordId) : null;
+                nameHtml = `<div class="pixel-text" style="color:var(--primary); font-size:1rem; margin-top:8px;">${wordObj ? wordObj.word : m.names ? m.names[0] : '???'}</div>
                             <div style="color:#666; font-size:0.8rem;">${wordObj ? wordObj.zh : ''}</div>
-                            ${isCaught.evolvedStage > 0 ? '<div style="color:gold; font-size:0.8rem;">🌟</div>' : ''}`;
+                            ${isCaught.evolvedStage > 0 ? '<div style="color:gold; font-size:0.8rem;">🌟</div>' : ''}
+                            ${isShiny ? '<div style="font-size:0.8rem;">✨ 異色</div>' : ''}`;
             } else {
                 // Silhouette
                 imgStyle += ' filter: brightness(0); opacity: 0.5;';
             }
 
-            box.innerHTML = `
-                <img src="${SPRITE_BASE}${displayId}.png" style="${imgStyle}">
-                ${nameHtml}
-            `;
+            const imgEl = document.createElement('img');
+            imgEl.src = SPRITE_BASE + displayId + '.png';
+            imgEl.setAttribute('style', imgStyle);
+            imgEl.onerror = function() { this.style.display='none'; this.parentElement.insertAdjacentHTML('afterbegin', '<div style="font-size:3rem;">👾</div>'); };
+            box.appendChild(imgEl);
+            box.insertAdjacentHTML('beforeend', nameHtml);
             grid.appendChild(box);
         });
     },
@@ -1082,22 +1549,139 @@ const Game = {
         this.renderShop();
     },
     
-    // --- Dashboard ---
+    // --- Dashboard（Phase 4 重寫：分區精熟度）---
     renderDashboard() {
         const statsDiv = document.getElementById('dashboard-stats');
-        let total = WORDS_ALL.length;
-        let learned = Object.keys(this.state.wordStats).filter(k => this.state.wordStats[k].correct > 0).length;
-        let mastered = Object.keys(this.state.wordStats).filter(k => this.state.wordStats[k].correct >= 3).length;
+        let totalAll = WORDS_ALL.length;
+        let learnedAll = Object.keys(this.state.wordStats).filter(k => this.state.wordStats[k].correct > 0).length;
         
         let html = `
-            <p>🎯 學習進度：${learned} / ${total} 字</p>
-            <p>🌟 精通單字：${mastered} 字</p>
-            <p>🏆 獲得徽章：${this.state.badges.length} / 10</p>
-            <p>🎒 收服寶可夢：${this.state.caught.length}</p>
+            <div style="margin-bottom:16px; padding:12px; background:rgba(212,175,55,0.1); border-radius:8px;">
+                <p>📊 <b>總覽</b></p>
+                <p>🎯 學習進度：${learnedAll} / ${totalAll} 字</p>
+                <p>🏆 獲得徽章：${this.state.badges.length} / 10</p>
+                <p>🎒 收服寶可夢：${this.state.caught.length}</p>
+                <p>🔥 連續登入：${this.state.streak} 天</p>
+            </div>
+            <h4 style="color:var(--primary); margin-bottom:8px;">各區域精熟度</h4>
         `;
+        
+        REGION_KEYS.forEach(key => {
+            const regionWords = this.getWordsForRegion(key);
+            if (key === 'mixed') return; // 冠軍之路包含所有字，跳過避免重複
+            const total = regionWords.length;
+            let masterySum = 0;
+            let learnedCount = 0;
+            regionWords.forEach(w => {
+                const s = this.state.wordStats[w.id];
+                if (s && s.correct > 0) {
+                    learnedCount++;
+                    // 精熟度加權：box1=0, box2=0.5, box3=1
+                    if (s.box === 2) masterySum += 0.5;
+                    else if (s.box >= 3) masterySum += 1;
+                }
+            });
+            const masteryPct = total > 0 ? Math.round((masterySum / total) * 100) : 0;
+            const barColor = masteryPct >= 80 ? '#4caf50' : masteryPct >= 40 ? '#ff9800' : '#f44336';
+            const hasBadge = this.state.badges.includes(key) ? ' 🏅' : '';
+            
+            html += `
+                <div style="margin-bottom:10px;">
+                    <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
+                        <span>${REGION_NAMES[key]}${hasBadge}</span>
+                        <span>${learnedCount}/${total} 字 | ${masteryPct}%</span>
+                    </div>
+                    <div style="width:100%; height:12px; background:#e0e0e0; border-radius:6px; overflow:hidden;">
+                        <div style="width:${masteryPct}%; height:100%; background:${barColor}; transition:width 0.5s;"></div>
+                    </div>
+                </div>
+            `;
+        });
+        
+        html += `<button class="big-btn mt-4" onclick="Game.exportProgress()" style="max-width:250px;">📋 匯出學習紀錄</button>`;
         statsDiv.innerHTML = html;
+    },
+
+    // 匯出學習紀錄到剪貼簿
+    exportProgress() {
+        let text = 'A1 Movers 單字冒險 — 學習紀錄\n';
+        text += `匯出日期：${this.SRS.today()}\n`;
+        text += `徽章：${this.state.badges.length}/10 | 收服：${this.state.caught.length} | 連續登入：${this.state.streak} 天\n\n`;
+        text += '單字 | 中文 | 盒別 | 答對 | 答錯\n';
+        text += '---|---|---|---|---\n';
+        WORDS_ALL.forEach(w => {
+            const s = this.state.wordStats[w.id];
+            if (s && s.correct > 0) {
+                text += `${w.word} | ${w.zh} | Box ${s.box} | ${s.correct} | ${s.wrong}\n`;
+            }
+        });
+        
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(text).then(() => {
+                alert('✅ 學習紀錄已複製到剪貼簿！');
+            }).catch(() => {
+                this.showExportFallback(text);
+            });
+        } else {
+            this.showExportFallback(text);
+        }
+    },
+
+    showExportFallback(text) {
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.cssText = 'position:fixed; top:10%; left:10%; width:80%; height:60%; z-index:9999; font-size:12px;';
+        document.body.appendChild(ta);
+        ta.select();
+        alert('請手動全選複製 (Ctrl+A → Ctrl+C)，然後關閉此視窗。');
+        ta.addEventListener('blur', () => ta.remove());
+    },
+
+    // === 史詩結局動畫 (Phase 6) ===
+    showEpicEnding() {
+        this.preWarmAudio();
+        this.play8BitSound('win');
+        const container = document.getElementById('screen-epic-ending');
+        if (!container) return this.showScreen('map'); // fallback
+        
+        container.classList.remove('hidden');
+        document.getElementById('screen-title').classList.add('hidden');
+        document.getElementById('screen-map').classList.add('hidden');
+        
+        const grid = document.getElementById('epic-badge-grid');
+        grid.innerHTML = '';
+        
+        // 播放徽章閃爍進場
+        let delay = 0;
+        REGION_KEYS.forEach((key, index) => {
+            setTimeout(() => {
+                const badge = document.createElement('div');
+                badge.className = 'epic-badge';
+                badge.innerHTML = `<img src="https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/items/poke-ball.png" style="width:40px;height:40px;">`;
+                badge.style.animation = 'menuPop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+                grid.appendChild(badge);
+                this.play8BitSound('correct');
+            }, delay);
+            delay += 300;
+        });
+        
+        // 全部出現後展示文字
+        setTimeout(() => {
+            document.getElementById('epic-ending-text').classList.remove('hidden');
+            document.getElementById('epic-ending-text').style.animation = 'menuPop 1s ease';
+            this.play8BitSound('win');
+            
+            // 讓玩家點擊離開
+            container.onclick = () => {
+                container.classList.add('hidden');
+                document.getElementById('epic-ending-text').classList.add('hidden');
+                container.onclick = null;
+                this.showScreen('map');
+            };
+        }, delay + 800);
     }
 };
+
 
 // Initialize immediately
 Game.init();
