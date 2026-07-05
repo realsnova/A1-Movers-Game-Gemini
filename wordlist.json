@@ -1,0 +1,5964 @@
+{
+ "meta": {
+  "source": "Cambridge English A1 Movers A-Z Word List (2018 exam update)",
+  "note": "涵蓋官方 Movers 級全部字彙（不含 Starters 已學字），另含數字21-100與序數1st-20th代表字。names 為官方要求會認讀的人名，不列入測驗題。",
+  "generated": "2026-07-05",
+  "count": 395,
+  "topics": {
+   "animals": "動物草原",
+   "food": "美食村",
+   "body": "身體健康迷宮",
+   "school": "學園城",
+   "sports": "運動競技場",
+   "home_family": "家園小鎮",
+   "weather_world": "天氣自然高塔",
+   "places_transport": "城市大道",
+   "time_numbers": "時光神殿",
+   "mixed": "冠軍之路"
+  },
+  "names": [
+   "Clare",
+   "Charlie",
+   "Daisy",
+   "Fred",
+   "Jack",
+   "Jane",
+   "Jim",
+   "Julia",
+   "Lily",
+   "Mary",
+   "Paul",
+   "Peter",
+   "Sally",
+   "Vicky",
+   "Zoe"
+  ]
+ },
+ "words": [
+  {
+   "id": "ani-001",
+   "word": "bat",
+   "zh": "蝙蝠",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "Bats fly at night.",
+   "sentence_zh": "蝙蝠在晚上飛。",
+   "emoji": "🦇",
+   "distractors": [
+    "whale",
+    "snail",
+    "panda"
+   ]
+  },
+  {
+   "id": "ani-002",
+   "word": "cage",
+   "zh": "籠子",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "The parrot is in a cage.",
+   "sentence_zh": "鸚鵡在籠子裡。",
+   "emoji": "",
+   "distractors": [
+    "roof",
+    "net",
+    "map"
+   ]
+  },
+  {
+   "id": "ani-003",
+   "word": "dolphin",
+   "zh": "海豚",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "Dolphins jump out of the water.",
+   "sentence_zh": "海豚跳出水面。",
+   "emoji": "🐬",
+   "distractors": [
+    "shark",
+    "whale",
+    "penguin"
+   ]
+  },
+  {
+   "id": "ani-004",
+   "word": "feed",
+   "zh": "餵",
+   "topic": "animals",
+   "pos": "v",
+   "sentence": "I feed my rabbit every day.",
+   "sentence_zh": "我每天餵我的兔子。",
+   "emoji": "🥣",
+   "distractors": [
+    "wash",
+    "carry",
+    "catch"
+   ]
+  },
+  {
+   "id": "ani-005",
+   "word": "fly",
+   "zh": "蒼蠅",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "There is a fly in my soup!",
+   "sentence_zh": "我的湯裡有一隻蒼蠅！",
+   "emoji": "",
+   "distractors": [
+    "snail",
+    "kitten",
+    "parrot"
+   ]
+  },
+  {
+   "id": "ani-006",
+   "word": "kangaroo",
+   "zh": "袋鼠",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "Kangaroos can hop very well.",
+   "sentence_zh": "袋鼠很會跳。",
+   "emoji": "🦘",
+   "distractors": [
+    "panda",
+    "lion",
+    "rabbit"
+   ]
+  },
+  {
+   "id": "ani-007",
+   "word": "kitten",
+   "zh": "小貓",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "The kitten is playing with a ball.",
+   "sentence_zh": "小貓在玩球。",
+   "emoji": "🐱",
+   "distractors": [
+    "puppy",
+    "rabbit",
+    "parrot"
+   ]
+  },
+  {
+   "id": "ani-008",
+   "word": "lion",
+   "zh": "獅子",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "The lion is sleeping under the tree.",
+   "sentence_zh": "獅子在樹下睡覺。",
+   "emoji": "🦁",
+   "distractors": [
+    "panda",
+    "kangaroo",
+    "shark"
+   ]
+  },
+  {
+   "id": "ani-009",
+   "word": "panda",
+   "zh": "貓熊",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "Pandas eat leaves all day.",
+   "sentence_zh": "貓熊整天吃葉子。",
+   "emoji": "🐼",
+   "distractors": [
+    "lion",
+    "kangaroo",
+    "whale"
+   ]
+  },
+  {
+   "id": "ani-010",
+   "word": "parrot",
+   "zh": "鸚鵡",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "My parrot can say my name.",
+   "sentence_zh": "我的鸚鵡會說我的名字。",
+   "emoji": "🦜",
+   "distractors": [
+    "penguin",
+    "kitten",
+    "fly"
+   ]
+  },
+  {
+   "id": "ani-011",
+   "word": "penguin",
+   "zh": "企鵝",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "Penguins live where it is cold.",
+   "sentence_zh": "企鵝住在很冷的地方。",
+   "emoji": "🐧",
+   "distractors": [
+    "parrot",
+    "dolphin",
+    "snail"
+   ]
+  },
+  {
+   "id": "ani-012",
+   "word": "puppy",
+   "zh": "小狗",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "The puppy likes to run and jump.",
+   "sentence_zh": "小狗喜歡跑跑跳跳。",
+   "emoji": "🐶",
+   "distractors": [
+    "kitten",
+    "rabbit",
+    "lion"
+   ]
+  },
+  {
+   "id": "ani-013",
+   "word": "rabbit",
+   "zh": "兔子",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "The rabbit is eating a carrot.",
+   "sentence_zh": "兔子在吃紅蘿蔔。",
+   "emoji": "🐰",
+   "distractors": [
+    "kitten",
+    "puppy",
+    "kangaroo"
+   ]
+  },
+  {
+   "id": "ani-014",
+   "word": "shark",
+   "zh": "鯊魚",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "Sharks have a lot of teeth.",
+   "sentence_zh": "鯊魚有很多牙齒。",
+   "emoji": "🦈",
+   "distractors": [
+    "whale",
+    "dolphin",
+    "penguin"
+   ]
+  },
+  {
+   "id": "ani-015",
+   "word": "snail",
+   "zh": "蝸牛",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "A snail is very slow.",
+   "sentence_zh": "蝸牛非常慢。",
+   "emoji": "🐌",
+   "distractors": [
+    "fly",
+    "bat",
+    "kitten"
+   ]
+  },
+  {
+   "id": "ani-016",
+   "word": "whale",
+   "zh": "鯨魚",
+   "topic": "animals",
+   "pos": "n",
+   "sentence": "A whale is bigger than a shark.",
+   "sentence_zh": "鯨魚比鯊魚大。",
+   "emoji": "🐳",
+   "distractors": [
+    "dolphin",
+    "shark",
+    "panda"
+   ]
+  },
+  {
+   "id": "foo-001",
+   "word": "bottle",
+   "zh": "瓶子",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "There is a bottle of water on the table.",
+   "sentence_zh": "桌上有一瓶水。",
+   "emoji": "🍼",
+   "distractors": [
+    "glass",
+    "cup",
+    "bowl"
+   ]
+  },
+  {
+   "id": "foo-002",
+   "word": "bowl",
+   "zh": "碗",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "I eat noodles from a bowl.",
+   "sentence_zh": "我用碗吃麵。",
+   "emoji": "🥣",
+   "distractors": [
+    "plate",
+    "cup",
+    "bottle"
+   ]
+  },
+  {
+   "id": "foo-003",
+   "word": "cheese",
+   "zh": "起司",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Mice love eating cheese.",
+   "sentence_zh": "老鼠愛吃起司。",
+   "emoji": "🧀",
+   "distractors": [
+    "sauce",
+    "soup",
+    "salad"
+   ]
+  },
+  {
+   "id": "foo-004",
+   "word": "coffee",
+   "zh": "咖啡",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Dad drinks coffee every morning.",
+   "sentence_zh": "爸爸每天早上喝咖啡。",
+   "emoji": "☕",
+   "distractors": [
+    "tea",
+    "milkshake",
+    "soup"
+   ]
+  },
+  {
+   "id": "foo-005",
+   "word": "cook",
+   "zh": "廚師；煮",
+   "topic": "food",
+   "pos": "n+v",
+   "sentence": "My mum is a good cook.",
+   "sentence_zh": "我媽媽是很棒的廚師。",
+   "emoji": "🍳",
+   "distractors": [
+    "doctor",
+    "driver",
+    "farmer"
+   ]
+  },
+  {
+   "id": "foo-006",
+   "word": "cup",
+   "zh": "杯子",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "A cup of tea, please.",
+   "sentence_zh": "請給我一杯茶。",
+   "emoji": "",
+   "distractors": [
+    "glass",
+    "bowl",
+    "plate"
+   ]
+  },
+  {
+   "id": "foo-007",
+   "word": "glass",
+   "zh": "玻璃杯",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Can I have a glass of milk?",
+   "sentence_zh": "可以給我一杯牛奶嗎？",
+   "emoji": "🥛",
+   "distractors": [
+    "cup",
+    "bottle",
+    "plate"
+   ]
+  },
+  {
+   "id": "foo-008",
+   "word": "hungry",
+   "zh": "餓的",
+   "topic": "food",
+   "pos": "adj",
+   "sentence": "I'm hungry. Let's eat!",
+   "sentence_zh": "我餓了，我們吃飯吧！",
+   "emoji": "😋",
+   "distractors": [
+    "thirsty",
+    "tired",
+    "sweet"
+   ]
+  },
+  {
+   "id": "foo-009",
+   "word": "milkshake",
+   "zh": "奶昔",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "This banana milkshake is sweet.",
+   "sentence_zh": "這杯香蕉奶昔很甜。",
+   "emoji": "🥤",
+   "distractors": [
+    "coffee",
+    "tea",
+    "sauce"
+   ]
+  },
+  {
+   "id": "foo-010",
+   "word": "noodles",
+   "zh": "麵",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "I had noodles for lunch.",
+   "sentence_zh": "我午餐吃了麵。",
+   "emoji": "🍜",
+   "distractors": [
+    "pasta",
+    "soup",
+    "salad"
+   ]
+  },
+  {
+   "id": "foo-011",
+   "word": "pancake",
+   "zh": "鬆餅",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "We make pancakes on Sunday.",
+   "sentence_zh": "我們星期天做鬆餅。",
+   "emoji": "🥞",
+   "distractors": [
+    "sandwich",
+    "cheese",
+    "noodles"
+   ]
+  },
+  {
+   "id": "foo-012",
+   "word": "pasta",
+   "zh": "義大利麵",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Pasta with sauce is yummy.",
+   "sentence_zh": "加醬汁的義大利麵很好吃。",
+   "emoji": "🍝",
+   "distractors": [
+    "noodles",
+    "soup",
+    "pancake"
+   ]
+  },
+  {
+   "id": "foo-013",
+   "word": "picnic",
+   "zh": "野餐",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Let's have a picnic by the lake.",
+   "sentence_zh": "我們去湖邊野餐吧。",
+   "emoji": "🧺",
+   "distractors": [
+    "party",
+    "trip",
+    "holiday"
+   ]
+  },
+  {
+   "id": "foo-014",
+   "word": "plate",
+   "zh": "盤子",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Put the sandwich on the plate.",
+   "sentence_zh": "把三明治放在盤子上。",
+   "emoji": "🍽️",
+   "distractors": [
+    "bowl",
+    "cup",
+    "glass"
+   ]
+  },
+  {
+   "id": "foo-015",
+   "word": "salad",
+   "zh": "沙拉",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Salad is good for you.",
+   "sentence_zh": "沙拉對你的身體很好。",
+   "emoji": "🥗",
+   "distractors": [
+    "soup",
+    "cheese",
+    "pasta"
+   ]
+  },
+  {
+   "id": "foo-016",
+   "word": "sandwich",
+   "zh": "三明治",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "I made a cheese sandwich.",
+   "sentence_zh": "我做了一個起司三明治。",
+   "emoji": "🥪",
+   "distractors": [
+    "pancake",
+    "salad",
+    "noodles"
+   ]
+  },
+  {
+   "id": "foo-017",
+   "word": "sauce",
+   "zh": "醬汁",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "I like tomato sauce on pasta.",
+   "sentence_zh": "我喜歡義大利麵加番茄醬汁。",
+   "emoji": "🥫",
+   "distractors": [
+    "soup",
+    "cheese",
+    "tea"
+   ]
+  },
+  {
+   "id": "foo-018",
+   "word": "soup",
+   "zh": "湯",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "The soup is too hot.",
+   "sentence_zh": "這碗湯太燙了。",
+   "emoji": "🍲",
+   "distractors": [
+    "sauce",
+    "salad",
+    "coffee"
+   ]
+  },
+  {
+   "id": "foo-019",
+   "word": "sweet",
+   "zh": "甜的",
+   "topic": "food",
+   "pos": "adj",
+   "sentence": "This milkshake is very sweet.",
+   "sentence_zh": "這杯奶昔非常甜。",
+   "emoji": "🍬",
+   "distractors": [
+    "hungry",
+    "thirsty",
+    "cold"
+   ]
+  },
+  {
+   "id": "foo-020",
+   "word": "tea",
+   "zh": "茶",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Grandma drinks tea in the afternoon.",
+   "sentence_zh": "奶奶下午喝茶。",
+   "emoji": "🍵",
+   "distractors": [
+    "coffee",
+    "soup",
+    "milkshake"
+   ]
+  },
+  {
+   "id": "foo-021",
+   "word": "thirsty",
+   "zh": "渴的",
+   "topic": "food",
+   "pos": "adj",
+   "sentence": "I'm thirsty. I need water.",
+   "sentence_zh": "我口渴了，我需要水。",
+   "emoji": "💧",
+   "distractors": [
+    "hungry",
+    "tired",
+    "hot"
+   ]
+  },
+  {
+   "id": "foo-022",
+   "word": "vegetable",
+   "zh": "蔬菜",
+   "topic": "food",
+   "pos": "n",
+   "sentence": "Eat your vegetables every day.",
+   "sentence_zh": "每天都要吃蔬菜。",
+   "emoji": "🥦",
+   "distractors": [
+    "salad",
+    "cheese",
+    "pasta"
+   ]
+  },
+  {
+   "id": "bod-001",
+   "word": "back",
+   "zh": "背；後面",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "My back hurts.",
+   "sentence_zh": "我的背在痛。",
+   "emoji": "",
+   "distractors": [
+    "neck",
+    "shoulder",
+    "stomach"
+   ]
+  },
+  {
+   "id": "bod-002",
+   "word": "beard",
+   "zh": "鬍子",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "My uncle has a black beard.",
+   "sentence_zh": "我叔叔有黑色的鬍子。",
+   "emoji": "🧔",
+   "distractors": [
+    "moustache",
+    "neck",
+    "tooth"
+   ]
+  },
+  {
+   "id": "bod-003",
+   "word": "better",
+   "zh": "更好的",
+   "topic": "body",
+   "pos": "adj+adv",
+   "sentence": "I was sick, but now I'm better.",
+   "sentence_zh": "我之前生病了，但現在好多了。",
+   "emoji": "",
+   "distractors": [
+    "worse",
+    "fine",
+    "bad"
+   ]
+  },
+  {
+   "id": "bod-004",
+   "word": "blonde",
+   "zh": "金髮的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "She has blonde hair.",
+   "sentence_zh": "她有一頭金髮。",
+   "emoji": "👱",
+   "distractors": [
+    "curly",
+    "fair",
+    "thin"
+   ]
+  },
+  {
+   "id": "bod-005",
+   "word": "cold",
+   "zh": "感冒；冷的",
+   "topic": "body",
+   "pos": "n+adj",
+   "sentence": "I have a cold and a cough.",
+   "sentence_zh": "我感冒又咳嗽。",
+   "emoji": "🤧",
+   "distractors": [
+    "cough",
+    "headache",
+    "earache"
+   ]
+  },
+  {
+   "id": "bod-006",
+   "word": "cough",
+   "zh": "咳嗽",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "That's a bad cough!",
+   "sentence_zh": "你咳得好嚴重！",
+   "emoji": "😷",
+   "distractors": [
+    "cold",
+    "toothache",
+    "earache"
+   ]
+  },
+  {
+   "id": "bod-007",
+   "word": "curly",
+   "zh": "捲的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "He has curly hair.",
+   "sentence_zh": "他有一頭捲髮。",
+   "emoji": "👨‍🦱",
+   "distractors": [
+    "blonde",
+    "thin",
+    "fat"
+   ]
+  },
+  {
+   "id": "bod-008",
+   "word": "dentist",
+   "zh": "牙醫",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "The dentist looks at my teeth.",
+   "sentence_zh": "牙醫檢查我的牙齒。",
+   "emoji": "🦷",
+   "distractors": [
+    "doctor",
+    "nurse",
+    "farmer"
+   ]
+  },
+  {
+   "id": "bod-009",
+   "word": "doctor",
+   "zh": "醫生",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "The doctor helps sick people.",
+   "sentence_zh": "醫生幫助生病的人。",
+   "emoji": "👩‍⚕️",
+   "distractors": [
+    "nurse",
+    "dentist",
+    "driver"
+   ]
+  },
+  {
+   "id": "bod-010",
+   "word": "earache",
+   "zh": "耳朵痛",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "I can't hear well. I have an earache.",
+   "sentence_zh": "我聽不清楚，我耳朵痛。",
+   "emoji": "👂",
+   "distractors": [
+    "headache",
+    "toothache",
+    "cough"
+   ]
+  },
+  {
+   "id": "bod-011",
+   "word": "fat",
+   "zh": "胖的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "That cat is very fat.",
+   "sentence_zh": "那隻貓好胖。",
+   "emoji": "",
+   "distractors": [
+    "thin",
+    "tall",
+    "strong"
+   ]
+  },
+  {
+   "id": "bod-012",
+   "word": "fine",
+   "zh": "很好的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "I'm fine, thank you.",
+   "sentence_zh": "我很好，謝謝你。",
+   "emoji": "👌",
+   "distractors": [
+    "well",
+    "better",
+    "sick"
+   ]
+  },
+  {
+   "id": "bod-013",
+   "word": "headache",
+   "zh": "頭痛",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "I have a headache. I need to sleep.",
+   "sentence_zh": "我頭痛，我需要睡覺。",
+   "emoji": "🤕",
+   "distractors": [
+    "earache",
+    "stomach-ache",
+    "cold"
+   ]
+  },
+  {
+   "id": "bod-014",
+   "word": "hospital",
+   "zh": "醫院",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "The nurse works at the hospital.",
+   "sentence_zh": "護理師在醫院工作。",
+   "emoji": "🏥",
+   "distractors": [
+    "library",
+    "station",
+    "supermarket"
+   ]
+  },
+  {
+   "id": "bod-015",
+   "word": "hurt",
+   "zh": "痛；受傷",
+   "topic": "body",
+   "pos": "v",
+   "sentence": "My leg hurts.",
+   "sentence_zh": "我的腿在痛。",
+   "emoji": "🤕",
+   "distractors": [
+    "cry",
+    "fall",
+    "help"
+   ]
+  },
+  {
+   "id": "bod-016",
+   "word": "ill",
+   "zh": "生病的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "He is ill and in bed.",
+   "sentence_zh": "他生病躺在床上。",
+   "emoji": "🤒",
+   "distractors": [
+    "tired",
+    "hungry",
+    "busy"
+   ]
+  },
+  {
+   "id": "bod-017",
+   "word": "matter",
+   "zh": "事情；問題",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "What's the matter?",
+   "sentence_zh": "怎麼了？",
+   "emoji": "",
+   "distractors": [
+    "mistake",
+    "idea",
+    "difference"
+   ]
+  },
+  {
+   "id": "bod-018",
+   "word": "moustache",
+   "zh": "八字鬍",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "The clown has a funny moustache.",
+   "sentence_zh": "小丑有好笑的八字鬍。",
+   "emoji": "👨",
+   "distractors": [
+    "beard",
+    "neck",
+    "shoulder"
+   ]
+  },
+  {
+   "id": "bod-019",
+   "word": "neck",
+   "zh": "脖子",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "A giraffe has a long neck.",
+   "sentence_zh": "長頸鹿有長長的脖子。",
+   "emoji": "🦒",
+   "distractors": [
+    "back",
+    "shoulder",
+    "stomach"
+   ]
+  },
+  {
+   "id": "bod-020",
+   "word": "nurse",
+   "zh": "護理師",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "The nurse helps the doctor.",
+   "sentence_zh": "護理師協助醫生。",
+   "emoji": "💉",
+   "distractors": [
+    "doctor",
+    "dentist",
+    "grown-up"
+   ]
+  },
+  {
+   "id": "bod-021",
+   "word": "shoulder",
+   "zh": "肩膀",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "Put the parrot on my shoulder.",
+   "sentence_zh": "把鸚鵡放在我的肩膀上。",
+   "emoji": "",
+   "distractors": [
+    "neck",
+    "back",
+    "stomach"
+   ]
+  },
+  {
+   "id": "bod-022",
+   "word": "sick",
+   "zh": "生病的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "I feel sick. I can't go to school.",
+   "sentence_zh": "我覺得不舒服，不能去上學。",
+   "emoji": "🤒",
+   "distractors": [
+    "tired",
+    "hungry",
+    "naughty"
+   ]
+  },
+  {
+   "id": "bod-023",
+   "word": "stomach",
+   "zh": "肚子",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "My stomach is full.",
+   "sentence_zh": "我的肚子好飽。",
+   "emoji": "",
+   "distractors": [
+    "neck",
+    "shoulder",
+    "back"
+   ]
+  },
+  {
+   "id": "bod-024",
+   "word": "stomach-ache",
+   "zh": "肚子痛",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "I ate too much. I have a stomach-ache.",
+   "sentence_zh": "我吃太多了，肚子好痛。",
+   "emoji": "",
+   "distractors": [
+    "headache",
+    "toothache",
+    "earache"
+   ]
+  },
+  {
+   "id": "bod-025",
+   "word": "strong",
+   "zh": "強壯的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "Elephants are very strong.",
+   "sentence_zh": "大象非常強壯。",
+   "emoji": "💪",
+   "distractors": [
+    "weak",
+    "tall",
+    "fat"
+   ]
+  },
+  {
+   "id": "bod-026",
+   "word": "temperature",
+   "zh": "發燒；體溫",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "She has a temperature and must stay in bed.",
+   "sentence_zh": "她發燒了，必須待在床上。",
+   "emoji": "🌡️",
+   "distractors": [
+    "cough",
+    "cold",
+    "headache"
+   ]
+  },
+  {
+   "id": "bod-027",
+   "word": "thin",
+   "zh": "瘦的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "My grandpa is tall and thin.",
+   "sentence_zh": "我爺爺又高又瘦。",
+   "emoji": "",
+   "distractors": [
+    "fat",
+    "strong",
+    "little"
+   ]
+  },
+  {
+   "id": "bod-028",
+   "word": "tired",
+   "zh": "累的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "I'm tired. I want to sleep.",
+   "sentence_zh": "我好累，我想睡覺。",
+   "emoji": "😴",
+   "distractors": [
+    "hungry",
+    "thirsty",
+    "afraid"
+   ]
+  },
+  {
+   "id": "bod-029",
+   "word": "tooth / teeth",
+   "zh": "牙齒",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "Brush your teeth every day.",
+   "sentence_zh": "每天都要刷牙。",
+   "emoji": "🦷",
+   "distractors": [
+    "neck",
+    "beard",
+    "moustache"
+   ]
+  },
+  {
+   "id": "bod-030",
+   "word": "toothache",
+   "zh": "牙痛",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "I have a toothache. I must see the dentist.",
+   "sentence_zh": "我牙痛，必須去看牙醫。",
+   "emoji": "😖",
+   "distractors": [
+    "earache",
+    "headache",
+    "stomach-ache"
+   ]
+  },
+  {
+   "id": "bod-031",
+   "word": "toothbrush",
+   "zh": "牙刷",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "My toothbrush is red.",
+   "sentence_zh": "我的牙刷是紅色的。",
+   "emoji": "",
+   "distractors": [
+    "toothpaste",
+    "towel",
+    "bottle"
+   ]
+  },
+  {
+   "id": "bod-032",
+   "word": "toothpaste",
+   "zh": "牙膏",
+   "topic": "body",
+   "pos": "n",
+   "sentence": "Put toothpaste on your toothbrush.",
+   "sentence_zh": "把牙膏擠在牙刷上。",
+   "emoji": "",
+   "distractors": [
+    "toothbrush",
+    "towel",
+    "blanket"
+   ]
+  },
+  {
+   "id": "bod-033",
+   "word": "weak",
+   "zh": "虛弱的",
+   "topic": "body",
+   "pos": "adj",
+   "sentence": "I was ill last week and I'm still weak.",
+   "sentence_zh": "我上週生病，現在還很虛弱。",
+   "emoji": "",
+   "distractors": [
+    "strong",
+    "tired",
+    "thin"
+   ]
+  },
+  {
+   "id": "bod-034",
+   "word": "well",
+   "zh": "健康的；好地",
+   "topic": "body",
+   "pos": "adj+adv",
+   "sentence": "I don't feel well today.",
+   "sentence_zh": "我今天覺得不太舒服。",
+   "emoji": "",
+   "distractors": [
+    "fine",
+    "better",
+    "bad"
+   ]
+  },
+  {
+   "id": "bod-035",
+   "word": "worse",
+   "zh": "更糟的",
+   "topic": "body",
+   "pos": "adj+adv",
+   "sentence": "My cough is worse today.",
+   "sentence_zh": "我的咳嗽今天更嚴重了。",
+   "emoji": "",
+   "distractors": [
+    "better",
+    "worst",
+    "bad"
+   ]
+  },
+  {
+   "id": "bod-036",
+   "word": "worst",
+   "zh": "最糟的",
+   "topic": "body",
+   "pos": "adj+adv",
+   "sentence": "That was the worst day!",
+   "sentence_zh": "那是最糟的一天！",
+   "emoji": "",
+   "distractors": [
+    "worse",
+    "best",
+    "bad"
+   ]
+  },
+  {
+   "id": "sch-001",
+   "word": "app",
+   "zh": "應用程式",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "This app helps me learn English.",
+   "sentence_zh": "這個應用程式幫我學英文。",
+   "emoji": "📱",
+   "distractors": [
+    "website",
+    "e-book",
+    "video"
+   ]
+  },
+  {
+   "id": "sch-002",
+   "word": "break",
+   "zh": "下課；休息",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "Let's play in the break.",
+   "sentence_zh": "下課時間我們去玩吧。",
+   "emoji": "⏰",
+   "distractors": [
+    "homework",
+    "practice",
+    "party"
+   ]
+  },
+  {
+   "id": "sch-003",
+   "word": "CD",
+   "zh": "光碟",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "Listen to the CD and sing.",
+   "sentence_zh": "聽光碟然後唱歌。",
+   "emoji": "💿",
+   "distractors": [
+    "DVD",
+    "laptop",
+    "video"
+   ]
+  },
+  {
+   "id": "sch-004",
+   "word": "circle",
+   "zh": "圓形",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "Draw a circle on the paper.",
+   "sentence_zh": "在紙上畫一個圓形。",
+   "emoji": "⭕",
+   "distractors": [
+    "square",
+    "shape",
+    "star"
+   ]
+  },
+  {
+   "id": "sch-005",
+   "word": "difference",
+   "zh": "不同之處",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "Find the differences in the two pictures.",
+   "sentence_zh": "找出兩張圖的不同之處。",
+   "emoji": "",
+   "distractors": [
+    "mistake",
+    "idea",
+    "shape"
+   ]
+  },
+  {
+   "id": "sch-006",
+   "word": "different",
+   "zh": "不同的",
+   "topic": "school",
+   "pos": "adj",
+   "sentence": "The two hats are different.",
+   "sentence_zh": "這兩頂帽子不一樣。",
+   "emoji": "",
+   "distractors": [
+    "difficult",
+    "easy",
+    "wrong"
+   ]
+  },
+  {
+   "id": "sch-007",
+   "word": "difficult",
+   "zh": "困難的",
+   "topic": "school",
+   "pos": "adj",
+   "sentence": "This question is very difficult.",
+   "sentence_zh": "這個問題非常難。",
+   "emoji": "",
+   "distractors": [
+    "easy",
+    "different",
+    "boring"
+   ]
+  },
+  {
+   "id": "sch-008",
+   "word": "DVD",
+   "zh": "影音光碟",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "We watched a DVD about whales.",
+   "sentence_zh": "我們看了一片關於鯨魚的DVD。",
+   "emoji": "📀",
+   "distractors": [
+    "CD",
+    "video",
+    "e-book"
+   ]
+  },
+  {
+   "id": "sch-009",
+   "word": "easy",
+   "zh": "簡單的",
+   "topic": "school",
+   "pos": "adj",
+   "sentence": "That's easy! I know the answer.",
+   "sentence_zh": "那很簡單！我知道答案。",
+   "emoji": "",
+   "distractors": [
+    "difficult",
+    "boring",
+    "exciting"
+   ]
+  },
+  {
+   "id": "sch-010",
+   "word": "e-book",
+   "zh": "電子書",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "I read an e-book on the laptop.",
+   "sentence_zh": "我在筆電上讀電子書。",
+   "emoji": "📖",
+   "distractors": [
+    "comic",
+    "app",
+    "website"
+   ]
+  },
+  {
+   "id": "sch-011",
+   "word": "email",
+   "zh": "電子郵件",
+   "topic": "school",
+   "pos": "n+v",
+   "sentence": "Send an email to your teacher.",
+   "sentence_zh": "寄一封電子郵件給你的老師。",
+   "emoji": "📧",
+   "distractors": [
+    "message",
+    "text",
+    "website"
+   ]
+  },
+  {
+   "id": "sch-012",
+   "word": "homework",
+   "zh": "回家作業",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "I do my homework after school.",
+   "sentence_zh": "我放學後寫作業。",
+   "emoji": "📝",
+   "distractors": [
+    "break",
+    "practice",
+    "mistake"
+   ]
+  },
+  {
+   "id": "sch-013",
+   "word": "idea",
+   "zh": "主意",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "What a good idea!",
+   "sentence_zh": "真是個好主意！",
+   "emoji": "💡",
+   "distractors": [
+    "mistake",
+    "difference",
+    "matter"
+   ]
+  },
+  {
+   "id": "sch-014",
+   "word": "internet",
+   "zh": "網路",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "We look for pictures on the internet.",
+   "sentence_zh": "我們在網路上找圖片。",
+   "emoji": "🌐",
+   "distractors": [
+    "website",
+    "email",
+    "laptop"
+   ]
+  },
+  {
+   "id": "sch-015",
+   "word": "laptop",
+   "zh": "筆記型電腦",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "Dad works on his laptop.",
+   "sentence_zh": "爸爸用筆電工作。",
+   "emoji": "💻",
+   "distractors": [
+    "machine",
+    "internet",
+    "DVD"
+   ]
+  },
+  {
+   "id": "sch-016",
+   "word": "machine",
+   "zh": "機器",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "This machine makes noodles.",
+   "sentence_zh": "這台機器會做麵條。",
+   "emoji": "⚙️",
+   "distractors": [
+    "laptop",
+    "model",
+    "tractor"
+   ]
+  },
+  {
+   "id": "sch-017",
+   "word": "mean",
+   "zh": "意思是",
+   "topic": "school",
+   "pos": "v",
+   "sentence": "What does this word mean?",
+   "sentence_zh": "這個字是什麼意思？",
+   "emoji": "",
+   "distractors": [
+    "think",
+    "need",
+    "teach"
+   ]
+  },
+  {
+   "id": "sch-018",
+   "word": "message",
+   "zh": "訊息",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "Mum sent me a message.",
+   "sentence_zh": "媽媽傳了一則訊息給我。",
+   "emoji": "💬",
+   "distractors": [
+    "email",
+    "text",
+    "idea"
+   ]
+  },
+  {
+   "id": "sch-019",
+   "word": "mistake",
+   "zh": "錯誤",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "I made two mistakes in the test.",
+   "sentence_zh": "我考試錯了兩題。",
+   "emoji": "❌",
+   "distractors": [
+    "difference",
+    "idea",
+    "matter"
+   ]
+  },
+  {
+   "id": "sch-020",
+   "word": "model",
+   "zh": "模型",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "He made a model plane.",
+   "sentence_zh": "他做了一架模型飛機。",
+   "emoji": "✈️",
+   "distractors": [
+    "machine",
+    "present",
+    "shape"
+   ]
+  },
+  {
+   "id": "sch-021",
+   "word": "practice",
+   "zh": "練習（名詞）",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "Piano practice is at four o'clock.",
+   "sentence_zh": "鋼琴練習在四點鐘。",
+   "emoji": "🎹",
+   "distractors": [
+    "homework",
+    "break",
+    "work"
+   ]
+  },
+  {
+   "id": "sch-022",
+   "word": "practise",
+   "zh": "練習（動詞）",
+   "topic": "school",
+   "pos": "v",
+   "sentence": "I practise English every day.",
+   "sentence_zh": "我每天練習英文。",
+   "emoji": "",
+   "distractors": [
+    "teach",
+    "think",
+    "mean"
+   ]
+  },
+  {
+   "id": "sch-023",
+   "word": "shape",
+   "zh": "形狀",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "A circle is a shape.",
+   "sentence_zh": "圓形是一種形狀。",
+   "emoji": "🔷",
+   "distractors": [
+    "circle",
+    "square",
+    "star"
+   ]
+  },
+  {
+   "id": "sch-024",
+   "word": "square",
+   "zh": "正方形",
+   "topic": "school",
+   "pos": "n+adj",
+   "sentence": "A square has four sides.",
+   "sentence_zh": "正方形有四個邊。",
+   "emoji": "🟥",
+   "distractors": [
+    "circle",
+    "shape",
+    "top"
+   ]
+  },
+  {
+   "id": "sch-025",
+   "word": "teach",
+   "zh": "教",
+   "topic": "school",
+   "pos": "v",
+   "sentence": "Miss Lin teaches us English.",
+   "sentence_zh": "林老師教我們英文。",
+   "emoji": "👩‍🏫",
+   "distractors": [
+    "mean",
+    "help",
+    "think"
+   ]
+  },
+  {
+   "id": "sch-026",
+   "word": "text",
+   "zh": "簡訊；傳簡訊",
+   "topic": "school",
+   "pos": "n+v",
+   "sentence": "Dad texts me after school.",
+   "sentence_zh": "放學後爸爸傳簡訊給我。",
+   "emoji": "📲",
+   "distractors": [
+    "email",
+    "message",
+    "call"
+   ]
+  },
+  {
+   "id": "sch-027",
+   "word": "think",
+   "zh": "想；認為",
+   "topic": "school",
+   "pos": "v",
+   "sentence": "I think this game is exciting.",
+   "sentence_zh": "我覺得這個遊戲很刺激。",
+   "emoji": "🤔",
+   "distractors": [
+    "mean",
+    "need",
+    "dream"
+   ]
+  },
+  {
+   "id": "sch-028",
+   "word": "video",
+   "zh": "影片",
+   "topic": "school",
+   "pos": "n+v",
+   "sentence": "We watched a funny video.",
+   "sentence_zh": "我們看了一部好笑的影片。",
+   "emoji": "📹",
+   "distractors": [
+    "DVD",
+    "film",
+    "website"
+   ]
+  },
+  {
+   "id": "sch-029",
+   "word": "website",
+   "zh": "網站",
+   "topic": "school",
+   "pos": "n",
+   "sentence": "This website has fun games.",
+   "sentence_zh": "這個網站有好玩的遊戲。",
+   "emoji": "🖥️",
+   "distractors": [
+    "internet",
+    "app",
+    "email"
+   ]
+  },
+  {
+   "id": "spo-001",
+   "word": "catch",
+   "zh": "接住；搭（車）",
+   "topic": "sports",
+   "pos": "v",
+   "sentence": "Catch the ball!",
+   "sentence_zh": "接住球！",
+   "emoji": "🤲",
+   "distractors": [
+    "kick",
+    "drop",
+    "carry"
+   ]
+  },
+  {
+   "id": "spo-002",
+   "word": "climb",
+   "zh": "爬",
+   "topic": "sports",
+   "pos": "v",
+   "sentence": "Monkeys climb trees.",
+   "sentence_zh": "猴子會爬樹。",
+   "emoji": "🧗",
+   "distractors": [
+    "hop",
+    "skip",
+    "swim"
+   ]
+  },
+  {
+   "id": "spo-003",
+   "word": "dance",
+   "zh": "跳舞",
+   "topic": "sports",
+   "pos": "n+v",
+   "sentence": "She dances at the party.",
+   "sentence_zh": "她在派對上跳舞。",
+   "emoji": "💃",
+   "distractors": [
+    "skip",
+    "hop",
+    "laugh"
+   ]
+  },
+  {
+   "id": "spo-004",
+   "word": "fish",
+   "zh": "釣魚",
+   "topic": "sports",
+   "pos": "v",
+   "sentence": "Grandpa fishes at the lake.",
+   "sentence_zh": "爺爺在湖邊釣魚。",
+   "emoji": "🎣",
+   "distractors": [
+    "sail",
+    "swim",
+    "skate"
+   ]
+  },
+  {
+   "id": "spo-005",
+   "word": "goal",
+   "zh": "進球；球門",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "What a goal! We won!",
+   "sentence_zh": "好球！我們贏了！",
+   "emoji": "🥅",
+   "distractors": [
+    "net",
+    "score",
+    "player"
+   ]
+  },
+  {
+   "id": "spo-006",
+   "word": "helmet",
+   "zh": "安全帽",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "Wear a helmet when you ride your bike.",
+   "sentence_zh": "騎腳踏車時要戴安全帽。",
+   "emoji": "⛑️",
+   "distractors": [
+    "coat",
+    "scarf",
+    "net"
+   ]
+  },
+  {
+   "id": "spo-007",
+   "word": "hop",
+   "zh": "單腳跳",
+   "topic": "sports",
+   "pos": "v",
+   "sentence": "Can you hop on one leg?",
+   "sentence_zh": "你會單腳跳嗎？",
+   "emoji": "🦘",
+   "distractors": [
+    "skip",
+    "climb",
+    "walk"
+   ]
+  },
+  {
+   "id": "spo-008",
+   "word": "ice",
+   "zh": "冰",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "There is ice on the lake in winter.",
+   "sentence_zh": "冬天湖面上有冰。",
+   "emoji": "🧊",
+   "distractors": [
+    "snow",
+    "rain",
+    "wind"
+   ]
+  },
+  {
+   "id": "spo-009",
+   "word": "ice skates",
+   "zh": "冰刀鞋",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "I got new ice skates for my birthday.",
+   "sentence_zh": "我生日得到新的冰刀鞋。",
+   "emoji": "⛸️",
+   "distractors": [
+    "roller skates",
+    "helmet",
+    "swimsuit"
+   ]
+  },
+  {
+   "id": "spo-010",
+   "word": "ice skating",
+   "zh": "溜冰",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "We go ice skating in winter.",
+   "sentence_zh": "我們冬天去溜冰。",
+   "emoji": "⛸️",
+   "distractors": [
+    "roller skating",
+    "swimming",
+    "fishing"
+   ]
+  },
+  {
+   "id": "spo-011",
+   "word": "kick",
+   "zh": "踢",
+   "topic": "sports",
+   "pos": "n+v",
+   "sentence": "Kick the ball to me!",
+   "sentence_zh": "把球踢給我！",
+   "emoji": "⚽",
+   "distractors": [
+    "catch",
+    "hop",
+    "carry"
+   ]
+  },
+  {
+   "id": "spo-012",
+   "word": "net",
+   "zh": "網子",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "The ball is in the net!",
+   "sentence_zh": "球進網了！",
+   "emoji": "🕸️",
+   "distractors": [
+    "goal",
+    "cage",
+    "map"
+   ]
+  },
+  {
+   "id": "spo-013",
+   "word": "player",
+   "zh": "球員；選手",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "He is the best player in our team.",
+   "sentence_zh": "他是我們隊上最棒的球員。",
+   "emoji": "🏃",
+   "distractors": [
+    "driver",
+    "farmer",
+    "clown"
+   ]
+  },
+  {
+   "id": "spo-014",
+   "word": "ride",
+   "zh": "騎",
+   "topic": "sports",
+   "pos": "n+v",
+   "sentence": "I ride my bike to school.",
+   "sentence_zh": "我騎腳踏車上學。",
+   "emoji": "🚴",
+   "distractors": [
+    "drive",
+    "walk",
+    "climb"
+   ]
+  },
+  {
+   "id": "spo-015",
+   "word": "roller skates",
+   "zh": "直排輪鞋",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "Her roller skates are pink.",
+   "sentence_zh": "她的直排輪鞋是粉紅色的。",
+   "emoji": "",
+   "distractors": [
+    "ice skates",
+    "helmet",
+    "ticket"
+   ]
+  },
+  {
+   "id": "spo-016",
+   "word": "roller skating",
+   "zh": "溜直排輪",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "Roller skating is fun!",
+   "sentence_zh": "溜直排輪好好玩！",
+   "emoji": "",
+   "distractors": [
+    "ice skating",
+    "swimming",
+    "fishing"
+   ]
+  },
+  {
+   "id": "spo-017",
+   "word": "sail",
+   "zh": "航行；開船",
+   "topic": "sports",
+   "pos": "n+v",
+   "sentence": "We sailed the boat on the lake.",
+   "sentence_zh": "我們在湖上開船。",
+   "emoji": "⛵",
+   "distractors": [
+    "swim",
+    "fish",
+    "ride"
+   ]
+  },
+  {
+   "id": "spo-018",
+   "word": "score",
+   "zh": "得分",
+   "topic": "sports",
+   "pos": "v",
+   "sentence": "He scored two goals!",
+   "sentence_zh": "他踢進了兩球！",
+   "emoji": "🎯",
+   "distractors": [
+    "kick",
+    "catch",
+    "lose"
+   ]
+  },
+  {
+   "id": "spo-019",
+   "word": "skate",
+   "zh": "溜冰",
+   "topic": "sports",
+   "pos": "n+v",
+   "sentence": "I can skate very quickly.",
+   "sentence_zh": "我溜冰溜得很快。",
+   "emoji": "⛸️",
+   "distractors": [
+    "swim",
+    "climb",
+    "dance"
+   ]
+  },
+  {
+   "id": "spo-020",
+   "word": "skip",
+   "zh": "跳繩；蹦跳",
+   "topic": "sports",
+   "pos": "v",
+   "sentence": "The girls are skipping in the playground.",
+   "sentence_zh": "女孩們在操場跳繩。",
+   "emoji": "",
+   "distractors": [
+    "hop",
+    "dance",
+    "climb"
+   ]
+  },
+  {
+   "id": "spo-021",
+   "word": "swim",
+   "zh": "游泳",
+   "topic": "sports",
+   "pos": "n+v",
+   "sentence": "Fish swim in the river.",
+   "sentence_zh": "魚在河裡游泳。",
+   "emoji": "🏊",
+   "distractors": [
+    "sail",
+    "skate",
+    "walk"
+   ]
+  },
+  {
+   "id": "spo-022",
+   "word": "swimming pool",
+   "zh": "游泳池",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "The hotel has a big swimming pool.",
+   "sentence_zh": "飯店有一個大游泳池。",
+   "emoji": "🏊",
+   "distractors": [
+    "sports centre",
+    "lake",
+    "shower"
+   ]
+  },
+  {
+   "id": "spo-023",
+   "word": "swimsuit",
+   "zh": "泳衣",
+   "topic": "sports",
+   "pos": "n",
+   "sentence": "Put on your swimsuit. Let's swim!",
+   "sentence_zh": "穿上泳衣，我們去游泳！",
+   "emoji": "🩱",
+   "distractors": [
+    "sweater",
+    "coat",
+    "scarf"
+   ]
+  },
+  {
+   "id": "spo-024",
+   "word": "walk",
+   "zh": "走路；散步",
+   "topic": "sports",
+   "pos": "n+v",
+   "sentence": "We walk to school every day.",
+   "sentence_zh": "我們每天走路上學。",
+   "emoji": "🚶",
+   "distractors": [
+    "ride",
+    "hop",
+    "climb"
+   ]
+  },
+  {
+   "id": "hom-001",
+   "word": "address",
+   "zh": "地址",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "What's your address?",
+   "sentence_zh": "你家的地址是什麼？",
+   "emoji": "🏠",
+   "distractors": [
+    "road",
+    "town",
+    "place"
+   ]
+  },
+  {
+   "id": "hom-002",
+   "word": "asleep",
+   "zh": "睡著的",
+   "topic": "home_family",
+   "pos": "adj",
+   "sentence": "The kitten is asleep on the bed.",
+   "sentence_zh": "小貓在床上睡著了。",
+   "emoji": "💤",
+   "distractors": [
+    "awake",
+    "tired",
+    "quiet"
+   ]
+  },
+  {
+   "id": "hom-003",
+   "word": "aunt",
+   "zh": "阿姨；姑姑",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "My aunt is my mum's sister.",
+   "sentence_zh": "阿姨是媽媽的姊妹。",
+   "emoji": "👩",
+   "distractors": [
+    "uncle",
+    "parent",
+    "daughter"
+   ]
+  },
+  {
+   "id": "hom-004",
+   "word": "awake",
+   "zh": "醒著的",
+   "topic": "home_family",
+   "pos": "adj",
+   "sentence": "The baby is awake and crying.",
+   "sentence_zh": "寶寶醒了，正在哭。",
+   "emoji": "👀",
+   "distractors": [
+    "asleep",
+    "tired",
+    "ill"
+   ]
+  },
+  {
+   "id": "hom-005",
+   "word": "balcony",
+   "zh": "陽台",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "You can see the sea from the balcony.",
+   "sentence_zh": "從陽台可以看到海。",
+   "emoji": "",
+   "distractors": [
+    "basement",
+    "roof",
+    "floor"
+   ]
+  },
+  {
+   "id": "hom-006",
+   "word": "basement",
+   "zh": "地下室",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "The toy boxes are in the basement.",
+   "sentence_zh": "玩具箱在地下室。",
+   "emoji": "",
+   "distractors": [
+    "balcony",
+    "roof",
+    "stairs"
+   ]
+  },
+  {
+   "id": "hom-007",
+   "word": "blanket",
+   "zh": "毯子",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "This blanket keeps me warm.",
+   "sentence_zh": "這條毯子讓我很溫暖。",
+   "emoji": "🛏️",
+   "distractors": [
+    "towel",
+    "coat",
+    "scarf"
+   ]
+  },
+  {
+   "id": "hom-008",
+   "word": "coat",
+   "zh": "外套",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Put on your coat. It's cold.",
+   "sentence_zh": "穿上外套，天氣很冷。",
+   "emoji": "🧥",
+   "distractors": [
+    "sweater",
+    "scarf",
+    "swimsuit"
+   ]
+  },
+  {
+   "id": "hom-009",
+   "word": "daughter",
+   "zh": "女兒",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Mrs Lin has a son and a daughter.",
+   "sentence_zh": "林太太有一個兒子和一個女兒。",
+   "emoji": "👧",
+   "distractors": [
+    "son",
+    "aunt",
+    "granddaughter"
+   ]
+  },
+  {
+   "id": "hom-010",
+   "word": "downstairs",
+   "zh": "樓下",
+   "topic": "home_family",
+   "pos": "adv+n",
+   "sentence": "The kitchen is downstairs.",
+   "sentence_zh": "廚房在樓下。",
+   "emoji": "⬇️",
+   "distractors": [
+    "upstairs",
+    "outside",
+    "inside"
+   ]
+  },
+  {
+   "id": "hom-011",
+   "word": "dream",
+   "zh": "夢；作夢",
+   "topic": "home_family",
+   "pos": "n+v",
+   "sentence": "I had a funny dream last night.",
+   "sentence_zh": "我昨晚做了一個好笑的夢。",
+   "emoji": "💭",
+   "distractors": [
+    "idea",
+    "message",
+    "mistake"
+   ]
+  },
+  {
+   "id": "hom-012",
+   "word": "floor",
+   "zh": "樓層；地板",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Our hotel room is on the third floor.",
+   "sentence_zh": "我們的飯店房間在三樓。",
+   "emoji": "",
+   "distractors": [
+    "roof",
+    "stairs",
+    "balcony"
+   ]
+  },
+  {
+   "id": "hom-013",
+   "word": "get dressed",
+   "zh": "穿衣服",
+   "topic": "home_family",
+   "pos": "v",
+   "sentence": "Get dressed! We must go to school.",
+   "sentence_zh": "快穿衣服！我們要去上學了。",
+   "emoji": "👕",
+   "distractors": [
+    "get up",
+    "get undressed",
+    "wake up"
+   ]
+  },
+  {
+   "id": "hom-014",
+   "word": "get undressed",
+   "zh": "脫衣服",
+   "topic": "home_family",
+   "pos": "v",
+   "sentence": "Get undressed and have a shower.",
+   "sentence_zh": "脫掉衣服去洗澡。",
+   "emoji": "",
+   "distractors": [
+    "get dressed",
+    "get up",
+    "put on"
+   ]
+  },
+  {
+   "id": "hom-015",
+   "word": "get up",
+   "zh": "起床",
+   "topic": "home_family",
+   "pos": "v",
+   "sentence": "I get up at seven o'clock.",
+   "sentence_zh": "我七點鐘起床。",
+   "emoji": "🌅",
+   "distractors": [
+    "get dressed",
+    "wake up",
+    "get on"
+   ]
+  },
+  {
+   "id": "hom-016",
+   "word": "granddaughter",
+   "zh": "孫女",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Grandma loves her granddaughter.",
+   "sentence_zh": "奶奶很愛她的孫女。",
+   "emoji": "👧",
+   "distractors": [
+    "grandson",
+    "daughter",
+    "aunt"
+   ]
+  },
+  {
+   "id": "hom-017",
+   "word": "grandparent",
+   "zh": "祖父母",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "My grandparents live in the countryside.",
+   "sentence_zh": "我的祖父母住在鄉下。",
+   "emoji": "👴",
+   "distractors": [
+    "parent",
+    "uncle",
+    "grown-up"
+   ]
+  },
+  {
+   "id": "hom-018",
+   "word": "grandson",
+   "zh": "孫子",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Their grandson is nine years old.",
+   "sentence_zh": "他們的孫子九歲。",
+   "emoji": "👦",
+   "distractors": [
+    "granddaughter",
+    "son",
+    "uncle"
+   ]
+  },
+  {
+   "id": "hom-019",
+   "word": "grown-up",
+   "zh": "大人",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Ask a grown-up to help you.",
+   "sentence_zh": "請大人幫忙你。",
+   "emoji": "🧑",
+   "distractors": [
+    "parent",
+    "driver",
+    "clown"
+   ]
+  },
+  {
+   "id": "hom-020",
+   "word": "pair",
+   "zh": "一雙；一副",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "I bought a new pair of shoes.",
+   "sentence_zh": "我買了一雙新鞋。",
+   "emoji": "👟",
+   "distractors": [
+    "glass",
+    "bottle",
+    "cup"
+   ]
+  },
+  {
+   "id": "hom-021",
+   "word": "parent",
+   "zh": "父母",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "My parents work in the city.",
+   "sentence_zh": "我的父母在城市工作。",
+   "emoji": "👪",
+   "distractors": [
+    "grandparent",
+    "aunt",
+    "grown-up"
+   ]
+  },
+  {
+   "id": "hom-022",
+   "word": "put on",
+   "zh": "穿上",
+   "topic": "home_family",
+   "pos": "v",
+   "sentence": "Put on your helmet.",
+   "sentence_zh": "戴上你的安全帽。",
+   "emoji": "",
+   "distractors": [
+    "take off",
+    "get up",
+    "carry"
+   ]
+  },
+  {
+   "id": "hom-023",
+   "word": "roof",
+   "zh": "屋頂",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "The cat is sitting on the roof.",
+   "sentence_zh": "貓坐在屋頂上。",
+   "emoji": "🏠",
+   "distractors": [
+    "floor",
+    "balcony",
+    "basement"
+   ]
+  },
+  {
+   "id": "hom-024",
+   "word": "scarf",
+   "zh": "圍巾",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Wear a scarf in winter.",
+   "sentence_zh": "冬天要圍圍巾。",
+   "emoji": "🧣",
+   "distractors": [
+    "coat",
+    "sweater",
+    "blanket"
+   ]
+  },
+  {
+   "id": "hom-025",
+   "word": "seat",
+   "zh": "座位",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "This seat is next to the window.",
+   "sentence_zh": "這個座位在窗戶旁邊。",
+   "emoji": "💺",
+   "distractors": [
+    "place",
+    "stairs",
+    "floor"
+   ]
+  },
+  {
+   "id": "hom-026",
+   "word": "shower",
+   "zh": "淋浴",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "I take a shower every evening.",
+   "sentence_zh": "我每天晚上洗澡。",
+   "emoji": "🚿",
+   "distractors": [
+    "wash",
+    "towel",
+    "pool"
+   ]
+  },
+  {
+   "id": "hom-027",
+   "word": "son",
+   "zh": "兒子",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Their son plays football well.",
+   "sentence_zh": "他們的兒子足球踢得很好。",
+   "emoji": "👦",
+   "distractors": [
+    "daughter",
+    "grandson",
+    "uncle"
+   ]
+  },
+  {
+   "id": "hom-028",
+   "word": "stairs",
+   "zh": "樓梯",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Go up the stairs to the second floor.",
+   "sentence_zh": "走樓梯上二樓。",
+   "emoji": "",
+   "distractors": [
+    "floor",
+    "lift",
+    "balcony"
+   ]
+  },
+  {
+   "id": "hom-029",
+   "word": "sweater",
+   "zh": "毛衣",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "This blue sweater is warm.",
+   "sentence_zh": "這件藍色毛衣很保暖。",
+   "emoji": "",
+   "distractors": [
+    "coat",
+    "scarf",
+    "swimsuit"
+   ]
+  },
+  {
+   "id": "hom-030",
+   "word": "take off",
+   "zh": "脫掉",
+   "topic": "home_family",
+   "pos": "v",
+   "sentence": "Take off your wet coat.",
+   "sentence_zh": "脫掉你濕濕的外套。",
+   "emoji": "",
+   "distractors": [
+    "put on",
+    "get dressed",
+    "drop"
+   ]
+  },
+  {
+   "id": "hom-031",
+   "word": "towel",
+   "zh": "毛巾",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Dry your hair with a towel.",
+   "sentence_zh": "用毛巾把頭髮擦乾。",
+   "emoji": "",
+   "distractors": [
+    "blanket",
+    "toothbrush",
+    "scarf"
+   ]
+  },
+  {
+   "id": "hom-032",
+   "word": "uncle",
+   "zh": "叔叔；舅舅",
+   "topic": "home_family",
+   "pos": "n",
+   "sentence": "Uncle Charlie has a hotel.",
+   "sentence_zh": "查理叔叔有一間飯店。",
+   "emoji": "👨",
+   "distractors": [
+    "aunt",
+    "parent",
+    "grandson"
+   ]
+  },
+  {
+   "id": "hom-033",
+   "word": "upstairs",
+   "zh": "樓上",
+   "topic": "home_family",
+   "pos": "adv+n",
+   "sentence": "My bedroom is upstairs.",
+   "sentence_zh": "我的房間在樓上。",
+   "emoji": "⬆️",
+   "distractors": [
+    "downstairs",
+    "inside",
+    "outside"
+   ]
+  },
+  {
+   "id": "hom-034",
+   "word": "wake up",
+   "zh": "醒來",
+   "topic": "home_family",
+   "pos": "v",
+   "sentence": "Wake up! It's eight o'clock!",
+   "sentence_zh": "快醒醒！八點了！",
+   "emoji": "⏰",
+   "distractors": [
+    "get up",
+    "get dressed",
+    "take off"
+   ]
+  },
+  {
+   "id": "hom-035",
+   "word": "wash",
+   "zh": "洗",
+   "topic": "home_family",
+   "pos": "n+v",
+   "sentence": "Wash your hands before dinner.",
+   "sentence_zh": "吃晚餐前要洗手。",
+   "emoji": "🧼",
+   "distractors": [
+    "dry",
+    "feed",
+    "carry"
+   ]
+  },
+  {
+   "id": "wea-001",
+   "word": "cloud",
+   "zh": "雲",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "Look at that big white cloud.",
+   "sentence_zh": "你看那朵大大的白雲。",
+   "emoji": "☁️",
+   "distractors": [
+    "rain",
+    "wind",
+    "sky"
+   ]
+  },
+  {
+   "id": "wea-002",
+   "word": "cloudy",
+   "zh": "多雲的",
+   "topic": "weather_world",
+   "pos": "adj",
+   "sentence": "It's cloudy today.",
+   "sentence_zh": "今天是多雲的天氣。",
+   "emoji": "🌥️",
+   "distractors": [
+    "sunny",
+    "windy",
+    "wet"
+   ]
+  },
+  {
+   "id": "wea-003",
+   "word": "country",
+   "zh": "國家；鄉間",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "Which country do you want to visit?",
+   "sentence_zh": "你想去哪個國家？",
+   "emoji": "",
+   "distractors": [
+    "city",
+    "world",
+    "town"
+   ]
+  },
+  {
+   "id": "wea-004",
+   "word": "countryside",
+   "zh": "鄉下",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "Grandpa lives in the countryside.",
+   "sentence_zh": "爺爺住在鄉下。",
+   "emoji": "🌄",
+   "distractors": [
+    "city",
+    "jungle",
+    "town"
+   ]
+  },
+  {
+   "id": "wea-005",
+   "word": "dry",
+   "zh": "乾的；弄乾",
+   "topic": "weather_world",
+   "pos": "adj+v",
+   "sentence": "The towel is dry now.",
+   "sentence_zh": "毛巾現在乾了。",
+   "emoji": "",
+   "distractors": [
+    "wet",
+    "hot",
+    "cold"
+   ]
+  },
+  {
+   "id": "wea-006",
+   "word": "field",
+   "zh": "田野",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The tractor is in the field.",
+   "sentence_zh": "牽引機在田裡。",
+   "emoji": "🌾",
+   "distractors": [
+    "forest",
+    "grass",
+    "farm"
+   ]
+  },
+  {
+   "id": "wea-007",
+   "word": "forest",
+   "zh": "森林",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "Many trees grow in a forest.",
+   "sentence_zh": "森林裡長著很多樹。",
+   "emoji": "🌲",
+   "distractors": [
+    "jungle",
+    "field",
+    "mountain"
+   ]
+  },
+  {
+   "id": "wea-008",
+   "word": "grass",
+   "zh": "草",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The rabbit is eating grass.",
+   "sentence_zh": "兔子在吃草。",
+   "emoji": "🌱",
+   "distractors": [
+    "leaf",
+    "plant",
+    "ground"
+   ]
+  },
+  {
+   "id": "wea-009",
+   "word": "ground",
+   "zh": "地面",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The leaves fall to the ground.",
+   "sentence_zh": "葉子掉到地上。",
+   "emoji": "",
+   "distractors": [
+    "floor",
+    "grass",
+    "sky"
+   ]
+  },
+  {
+   "id": "wea-010",
+   "word": "grow",
+   "zh": "生長；種植",
+   "topic": "weather_world",
+   "pos": "v",
+   "sentence": "Plants need water to grow.",
+   "sentence_zh": "植物需要水才能生長。",
+   "emoji": "🌱",
+   "distractors": [
+    "plant",
+    "move",
+    "change"
+   ]
+  },
+  {
+   "id": "wea-011",
+   "word": "hot",
+   "zh": "熱的",
+   "topic": "weather_world",
+   "pos": "adj",
+   "sentence": "It's very hot today.",
+   "sentence_zh": "今天非常熱。",
+   "emoji": "🥵",
+   "distractors": [
+    "cold",
+    "wet",
+    "windy"
+   ]
+  },
+  {
+   "id": "wea-012",
+   "word": "island",
+   "zh": "島",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "There is treasure on the island.",
+   "sentence_zh": "島上有寶藏。",
+   "emoji": "🏝️",
+   "distractors": [
+    "lake",
+    "mountain",
+    "river"
+   ]
+  },
+  {
+   "id": "wea-013",
+   "word": "jungle",
+   "zh": "叢林",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "Parrots live in the jungle.",
+   "sentence_zh": "鸚鵡住在叢林裡。",
+   "emoji": "🌴",
+   "distractors": [
+    "forest",
+    "island",
+    "field"
+   ]
+  },
+  {
+   "id": "wea-014",
+   "word": "lake",
+   "zh": "湖",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "We sailed on the lake.",
+   "sentence_zh": "我們在湖上開船。",
+   "emoji": "🏞️",
+   "distractors": [
+    "river",
+    "waterfall",
+    "island"
+   ]
+  },
+  {
+   "id": "wea-015",
+   "word": "leaf / leaves",
+   "zh": "葉子",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The leaves are green in spring.",
+   "sentence_zh": "春天的葉子是綠色的。",
+   "emoji": "🍃",
+   "distractors": [
+    "grass",
+    "plant",
+    "rock"
+   ]
+  },
+  {
+   "id": "wea-016",
+   "word": "moon",
+   "zh": "月亮",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The moon is round tonight.",
+   "sentence_zh": "今晚的月亮圓圓的。",
+   "emoji": "🌙",
+   "distractors": [
+    "star",
+    "sky",
+    "cloud"
+   ]
+  },
+  {
+   "id": "wea-017",
+   "word": "mountain",
+   "zh": "山",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "We climbed the mountain.",
+   "sentence_zh": "我們爬上了那座山。",
+   "emoji": "⛰️",
+   "distractors": [
+    "island",
+    "waterfall",
+    "forest"
+   ]
+  },
+  {
+   "id": "wea-018",
+   "word": "plant",
+   "zh": "植物；種植",
+   "topic": "weather_world",
+   "pos": "n+v",
+   "sentence": "Water the plants every day.",
+   "sentence_zh": "每天幫植物澆水。",
+   "emoji": "🌿",
+   "distractors": [
+    "grass",
+    "leaf",
+    "vegetable"
+   ]
+  },
+  {
+   "id": "wea-019",
+   "word": "rain",
+   "zh": "雨；下雨",
+   "topic": "weather_world",
+   "pos": "n+v",
+   "sentence": "Take an umbrella. It's raining.",
+   "sentence_zh": "帶把傘，下雨了。",
+   "emoji": "🌧️",
+   "distractors": [
+    "snow",
+    "wind",
+    "cloud"
+   ]
+  },
+  {
+   "id": "wea-020",
+   "word": "rainbow",
+   "zh": "彩虹",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "Look! A rainbow after the rain!",
+   "sentence_zh": "你看！雨後出現彩虹！",
+   "emoji": "🌈",
+   "distractors": [
+    "cloud",
+    "sky",
+    "moon"
+   ]
+  },
+  {
+   "id": "wea-021",
+   "word": "river",
+   "zh": "河",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "Fish swim in the river.",
+   "sentence_zh": "魚在河裡游。",
+   "emoji": "🏞️",
+   "distractors": [
+    "lake",
+    "waterfall",
+    "road"
+   ]
+  },
+  {
+   "id": "wea-022",
+   "word": "rock",
+   "zh": "岩石",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The snail is on a big rock.",
+   "sentence_zh": "蝸牛在一塊大岩石上。",
+   "emoji": "",
+   "distractors": [
+    "ground",
+    "mountain",
+    "leaf"
+   ]
+  },
+  {
+   "id": "wea-023",
+   "word": "sky",
+   "zh": "天空",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The sky is blue today.",
+   "sentence_zh": "今天的天空很藍。",
+   "emoji": "🌌",
+   "distractors": [
+    "cloud",
+    "moon",
+    "ground"
+   ]
+  },
+  {
+   "id": "wea-024",
+   "word": "snow",
+   "zh": "雪；下雪",
+   "topic": "weather_world",
+   "pos": "n+v",
+   "sentence": "We play in the snow in winter.",
+   "sentence_zh": "冬天我們在雪地裡玩。",
+   "emoji": "❄️",
+   "distractors": [
+    "rain",
+    "ice",
+    "wind"
+   ]
+  },
+  {
+   "id": "wea-025",
+   "word": "sunny",
+   "zh": "晴朗的",
+   "topic": "weather_world",
+   "pos": "adj",
+   "sentence": "It's sunny. Let's have a picnic!",
+   "sentence_zh": "天氣晴朗，我們去野餐吧！",
+   "emoji": "☀️",
+   "distractors": [
+    "cloudy",
+    "windy",
+    "wet"
+   ]
+  },
+  {
+   "id": "wea-026",
+   "word": "water",
+   "zh": "澆水",
+   "topic": "weather_world",
+   "pos": "v",
+   "sentence": "I water the plants every morning.",
+   "sentence_zh": "我每天早上幫植物澆水。",
+   "emoji": "💧",
+   "distractors": [
+    "grow",
+    "wash",
+    "feed"
+   ]
+  },
+  {
+   "id": "wea-027",
+   "word": "waterfall",
+   "zh": "瀑布",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The waterfall is behind the mountain.",
+   "sentence_zh": "瀑布在山的後面。",
+   "emoji": "",
+   "distractors": [
+    "river",
+    "lake",
+    "wave"
+   ]
+  },
+  {
+   "id": "wea-028",
+   "word": "wave",
+   "zh": "海浪",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The waves are big today.",
+   "sentence_zh": "今天的海浪很大。",
+   "emoji": "🌊",
+   "distractors": [
+    "wind",
+    "rain",
+    "lake"
+   ]
+  },
+  {
+   "id": "wea-029",
+   "word": "weather",
+   "zh": "天氣",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "What's the weather like today?",
+   "sentence_zh": "今天天氣如何？",
+   "emoji": "🌦️",
+   "distractors": [
+    "wind",
+    "world",
+    "sky"
+   ]
+  },
+  {
+   "id": "wea-030",
+   "word": "wet",
+   "zh": "濕的",
+   "topic": "weather_world",
+   "pos": "adj",
+   "sentence": "My coat is wet from the rain.",
+   "sentence_zh": "我的外套被雨淋濕了。",
+   "emoji": "💦",
+   "distractors": [
+    "dry",
+    "cold",
+    "windy"
+   ]
+  },
+  {
+   "id": "wea-031",
+   "word": "wind",
+   "zh": "風",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "The wind is moving the leaves.",
+   "sentence_zh": "風吹動著葉子。",
+   "emoji": "💨",
+   "distractors": [
+    "rain",
+    "snow",
+    "cloud"
+   ]
+  },
+  {
+   "id": "wea-032",
+   "word": "windy",
+   "zh": "有風的",
+   "topic": "weather_world",
+   "pos": "adj",
+   "sentence": "It's too windy for a picnic.",
+   "sentence_zh": "風太大了，不適合野餐。",
+   "emoji": "💨",
+   "distractors": [
+    "cloudy",
+    "sunny",
+    "wet"
+   ]
+  },
+  {
+   "id": "wea-033",
+   "word": "world",
+   "zh": "世界",
+   "topic": "weather_world",
+   "pos": "n",
+   "sentence": "There is a map of the world on the wall.",
+   "sentence_zh": "牆上有一張世界地圖。",
+   "emoji": "🌍",
+   "distractors": [
+    "country",
+    "city",
+    "moon"
+   ]
+  },
+  {
+   "id": "pla-001",
+   "word": "bus station",
+   "zh": "公車總站",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The bus station is near the market.",
+   "sentence_zh": "公車總站在市場附近。",
+   "emoji": "🚌",
+   "distractors": [
+    "bus stop",
+    "station",
+    "car park"
+   ]
+  },
+  {
+   "id": "pla-002",
+   "word": "bus stop",
+   "zh": "公車站牌",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Wait at the bus stop.",
+   "sentence_zh": "在公車站牌等車。",
+   "emoji": "🚏",
+   "distractors": [
+    "bus station",
+    "station",
+    "road"
+   ]
+  },
+  {
+   "id": "pla-003",
+   "word": "build",
+   "zh": "建造",
+   "topic": "places_transport",
+   "pos": "v",
+   "sentence": "They are building a new library.",
+   "sentence_zh": "他們正在蓋新的圖書館。",
+   "emoji": "🏗️",
+   "distractors": [
+    "fix",
+    "buy",
+    "grow"
+   ]
+  },
+  {
+   "id": "pla-004",
+   "word": "building",
+   "zh": "建築物",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "That tall building is a hospital.",
+   "sentence_zh": "那棟高樓是醫院。",
+   "emoji": "🏢",
+   "distractors": [
+    "station",
+    "supermarket",
+    "cinema"
+   ]
+  },
+  {
+   "id": "pla-005",
+   "word": "buy",
+   "zh": "買",
+   "topic": "places_transport",
+   "pos": "v",
+   "sentence": "I want to buy a comic book.",
+   "sentence_zh": "我想買一本漫畫書。",
+   "emoji": "🛒",
+   "distractors": [
+    "shop",
+    "carry",
+    "bring"
+   ]
+  },
+  {
+   "id": "pla-006",
+   "word": "café",
+   "zh": "咖啡廳",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "We had milkshakes at the café.",
+   "sentence_zh": "我們在咖啡廳喝奶昔。",
+   "emoji": "🍰",
+   "distractors": [
+    "cinema",
+    "market",
+    "library"
+   ]
+  },
+  {
+   "id": "pla-007",
+   "word": "car park",
+   "zh": "停車場",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Dad put the car in the car park.",
+   "sentence_zh": "爸爸把車停在停車場。",
+   "emoji": "🅿️",
+   "distractors": [
+    "bus station",
+    "market",
+    "road"
+   ]
+  },
+  {
+   "id": "pla-008",
+   "word": "centre",
+   "zh": "中心",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The shop is in the centre of town.",
+   "sentence_zh": "那家店在市中心。",
+   "emoji": "",
+   "distractors": [
+    "square",
+    "station",
+    "market"
+   ]
+  },
+  {
+   "id": "pla-009",
+   "word": "cinema",
+   "zh": "電影院",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "We watched a film at the cinema.",
+   "sentence_zh": "我們在電影院看了一部電影。",
+   "emoji": "🎬",
+   "distractors": [
+    "library",
+    "café",
+    "market"
+   ]
+  },
+  {
+   "id": "pla-010",
+   "word": "city",
+   "zh": "城市",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Taipei is a big city.",
+   "sentence_zh": "台北是一個大城市。",
+   "emoji": "🏙️",
+   "distractors": [
+    "town",
+    "village",
+    "country"
+   ]
+  },
+  {
+   "id": "pla-011",
+   "word": "drive",
+   "zh": "開車",
+   "topic": "places_transport",
+   "pos": "n+v",
+   "sentence": "My mum drives me to school.",
+   "sentence_zh": "媽媽開車送我上學。",
+   "emoji": "🚗",
+   "distractors": [
+    "ride",
+    "walk",
+    "travel"
+   ]
+  },
+  {
+   "id": "pla-012",
+   "word": "driver",
+   "zh": "司機",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The bus driver says hello.",
+   "sentence_zh": "公車司機跟我們打招呼。",
+   "emoji": "🚌",
+   "distractors": [
+    "player",
+    "farmer",
+    "nurse"
+   ]
+  },
+  {
+   "id": "pla-013",
+   "word": "farm",
+   "zh": "農場",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "There are many animals on the farm.",
+   "sentence_zh": "農場裡有很多動物。",
+   "emoji": "🐄",
+   "distractors": [
+    "field",
+    "forest",
+    "market"
+   ]
+  },
+  {
+   "id": "pla-014",
+   "word": "farmer",
+   "zh": "農夫",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The farmer feeds the animals.",
+   "sentence_zh": "農夫餵動物吃東西。",
+   "emoji": "👨‍🌾",
+   "distractors": [
+    "driver",
+    "doctor",
+    "cook"
+   ]
+  },
+  {
+   "id": "pla-015",
+   "word": "get off",
+   "zh": "下車",
+   "topic": "places_transport",
+   "pos": "v",
+   "sentence": "Get off the bus at the school.",
+   "sentence_zh": "在學校那站下公車。",
+   "emoji": "",
+   "distractors": [
+    "get on",
+    "get up",
+    "take off"
+   ]
+  },
+  {
+   "id": "pla-016",
+   "word": "get on",
+   "zh": "上車",
+   "topic": "places_transport",
+   "pos": "v",
+   "sentence": "We got on the bus at the station.",
+   "sentence_zh": "我們在車站上了公車。",
+   "emoji": "",
+   "distractors": [
+    "get off",
+    "get up",
+    "put on"
+   ]
+  },
+  {
+   "id": "pla-017",
+   "word": "go shopping",
+   "zh": "去購物",
+   "topic": "places_transport",
+   "pos": "v",
+   "sentence": "Let's go shopping at the supermarket.",
+   "sentence_zh": "我們去超市買東西吧。",
+   "emoji": "🛍️",
+   "distractors": [
+    "get on",
+    "dress up",
+    "get up"
+   ]
+  },
+  {
+   "id": "pla-018",
+   "word": "holiday",
+   "zh": "假期",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "We went to the beach for our holiday.",
+   "sentence_zh": "我們假期去了海邊。",
+   "emoji": "🏖️",
+   "distractors": [
+    "trip",
+    "weekend",
+    "party"
+   ]
+  },
+  {
+   "id": "pla-019",
+   "word": "library",
+   "zh": "圖書館",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Be quiet in the library.",
+   "sentence_zh": "在圖書館要安靜。",
+   "emoji": "📚",
+   "distractors": [
+    "cinema",
+    "hospital",
+    "supermarket"
+   ]
+  },
+  {
+   "id": "pla-020",
+   "word": "lift / elevator",
+   "zh": "電梯",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Take the lift to the fourth floor.",
+   "sentence_zh": "搭電梯到四樓。",
+   "emoji": "",
+   "distractors": [
+    "stairs",
+    "seat",
+    "shower"
+   ]
+  },
+  {
+   "id": "pla-021",
+   "word": "map",
+   "zh": "地圖",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Look at the map to find the road.",
+   "sentence_zh": "看地圖找路。",
+   "emoji": "🗺️",
+   "distractors": [
+    "ticket",
+    "address",
+    "world"
+   ]
+  },
+  {
+   "id": "pla-022",
+   "word": "market",
+   "zh": "市場",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "We buy vegetables at the market.",
+   "sentence_zh": "我們在市場買蔬菜。",
+   "emoji": "🍎",
+   "distractors": [
+    "supermarket",
+    "café",
+    "shop"
+   ]
+  },
+  {
+   "id": "pla-023",
+   "word": "place",
+   "zh": "地方",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "This is a good place for a picnic.",
+   "sentence_zh": "這是野餐的好地方。",
+   "emoji": "📍",
+   "distractors": [
+    "centre",
+    "square",
+    "address"
+   ]
+  },
+  {
+   "id": "pla-024",
+   "word": "pool",
+   "zh": "游泳池",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The pool at the hotel is huge.",
+   "sentence_zh": "飯店的游泳池超大。",
+   "emoji": "🏊",
+   "distractors": [
+    "lake",
+    "shower",
+    "river"
+   ]
+  },
+  {
+   "id": "pla-025",
+   "word": "road",
+   "zh": "路",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Don't play on the road.",
+   "sentence_zh": "不要在馬路上玩。",
+   "emoji": "🛣️",
+   "distractors": [
+    "square",
+    "ground",
+    "town"
+   ]
+  },
+  {
+   "id": "pla-026",
+   "word": "shop",
+   "zh": "商店；購物",
+   "topic": "places_transport",
+   "pos": "n+v",
+   "sentence": "The toy shop is opposite the café.",
+   "sentence_zh": "玩具店在咖啡廳對面。",
+   "emoji": "🏬",
+   "distractors": [
+    "market",
+    "café",
+    "cinema"
+   ]
+  },
+  {
+   "id": "pla-027",
+   "word": "shopping",
+   "zh": "購物",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "We did our shopping at the market.",
+   "sentence_zh": "我們在市場買完了東西。",
+   "emoji": "🛍️",
+   "distractors": [
+    "homework",
+    "practice",
+    "work"
+   ]
+  },
+  {
+   "id": "pla-028",
+   "word": "shopping centre",
+   "zh": "購物中心",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The shopping centre is always busy.",
+   "sentence_zh": "購物中心總是很熱鬧。",
+   "emoji": "🏬",
+   "distractors": [
+    "sports centre",
+    "supermarket",
+    "market"
+   ]
+  },
+  {
+   "id": "pla-029",
+   "word": "sports centre",
+   "zh": "運動中心",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "I swim at the sports centre.",
+   "sentence_zh": "我在運動中心游泳。",
+   "emoji": "🏟️",
+   "distractors": [
+    "shopping centre",
+    "swimming pool",
+    "station"
+   ]
+  },
+  {
+   "id": "pla-030",
+   "word": "station",
+   "zh": "車站",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The train is at the station.",
+   "sentence_zh": "火車在車站。",
+   "emoji": "🚉",
+   "distractors": [
+    "bus stop",
+    "market",
+    "centre"
+   ]
+  },
+  {
+   "id": "pla-031",
+   "word": "straight",
+   "zh": "直的；直直地",
+   "topic": "places_transport",
+   "pos": "adj+adv",
+   "sentence": "Go straight and then turn left.",
+   "sentence_zh": "直走然後左轉。",
+   "emoji": "➡️",
+   "distractors": [
+    "slow",
+    "round",
+    "quick"
+   ]
+  },
+  {
+   "id": "pla-032",
+   "word": "supermarket",
+   "zh": "超市",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Mum buys cheese at the supermarket.",
+   "sentence_zh": "媽媽在超市買起司。",
+   "emoji": "🏪",
+   "distractors": [
+    "market",
+    "library",
+    "café"
+   ]
+  },
+  {
+   "id": "pla-033",
+   "word": "ticket",
+   "zh": "票",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Show your ticket to the driver.",
+   "sentence_zh": "把票拿給司機看。",
+   "emoji": "🎫",
+   "distractors": [
+    "map",
+    "message",
+    "present"
+   ]
+  },
+  {
+   "id": "pla-034",
+   "word": "town",
+   "zh": "城鎮",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Our town has a funfair.",
+   "sentence_zh": "我們鎮上有遊樂園。",
+   "emoji": "🏘️",
+   "distractors": [
+    "city",
+    "village",
+    "country"
+   ]
+  },
+  {
+   "id": "pla-035",
+   "word": "town / city centre",
+   "zh": "市中心",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The library is in the town centre.",
+   "sentence_zh": "圖書館在市中心。",
+   "emoji": "",
+   "distractors": [
+    "bus station",
+    "market",
+    "village"
+   ]
+  },
+  {
+   "id": "pla-036",
+   "word": "tractor",
+   "zh": "牽引機",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "The farmer drives a green tractor.",
+   "sentence_zh": "農夫開著綠色的牽引機。",
+   "emoji": "🚜",
+   "distractors": [
+    "bus",
+    "train",
+    "boat"
+   ]
+  },
+  {
+   "id": "pla-037",
+   "word": "travel",
+   "zh": "旅行",
+   "topic": "places_transport",
+   "pos": "v",
+   "sentence": "We travelled by train last summer.",
+   "sentence_zh": "去年夏天我們搭火車旅行。",
+   "emoji": "✈️",
+   "distractors": [
+    "drive",
+    "ride",
+    "move"
+   ]
+  },
+  {
+   "id": "pla-038",
+   "word": "trip",
+   "zh": "旅程",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "Our school trip is on Friday.",
+   "sentence_zh": "我們的校外教學在星期五。",
+   "emoji": "🧳",
+   "distractors": [
+    "holiday",
+    "picnic",
+    "party"
+   ]
+  },
+  {
+   "id": "pla-039",
+   "word": "village",
+   "zh": "村莊",
+   "topic": "places_transport",
+   "pos": "n",
+   "sentence": "My grandparents live in a small village.",
+   "sentence_zh": "我的祖父母住在小村莊。",
+   "emoji": "🏡",
+   "distractors": [
+    "town",
+    "city",
+    "island"
+   ]
+  },
+  {
+   "id": "tim-001",
+   "word": "Monday",
+   "zh": "星期一",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "We have English on Monday.",
+   "sentence_zh": "我們星期一有英文課。",
+   "emoji": "📅",
+   "distractors": [
+    "Tuesday",
+    "Sunday",
+    "Friday"
+   ]
+  },
+  {
+   "id": "tim-002",
+   "word": "Tuesday",
+   "zh": "星期二",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "I go swimming on Tuesday.",
+   "sentence_zh": "我星期二去游泳。",
+   "emoji": "📅",
+   "distractors": [
+    "Monday",
+    "Wednesday",
+    "Thursday"
+   ]
+  },
+  {
+   "id": "tim-003",
+   "word": "Wednesday",
+   "zh": "星期三",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "It's Wednesday today.",
+   "sentence_zh": "今天是星期三。",
+   "emoji": "📅",
+   "distractors": [
+    "Tuesday",
+    "Thursday",
+    "Monday"
+   ]
+  },
+  {
+   "id": "tim-004",
+   "word": "Thursday",
+   "zh": "星期四",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "We watch videos on Thursday.",
+   "sentence_zh": "我們星期四看影片。",
+   "emoji": "📅",
+   "distractors": [
+    "Wednesday",
+    "Friday",
+    "Tuesday"
+   ]
+  },
+  {
+   "id": "tim-005",
+   "word": "Friday",
+   "zh": "星期五",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "The school trip is on Friday.",
+   "sentence_zh": "校外教學在星期五。",
+   "emoji": "📅",
+   "distractors": [
+    "Thursday",
+    "Saturday",
+    "Monday"
+   ]
+  },
+  {
+   "id": "tim-006",
+   "word": "Saturday",
+   "zh": "星期六",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "We go to the market on Saturday.",
+   "sentence_zh": "我們星期六去市場。",
+   "emoji": "📅",
+   "distractors": [
+    "Friday",
+    "Sunday",
+    "Wednesday"
+   ]
+  },
+  {
+   "id": "tim-007",
+   "word": "Sunday",
+   "zh": "星期日",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "I get up late on Sunday.",
+   "sentence_zh": "我星期日晚起床。",
+   "emoji": "📅",
+   "distractors": [
+    "Saturday",
+    "Monday",
+    "Friday"
+   ]
+  },
+  {
+   "id": "tim-008",
+   "word": "week",
+   "zh": "星期；週",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "There are seven days in a week.",
+   "sentence_zh": "一週有七天。",
+   "emoji": "🗓️",
+   "distractors": [
+    "weekend",
+    "day",
+    "year"
+   ]
+  },
+  {
+   "id": "tim-009",
+   "word": "weekend",
+   "zh": "週末",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "We play football at the weekend.",
+   "sentence_zh": "我們週末踢足球。",
+   "emoji": "🎉",
+   "distractors": [
+    "week",
+    "holiday",
+    "yesterday"
+   ]
+  },
+  {
+   "id": "tim-010",
+   "word": "yesterday",
+   "zh": "昨天",
+   "topic": "time_numbers",
+   "pos": "adv+n",
+   "sentence": "Yesterday I went to the cinema.",
+   "sentence_zh": "我昨天去了電影院。",
+   "emoji": "",
+   "distractors": [
+    "today",
+    "weekend",
+    "week"
+   ]
+  },
+  {
+   "id": "tim-011",
+   "word": "o'clock",
+   "zh": "點鐘",
+   "topic": "time_numbers",
+   "pos": "adv",
+   "sentence": "It's nine o'clock. Time for bed!",
+   "sentence_zh": "九點了，該睡覺了！",
+   "emoji": "🕘",
+   "distractors": [
+    "week",
+    "yesterday",
+    "weekend"
+   ]
+  },
+  {
+   "id": "tim-012",
+   "word": "always",
+   "zh": "總是",
+   "topic": "time_numbers",
+   "pos": "adv",
+   "sentence": "I always brush my teeth at night.",
+   "sentence_zh": "我晚上總是會刷牙。",
+   "emoji": "",
+   "distractors": [
+    "never",
+    "sometimes",
+    "often"
+   ]
+  },
+  {
+   "id": "tim-013",
+   "word": "never",
+   "zh": "從不",
+   "topic": "time_numbers",
+   "pos": "adv",
+   "sentence": "I never drink coffee.",
+   "sentence_zh": "我從來不喝咖啡。",
+   "emoji": "",
+   "distractors": [
+    "always",
+    "often",
+    "sometimes"
+   ]
+  },
+  {
+   "id": "tim-014",
+   "word": "often",
+   "zh": "常常",
+   "topic": "time_numbers",
+   "pos": "adv",
+   "sentence": "We often go to the library.",
+   "sentence_zh": "我們常常去圖書館。",
+   "emoji": "",
+   "distractors": [
+    "sometimes",
+    "never",
+    "always"
+   ]
+  },
+  {
+   "id": "tim-015",
+   "word": "sometimes",
+   "zh": "有時候",
+   "topic": "time_numbers",
+   "pos": "adv",
+   "sentence": "Sometimes we have noodles for dinner.",
+   "sentence_zh": "我們有時候晚餐吃麵。",
+   "emoji": "",
+   "distractors": [
+    "always",
+    "never",
+    "often"
+   ]
+  },
+  {
+   "id": "tim-016",
+   "word": "how often",
+   "zh": "多久一次",
+   "topic": "time_numbers",
+   "pos": "adv+int",
+   "sentence": "How often do you practise the piano?",
+   "sentence_zh": "你多久練一次鋼琴？",
+   "emoji": "",
+   "distractors": [
+    "how much",
+    "how",
+    "why"
+   ]
+  },
+  {
+   "id": "tim-017",
+   "word": "first",
+   "zh": "第一",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "A is the first letter.",
+   "sentence_zh": "A是第一個字母。",
+   "emoji": "🥇",
+   "distractors": [
+    "second",
+    "third",
+    "last"
+   ]
+  },
+  {
+   "id": "tim-018",
+   "word": "second",
+   "zh": "第二",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "B is the second letter.",
+   "sentence_zh": "B是第二個字母。",
+   "emoji": "🥈",
+   "distractors": [
+    "first",
+    "third",
+    "last"
+   ]
+  },
+  {
+   "id": "tim-019",
+   "word": "third",
+   "zh": "第三",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "Our classroom is on the third floor.",
+   "sentence_zh": "我們的教室在三樓。",
+   "emoji": "🥉",
+   "distractors": [
+    "second",
+    "first",
+    "fourth"
+   ]
+  },
+  {
+   "id": "tim-020",
+   "word": "last",
+   "zh": "最後的；上一個",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "Z is the last letter.",
+   "sentence_zh": "Z是最後一個字母。",
+   "emoji": "",
+   "distractors": [
+    "first",
+    "third",
+    "second"
+   ]
+  },
+  {
+   "id": "tim-021",
+   "word": "then",
+   "zh": "然後",
+   "topic": "time_numbers",
+   "pos": "adv",
+   "sentence": "Do your homework, then you can play.",
+   "sentence_zh": "先寫作業，然後才能玩。",
+   "emoji": "",
+   "distractors": [
+    "when",
+    "only",
+    "always"
+   ]
+  },
+  {
+   "id": "tim-022",
+   "word": "hundred",
+   "zh": "一百",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "There are a hundred people here!",
+   "sentence_zh": "這裡有一百個人！",
+   "emoji": "💯",
+   "distractors": [
+    "ninety",
+    "sixty",
+    "forty"
+   ]
+  },
+  {
+   "id": "tim-023",
+   "word": "twenty-one",
+   "zh": "二十一",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "My aunt is twenty-one years old.",
+   "sentence_zh": "我阿姨二十一歲。",
+   "emoji": "",
+   "distractors": [
+    "twelve",
+    "twenty",
+    "thirty-one"
+   ]
+  },
+  {
+   "id": "tim-024",
+   "word": "thirty",
+   "zh": "三十",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "There are thirty children in my class.",
+   "sentence_zh": "我們班有三十個小朋友。",
+   "emoji": "",
+   "distractors": [
+    "thirteen",
+    "forty",
+    "twenty"
+   ]
+  },
+  {
+   "id": "tim-025",
+   "word": "forty",
+   "zh": "四十",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "My dad is forty years old.",
+   "sentence_zh": "我爸爸四十歲。",
+   "emoji": "",
+   "distractors": [
+    "fourteen",
+    "thirty",
+    "fifty"
+   ]
+  },
+  {
+   "id": "tim-026",
+   "word": "fifty",
+   "zh": "五十",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "There are fifty sheep on the farm.",
+   "sentence_zh": "農場裡有五十隻羊。",
+   "emoji": "",
+   "distractors": [
+    "fifteen",
+    "forty",
+    "sixty"
+   ]
+  },
+  {
+   "id": "tim-027",
+   "word": "sixty",
+   "zh": "六十",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "Sixty and forty is a hundred.",
+   "sentence_zh": "六十加四十是一百。",
+   "emoji": "",
+   "distractors": [
+    "sixteen",
+    "seventy",
+    "thirty"
+   ]
+  },
+  {
+   "id": "tim-028",
+   "word": "seventy",
+   "zh": "七十",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "My grandma is seventy years old.",
+   "sentence_zh": "我奶奶七十歲。",
+   "emoji": "",
+   "distractors": [
+    "seventeen",
+    "sixty",
+    "eighty"
+   ]
+  },
+  {
+   "id": "tim-029",
+   "word": "eighty",
+   "zh": "八十",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "There are eighty seats in the cinema.",
+   "sentence_zh": "電影院有八十個座位。",
+   "emoji": "",
+   "distractors": [
+    "eighteen",
+    "seventy",
+    "ninety"
+   ]
+  },
+  {
+   "id": "tim-030",
+   "word": "ninety",
+   "zh": "九十",
+   "topic": "time_numbers",
+   "pos": "n",
+   "sentence": "Ninety is a big number.",
+   "sentence_zh": "九十是一個很大的數字。",
+   "emoji": "",
+   "distractors": [
+    "nineteen",
+    "eighty",
+    "hundred"
+   ]
+  },
+  {
+   "id": "tim-031",
+   "word": "fourth",
+   "zh": "第四",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "My classroom is on the fourth floor.",
+   "sentence_zh": "我的教室在四樓。",
+   "emoji": "",
+   "distractors": [
+    "fifth",
+    "first",
+    "fourteenth"
+   ]
+  },
+  {
+   "id": "tim-032",
+   "word": "fifth",
+   "zh": "第五",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "Friday is the fifth day of the week.",
+   "sentence_zh": "星期五是一週的第五天。",
+   "emoji": "",
+   "distractors": [
+    "fourth",
+    "first",
+    "fifteenth"
+   ]
+  },
+  {
+   "id": "tim-033",
+   "word": "tenth",
+   "zh": "第十",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "It's my tenth birthday today!",
+   "sentence_zh": "今天是我十歲生日！",
+   "emoji": "🎂",
+   "distractors": [
+    "twelfth",
+    "fifth",
+    "twentieth"
+   ]
+  },
+  {
+   "id": "tim-034",
+   "word": "twelfth",
+   "zh": "第十二",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "December is the twelfth month.",
+   "sentence_zh": "十二月是第十二個月。",
+   "emoji": "",
+   "distractors": [
+    "tenth",
+    "twentieth",
+    "fifth"
+   ]
+  },
+  {
+   "id": "tim-035",
+   "word": "fifteenth",
+   "zh": "第十五",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "Today is the fifteenth of May.",
+   "sentence_zh": "今天是五月十五日。",
+   "emoji": "",
+   "distractors": [
+    "fifth",
+    "twelfth",
+    "twentieth"
+   ]
+  },
+  {
+   "id": "tim-036",
+   "word": "twentieth",
+   "zh": "第二十",
+   "topic": "time_numbers",
+   "pos": "adj+adv",
+   "sentence": "My birthday is on the twentieth of July.",
+   "sentence_zh": "我的生日在七月二十日。",
+   "emoji": "",
+   "distractors": [
+    "twelfth",
+    "tenth",
+    "second"
+   ]
+  },
+  {
+   "id": "mix-001",
+   "word": "band",
+   "zh": "樂團",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "The band played at the party.",
+   "sentence_zh": "樂團在派對上表演。",
+   "emoji": "🎸",
+   "distractors": [
+    "circus",
+    "clown",
+    "film star"
+   ]
+  },
+  {
+   "id": "mix-002",
+   "word": "circus",
+   "zh": "馬戲團",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "We saw a clown at the circus.",
+   "sentence_zh": "我們在馬戲團看到小丑。",
+   "emoji": "🎪",
+   "distractors": [
+    "funfair",
+    "cinema",
+    "party"
+   ]
+  },
+  {
+   "id": "mix-003",
+   "word": "clown",
+   "zh": "小丑",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "The clown makes everyone laugh.",
+   "sentence_zh": "小丑讓大家哈哈大笑。",
+   "emoji": "🤡",
+   "distractors": [
+    "pirate",
+    "farmer",
+    "pop star"
+   ]
+  },
+  {
+   "id": "mix-004",
+   "word": "comic",
+   "zh": "漫畫",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "I read a comic on the bus.",
+   "sentence_zh": "我在公車上看漫畫。",
+   "emoji": "📖",
+   "distractors": [
+    "e-book",
+    "video",
+    "message"
+   ]
+  },
+  {
+   "id": "mix-005",
+   "word": "comic book",
+   "zh": "漫畫書",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "This comic book is about a brave pirate.",
+   "sentence_zh": "這本漫畫書是關於一個勇敢的海盜。",
+   "emoji": "📚",
+   "distractors": [
+    "e-book",
+    "DVD",
+    "model"
+   ]
+  },
+  {
+   "id": "mix-006",
+   "word": "dress up",
+   "zh": "裝扮",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Let's dress up as pirates!",
+   "sentence_zh": "我們來裝扮成海盜吧！",
+   "emoji": "🎭",
+   "distractors": [
+    "get dressed",
+    "put on",
+    "hide"
+   ]
+  },
+  {
+   "id": "mix-007",
+   "word": "film / movie",
+   "zh": "電影",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "This film is about a huge whale.",
+   "sentence_zh": "這部電影是關於一隻大鯨魚。",
+   "emoji": "🎬",
+   "distractors": [
+    "video",
+    "DVD",
+    "comic"
+   ]
+  },
+  {
+   "id": "mix-008",
+   "word": "film star",
+   "zh": "電影明星",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "She wants to be a film star.",
+   "sentence_zh": "她想當電影明星。",
+   "emoji": "🌟",
+   "distractors": [
+    "pop star",
+    "clown",
+    "player"
+   ]
+  },
+  {
+   "id": "mix-009",
+   "word": "funfair",
+   "zh": "遊樂園",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "We rode the big wheel at the funfair.",
+   "sentence_zh": "我們在遊樂園坐了摩天輪。",
+   "emoji": "🎡",
+   "distractors": [
+    "circus",
+    "cinema",
+    "market"
+   ]
+  },
+  {
+   "id": "mix-010",
+   "word": "hide",
+   "zh": "躲；藏",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "The kitten hides under the bed.",
+   "sentence_zh": "小貓躲在床底下。",
+   "emoji": "🙈",
+   "distractors": [
+    "lose",
+    "look for",
+    "drop"
+   ]
+  },
+  {
+   "id": "mix-011",
+   "word": "invite",
+   "zh": "邀請",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Let's invite Grandma to the party.",
+   "sentence_zh": "我們邀請奶奶來派對吧。",
+   "emoji": "💌",
+   "distractors": [
+    "call",
+    "send",
+    "help"
+   ]
+  },
+  {
+   "id": "mix-012",
+   "word": "laugh",
+   "zh": "笑",
+   "topic": "mixed",
+   "pos": "n+v",
+   "sentence": "The funny clown makes me laugh.",
+   "sentence_zh": "好笑的小丑讓我大笑。",
+   "emoji": "😂",
+   "distractors": [
+    "cry",
+    "shout",
+    "hide"
+   ]
+  },
+  {
+   "id": "mix-013",
+   "word": "party",
+   "zh": "派對",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "Are you coming to my birthday party?",
+   "sentence_zh": "你要來我的生日派對嗎？",
+   "emoji": "🎉",
+   "distractors": [
+    "picnic",
+    "trip",
+    "funfair"
+   ]
+  },
+  {
+   "id": "mix-014",
+   "word": "pirate",
+   "zh": "海盜",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "The pirate is looking for treasure.",
+   "sentence_zh": "海盜正在尋找寶藏。",
+   "emoji": "🏴‍☠️",
+   "distractors": [
+    "clown",
+    "farmer",
+    "driver"
+   ]
+  },
+  {
+   "id": "mix-015",
+   "word": "pop star",
+   "zh": "流行歌手",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "The pop star sang my favourite song.",
+   "sentence_zh": "那位流行歌手唱了我最愛的歌。",
+   "emoji": "🎤",
+   "distractors": [
+    "film star",
+    "clown",
+    "nurse"
+   ]
+  },
+  {
+   "id": "mix-016",
+   "word": "present",
+   "zh": "禮物",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "This present is for you!",
+   "sentence_zh": "這個禮物是給你的！",
+   "emoji": "🎁",
+   "distractors": [
+    "ticket",
+    "model",
+    "message"
+   ]
+  },
+  {
+   "id": "mix-017",
+   "word": "star",
+   "zh": "星星；明星",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "I can see many stars tonight.",
+   "sentence_zh": "今晚我看得到好多星星。",
+   "emoji": "⭐",
+   "distractors": [
+    "moon",
+    "sky",
+    "circle"
+   ]
+  },
+  {
+   "id": "mix-018",
+   "word": "treasure",
+   "zh": "寶藏",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "The treasure is under the rock.",
+   "sentence_zh": "寶藏在岩石下面。",
+   "emoji": "💰",
+   "distractors": [
+    "present",
+    "ticket",
+    "map"
+   ]
+  },
+  {
+   "id": "mix-019",
+   "word": "noise",
+   "zh": "噪音",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "Don't make a noise in the library.",
+   "sentence_zh": "在圖書館不要發出噪音。",
+   "emoji": "🔊",
+   "distractors": [
+    "message",
+    "laugh",
+    "music"
+   ]
+  },
+  {
+   "id": "mix-020",
+   "word": "age",
+   "zh": "年齡",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "We are the same age.",
+   "sentence_zh": "我們同年齡。",
+   "emoji": "🎂",
+   "distractors": [
+    "name",
+    "address",
+    "number"
+   ]
+  },
+  {
+   "id": "mix-021",
+   "word": "kind",
+   "zh": "種類",
+   "topic": "mixed",
+   "pos": "n",
+   "sentence": "What kind of ice cream do you like?",
+   "sentence_zh": "你喜歡哪一種冰淇淋？",
+   "emoji": "",
+   "distractors": [
+    "shape",
+    "place",
+    "idea"
+   ]
+  },
+  {
+   "id": "mix-022",
+   "word": "work",
+   "zh": "工作",
+   "topic": "mixed",
+   "pos": "n+v",
+   "sentence": "My aunt works at the hospital.",
+   "sentence_zh": "我阿姨在醫院工作。",
+   "emoji": "💼",
+   "distractors": [
+    "play",
+    "help",
+    "travel"
+   ]
+  },
+  {
+   "id": "mix-023",
+   "word": "afraid",
+   "zh": "害怕的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Don't be afraid of the dark.",
+   "sentence_zh": "不要怕黑。",
+   "emoji": "😨",
+   "distractors": [
+    "frightened",
+    "surprised",
+    "tired"
+   ]
+  },
+  {
+   "id": "mix-024",
+   "word": "all right",
+   "zh": "沒問題的；還好",
+   "topic": "mixed",
+   "pos": "adj+adv",
+   "sentence": "Are you all right?",
+   "sentence_zh": "你還好嗎？",
+   "emoji": "👌",
+   "distractors": [
+    "fine",
+    "well",
+    "wrong"
+   ]
+  },
+  {
+   "id": "mix-025",
+   "word": "bad",
+   "zh": "壞的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The weather is bad today.",
+   "sentence_zh": "今天天氣不好。",
+   "emoji": "👎",
+   "distractors": [
+    "terrible",
+    "wrong",
+    "worse"
+   ]
+  },
+  {
+   "id": "mix-026",
+   "word": "boring",
+   "zh": "無聊的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "This film is boring. Let's play outside.",
+   "sentence_zh": "這部電影好無聊，我們去外面玩吧。",
+   "emoji": "🥱",
+   "distractors": [
+    "exciting",
+    "difficult",
+    "easy"
+   ]
+  },
+  {
+   "id": "mix-027",
+   "word": "brave",
+   "zh": "勇敢的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The brave girl helped the kitten.",
+   "sentence_zh": "勇敢的女孩救了小貓。",
+   "emoji": "🦸",
+   "distractors": [
+    "afraid",
+    "clever",
+    "strong"
+   ]
+  },
+  {
+   "id": "mix-028",
+   "word": "brilliant",
+   "zh": "很棒的",
+   "topic": "mixed",
+   "pos": "adj+excl",
+   "sentence": "Brilliant! You got all the answers right!",
+   "sentence_zh": "太棒了！你全部答對了！",
+   "emoji": "✨",
+   "distractors": [
+    "terrible",
+    "boring",
+    "wrong"
+   ]
+  },
+  {
+   "id": "mix-029",
+   "word": "busy",
+   "zh": "忙碌的；熱鬧的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Mum is busy in the kitchen.",
+   "sentence_zh": "媽媽在廚房裡忙。",
+   "emoji": "",
+   "distractors": [
+    "quiet",
+    "tired",
+    "slow"
+   ]
+  },
+  {
+   "id": "mix-030",
+   "word": "careful",
+   "zh": "小心的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Be careful on the road!",
+   "sentence_zh": "過馬路要小心！",
+   "emoji": "⚠️",
+   "distractors": [
+    "dangerous",
+    "quick",
+    "safe"
+   ]
+  },
+  {
+   "id": "mix-031",
+   "word": "clever",
+   "zh": "聰明的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Parrots are clever birds.",
+   "sentence_zh": "鸚鵡是聰明的鳥。",
+   "emoji": "🧠",
+   "distractors": [
+    "brave",
+    "naughty",
+    "famous"
+   ]
+  },
+  {
+   "id": "mix-032",
+   "word": "dangerous",
+   "zh": "危險的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Playing on the road is dangerous.",
+   "sentence_zh": "在馬路上玩很危險。",
+   "emoji": "⚠️",
+   "distractors": [
+    "safe",
+    "careful",
+    "difficult"
+   ]
+  },
+  {
+   "id": "mix-033",
+   "word": "exciting",
+   "zh": "刺激的；令人興奮的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The football game was exciting!",
+   "sentence_zh": "那場足球賽好刺激！",
+   "emoji": "🤩",
+   "distractors": [
+    "boring",
+    "easy",
+    "terrible"
+   ]
+  },
+  {
+   "id": "mix-034",
+   "word": "fair",
+   "zh": "金色的；公平的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "My sister has fair hair.",
+   "sentence_zh": "我妹妹有一頭金髮。",
+   "emoji": "",
+   "distractors": [
+    "blonde",
+    "curly",
+    "pretty"
+   ]
+  },
+  {
+   "id": "mix-035",
+   "word": "famous",
+   "zh": "有名的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "This singer is famous in Taiwan.",
+   "sentence_zh": "這位歌手在台灣很有名。",
+   "emoji": "🌟",
+   "distractors": [
+    "clever",
+    "pretty",
+    "brave"
+   ]
+  },
+  {
+   "id": "mix-036",
+   "word": "frightened",
+   "zh": "受驚嚇的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The kitten is frightened of the dog.",
+   "sentence_zh": "小貓很怕那隻狗。",
+   "emoji": "😱",
+   "distractors": [
+    "afraid",
+    "surprised",
+    "naughty"
+   ]
+  },
+  {
+   "id": "mix-037",
+   "word": "huge",
+   "zh": "巨大的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "A whale is a huge animal.",
+   "sentence_zh": "鯨魚是巨大的動物。",
+   "emoji": "🐋",
+   "distractors": [
+    "little",
+    "tall",
+    "fat"
+   ]
+  },
+  {
+   "id": "mix-038",
+   "word": "little",
+   "zh": "小的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The little kitten is asleep.",
+   "sentence_zh": "小貓咪睡著了。",
+   "emoji": "🤏",
+   "distractors": [
+    "huge",
+    "thin",
+    "short"
+   ]
+  },
+  {
+   "id": "mix-039",
+   "word": "loud",
+   "zh": "大聲的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The music is too loud!",
+   "sentence_zh": "音樂太大聲了！",
+   "emoji": "🔊",
+   "distractors": [
+    "quiet",
+    "noisy",
+    "slow"
+   ]
+  },
+  {
+   "id": "mix-040",
+   "word": "naughty",
+   "zh": "調皮的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The naughty puppy ate my homework!",
+   "sentence_zh": "調皮的小狗吃了我的作業！",
+   "emoji": "😈",
+   "distractors": [
+    "quiet",
+    "clever",
+    "kind"
+   ]
+  },
+  {
+   "id": "mix-041",
+   "word": "pretty",
+   "zh": "漂亮的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "What a pretty dress!",
+   "sentence_zh": "好漂亮的洋裝！",
+   "emoji": "🌸",
+   "distractors": [
+    "famous",
+    "little",
+    "fair"
+   ]
+  },
+  {
+   "id": "mix-042",
+   "word": "quick",
+   "zh": "快的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Be quick! The bus is coming!",
+   "sentence_zh": "快一點！公車來了！",
+   "emoji": "⚡",
+   "distractors": [
+    "slow",
+    "quiet",
+    "straight"
+   ]
+  },
+  {
+   "id": "mix-043",
+   "word": "quiet",
+   "zh": "安靜的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Please be quiet in class.",
+   "sentence_zh": "上課請保持安靜。",
+   "emoji": "🤫",
+   "distractors": [
+    "loud",
+    "quick",
+    "busy"
+   ]
+  },
+  {
+   "id": "mix-044",
+   "word": "round",
+   "zh": "圓的",
+   "topic": "mixed",
+   "pos": "adj+prep",
+   "sentence": "The moon is round.",
+   "sentence_zh": "月亮是圓的。",
+   "emoji": "⚪",
+   "distractors": [
+    "square",
+    "straight",
+    "little"
+   ]
+  },
+  {
+   "id": "mix-045",
+   "word": "safe",
+   "zh": "安全的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "Wear a helmet to be safe.",
+   "sentence_zh": "戴安全帽才安全。",
+   "emoji": "🛡️",
+   "distractors": [
+    "dangerous",
+    "careful",
+    "strong"
+   ]
+  },
+  {
+   "id": "mix-046",
+   "word": "slow",
+   "zh": "慢的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The snail is very slow.",
+   "sentence_zh": "蝸牛非常慢。",
+   "emoji": "🐌",
+   "distractors": [
+    "quick",
+    "quiet",
+    "weak"
+   ]
+  },
+  {
+   "id": "mix-047",
+   "word": "surprised",
+   "zh": "驚訝的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "I was surprised to see the rainbow.",
+   "sentence_zh": "看到彩虹我好驚訝。",
+   "emoji": "😲",
+   "distractors": [
+    "frightened",
+    "afraid",
+    "excited"
+   ]
+  },
+  {
+   "id": "mix-048",
+   "word": "tall",
+   "zh": "高的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The giraffe is very tall.",
+   "sentence_zh": "長頸鹿非常高。",
+   "emoji": "🦒",
+   "distractors": [
+    "thin",
+    "huge",
+    "little"
+   ]
+  },
+  {
+   "id": "mix-049",
+   "word": "terrible",
+   "zh": "糟糕的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "The weather was terrible yesterday.",
+   "sentence_zh": "昨天的天氣糟透了。",
+   "emoji": "😖",
+   "distractors": [
+    "brilliant",
+    "bad",
+    "boring"
+   ]
+  },
+  {
+   "id": "mix-050",
+   "word": "wrong",
+   "zh": "錯的",
+   "topic": "mixed",
+   "pos": "adj",
+   "sentence": "That answer is wrong. Try again!",
+   "sentence_zh": "那個答案是錯的，再試一次！",
+   "emoji": "❌",
+   "distractors": [
+    "bad",
+    "different",
+    "terrible"
+   ]
+  },
+  {
+   "id": "mix-051",
+   "word": "best",
+   "zh": "最好的",
+   "topic": "mixed",
+   "pos": "adj+adv",
+   "sentence": "You are my best friend.",
+   "sentence_zh": "你是我最好的朋友。",
+   "emoji": "🏆",
+   "distractors": [
+    "better",
+    "worst",
+    "first"
+   ]
+  },
+  {
+   "id": "mix-052",
+   "word": "top",
+   "zh": "頂端",
+   "topic": "mixed",
+   "pos": "n+adj",
+   "sentence": "We climbed to the top of the mountain.",
+   "sentence_zh": "我們爬到了山頂。",
+   "emoji": "🔝",
+   "distractors": [
+    "bottom",
+    "floor",
+    "roof"
+   ]
+  },
+  {
+   "id": "mix-053",
+   "word": "bottom",
+   "zh": "底部",
+   "topic": "mixed",
+   "pos": "n+adj",
+   "sentence": "The treasure is at the bottom of the sea.",
+   "sentence_zh": "寶藏在海底。",
+   "emoji": "",
+   "distractors": [
+    "top",
+    "ground",
+    "floor"
+   ]
+  },
+  {
+   "id": "mix-054",
+   "word": "badly",
+   "zh": "糟糕地",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "He sings badly, but he loves singing.",
+   "sentence_zh": "他唱得不好，但他愛唱歌。",
+   "emoji": "",
+   "distractors": [
+    "well",
+    "slowly",
+    "loudly"
+   ]
+  },
+  {
+   "id": "mix-055",
+   "word": "carefully",
+   "zh": "小心地",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "Carry the glass carefully.",
+   "sentence_zh": "小心地拿玻璃杯。",
+   "emoji": "",
+   "distractors": [
+    "quickly",
+    "quietly",
+    "slowly"
+   ]
+  },
+  {
+   "id": "mix-056",
+   "word": "loudly",
+   "zh": "大聲地",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "Don't shout so loudly!",
+   "sentence_zh": "不要那麼大聲喊叫！",
+   "emoji": "📢",
+   "distractors": [
+    "quietly",
+    "quickly",
+    "badly"
+   ]
+  },
+  {
+   "id": "mix-057",
+   "word": "quickly",
+   "zh": "快速地",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "The rabbit runs quickly.",
+   "sentence_zh": "兔子跑得很快。",
+   "emoji": "💨",
+   "distractors": [
+    "slowly",
+    "quietly",
+    "carefully"
+   ]
+  },
+  {
+   "id": "mix-058",
+   "word": "quietly",
+   "zh": "安靜地",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "Please close the door quietly.",
+   "sentence_zh": "請輕輕地關門。",
+   "emoji": "",
+   "distractors": [
+    "loudly",
+    "quickly",
+    "badly"
+   ]
+  },
+  {
+   "id": "mix-059",
+   "word": "slowly",
+   "zh": "緩慢地",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "The snail moves slowly.",
+   "sentence_zh": "蝸牛慢慢地移動。",
+   "emoji": "🐌",
+   "distractors": [
+    "quickly",
+    "carefully",
+    "quietly"
+   ]
+  },
+  {
+   "id": "mix-060",
+   "word": "only",
+   "zh": "只有",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "I have only one ticket.",
+   "sentence_zh": "我只有一張票。",
+   "emoji": "",
+   "distractors": [
+    "all",
+    "both",
+    "every"
+   ]
+  },
+  {
+   "id": "mix-061",
+   "word": "be called",
+   "zh": "叫做",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "My puppy is called Lucky.",
+   "sentence_zh": "我的小狗叫做Lucky。",
+   "emoji": "🏷️",
+   "distractors": [
+    "call",
+    "mean",
+    "need"
+   ]
+  },
+  {
+   "id": "mix-062",
+   "word": "bring",
+   "zh": "帶來",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Bring your swimsuit tomorrow.",
+   "sentence_zh": "明天帶你的泳衣來。",
+   "emoji": "",
+   "distractors": [
+    "take",
+    "carry",
+    "buy"
+   ]
+  },
+  {
+   "id": "mix-063",
+   "word": "call",
+   "zh": "打電話；呼叫",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Call me after dinner.",
+   "sentence_zh": "晚餐後打電話給我。",
+   "emoji": "📞",
+   "distractors": [
+    "text",
+    "send",
+    "shout"
+   ]
+  },
+  {
+   "id": "mix-064",
+   "word": "carry",
+   "zh": "提；搬",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Can you carry this box?",
+   "sentence_zh": "你可以搬這個箱子嗎？",
+   "emoji": "📦",
+   "distractors": [
+    "bring",
+    "take",
+    "drop"
+   ]
+  },
+  {
+   "id": "mix-065",
+   "word": "change",
+   "zh": "改變；換",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Change your wet clothes.",
+   "sentence_zh": "換掉你濕濕的衣服。",
+   "emoji": "🔄",
+   "distractors": [
+    "move",
+    "fix",
+    "take off"
+   ]
+  },
+  {
+   "id": "mix-066",
+   "word": "cry",
+   "zh": "哭",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "The baby is crying. He is hungry.",
+   "sentence_zh": "寶寶在哭，他餓了。",
+   "emoji": "😢",
+   "distractors": [
+    "laugh",
+    "shout",
+    "hurt"
+   ]
+  },
+  {
+   "id": "mix-067",
+   "word": "drop",
+   "zh": "掉落；弄掉",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Don't drop the plate!",
+   "sentence_zh": "不要把盤子摔了！",
+   "emoji": "",
+   "distractors": [
+    "fall",
+    "carry",
+    "lose"
+   ]
+  },
+  {
+   "id": "mix-068",
+   "word": "fall",
+   "zh": "跌倒；落下",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Be careful! Don't fall!",
+   "sentence_zh": "小心！不要跌倒！",
+   "emoji": "",
+   "distractors": [
+    "drop",
+    "hurt",
+    "hop"
+   ]
+  },
+  {
+   "id": "mix-069",
+   "word": "fix",
+   "zh": "修理",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Dad can fix my bike.",
+   "sentence_zh": "爸爸會修我的腳踏車。",
+   "emoji": "🔧",
+   "distractors": [
+    "build",
+    "change",
+    "help"
+   ]
+  },
+  {
+   "id": "mix-070",
+   "word": "help",
+   "zh": "幫助",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Can you help me with my homework?",
+   "sentence_zh": "你可以幫我寫作業嗎？",
+   "emoji": "🤝",
+   "distractors": [
+    "teach",
+    "need",
+    "call"
+   ]
+  },
+  {
+   "id": "mix-071",
+   "word": "look for",
+   "zh": "尋找",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "I'm looking for my other shoe.",
+   "sentence_zh": "我在找我的另一隻鞋。",
+   "emoji": "🔍",
+   "distractors": [
+    "hide",
+    "lose",
+    "find"
+   ]
+  },
+  {
+   "id": "mix-072",
+   "word": "lose",
+   "zh": "弄丟；輸",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Don't lose your ticket!",
+   "sentence_zh": "不要弄丟你的票！",
+   "emoji": "",
+   "distractors": [
+    "drop",
+    "look for",
+    "hide"
+   ]
+  },
+  {
+   "id": "mix-073",
+   "word": "move",
+   "zh": "移動",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Help me move this table.",
+   "sentence_zh": "幫我搬這張桌子。",
+   "emoji": "➡️",
+   "distractors": [
+    "carry",
+    "change",
+    "take"
+   ]
+  },
+  {
+   "id": "mix-074",
+   "word": "need",
+   "zh": "需要",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Plants need water and sun.",
+   "sentence_zh": "植物需要水和陽光。",
+   "emoji": "",
+   "distractors": [
+    "want",
+    "help",
+    "think"
+   ]
+  },
+  {
+   "id": "mix-075",
+   "word": "send",
+   "zh": "寄送；傳送",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Send a message to your aunt.",
+   "sentence_zh": "傳訊息給你阿姨。",
+   "emoji": "📤",
+   "distractors": [
+    "bring",
+    "call",
+    "text"
+   ]
+  },
+  {
+   "id": "mix-076",
+   "word": "shout",
+   "zh": "大喊",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Don't shout in the library!",
+   "sentence_zh": "在圖書館不要大喊！",
+   "emoji": "📢",
+   "distractors": [
+    "cry",
+    "laugh",
+    "call"
+   ]
+  },
+  {
+   "id": "mix-077",
+   "word": "take",
+   "zh": "拿；帶走",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Take an umbrella with you.",
+   "sentence_zh": "帶把傘出門。",
+   "emoji": "",
+   "distractors": [
+    "bring",
+    "carry",
+    "buy"
+   ]
+  },
+  {
+   "id": "mix-078",
+   "word": "wait",
+   "zh": "等待",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Wait for me at the bus stop.",
+   "sentence_zh": "在公車站牌等我。",
+   "emoji": "⏳",
+   "distractors": [
+    "stay",
+    "stop",
+    "walk"
+   ]
+  },
+  {
+   "id": "mix-079",
+   "word": "could",
+   "zh": "能夠（過去式）",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "I could swim when I was five.",
+   "sentence_zh": "我五歲時就會游泳了。",
+   "emoji": "",
+   "distractors": [
+    "must",
+    "would",
+    "shall"
+   ]
+  },
+  {
+   "id": "mix-080",
+   "word": "must",
+   "zh": "必須",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "You must wear a helmet.",
+   "sentence_zh": "你必須戴安全帽。",
+   "emoji": "❗",
+   "distractors": [
+    "could",
+    "shall",
+    "would"
+   ]
+  },
+  {
+   "id": "mix-081",
+   "word": "shall",
+   "zh": "要不要（提議）",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Shall we go swimming?",
+   "sentence_zh": "我們要不要去游泳？",
+   "emoji": "",
+   "distractors": [
+    "must",
+    "could",
+    "would"
+   ]
+  },
+  {
+   "id": "mix-082",
+   "word": "would",
+   "zh": "想要（客氣說法）",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "Would you like some tea?",
+   "sentence_zh": "你想喝點茶嗎？",
+   "emoji": "",
+   "distractors": [
+    "shall",
+    "could",
+    "must"
+   ]
+  },
+  {
+   "id": "mix-083",
+   "word": "have to",
+   "zh": "必須",
+   "topic": "mixed",
+   "pos": "v",
+   "sentence": "I have to do my homework first.",
+   "sentence_zh": "我必須先寫作業。",
+   "emoji": "",
+   "distractors": [
+    "want to",
+    "need",
+    "must"
+   ]
+  },
+  {
+   "id": "mix-084",
+   "word": "come on!",
+   "zh": "快點！加油！",
+   "topic": "mixed",
+   "pos": "excl",
+   "sentence": "Come on! We're going to be late!",
+   "sentence_zh": "快點！我們要遲到了！",
+   "emoji": "🏃",
+   "distractors": [
+    "excuse me",
+    "all right",
+    "brilliant!"
+   ]
+  },
+  {
+   "id": "mix-085",
+   "word": "excuse me",
+   "zh": "不好意思",
+   "topic": "mixed",
+   "pos": "dis",
+   "sentence": "Excuse me, where is the station?",
+   "sentence_zh": "不好意思，請問車站在哪裡？",
+   "emoji": "🙋",
+   "distractors": [
+    "come on!",
+    "thank you",
+    "all right"
+   ]
+  },
+  {
+   "id": "mix-086",
+   "word": "above",
+   "zh": "在…上方",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "The plane is above the clouds.",
+   "sentence_zh": "飛機在雲的上方。",
+   "emoji": "⬆️",
+   "distractors": [
+    "below",
+    "near",
+    "along"
+   ]
+  },
+  {
+   "id": "mix-087",
+   "word": "after",
+   "zh": "在…之後",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "We play games after dinner.",
+   "sentence_zh": "晚餐後我們玩遊戲。",
+   "emoji": "",
+   "distractors": [
+    "before",
+    "at",
+    "by"
+   ]
+  },
+  {
+   "id": "mix-088",
+   "word": "along",
+   "zh": "沿著",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "We walked along the river.",
+   "sentence_zh": "我們沿著河邊走。",
+   "emoji": "",
+   "distractors": [
+    "around",
+    "into",
+    "above"
+   ]
+  },
+  {
+   "id": "mix-089",
+   "word": "another",
+   "zh": "另一個",
+   "topic": "mixed",
+   "pos": "det+pron",
+   "sentence": "Can I have another pancake?",
+   "sentence_zh": "我可以再吃一片鬆餅嗎？",
+   "emoji": "",
+   "distractors": [
+    "any",
+    "every",
+    "both"
+   ]
+  },
+  {
+   "id": "mix-090",
+   "word": "any",
+   "zh": "任何",
+   "topic": "mixed",
+   "pos": "det+pron",
+   "sentence": "Do you have any questions?",
+   "sentence_zh": "你有任何問題嗎？",
+   "emoji": "",
+   "distractors": [
+    "another",
+    "every",
+    "all"
+   ]
+  },
+  {
+   "id": "mix-091",
+   "word": "around",
+   "zh": "環繞；在四周",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "We walked around the lake.",
+   "sentence_zh": "我們繞著湖走了一圈。",
+   "emoji": "🔄",
+   "distractors": [
+    "along",
+    "above",
+    "into"
+   ]
+  },
+  {
+   "id": "mix-092",
+   "word": "at",
+   "zh": "在（時間）",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "School starts at eight o'clock.",
+   "sentence_zh": "學校八點開始上課。",
+   "emoji": "",
+   "distractors": [
+    "on",
+    "by",
+    "after"
+   ]
+  },
+  {
+   "id": "mix-093",
+   "word": "because",
+   "zh": "因為",
+   "topic": "mixed",
+   "pos": "conj",
+   "sentence": "I'm happy because it's my birthday.",
+   "sentence_zh": "我很開心，因為今天是我的生日。",
+   "emoji": "",
+   "distractors": [
+    "when",
+    "than",
+    "before"
+   ]
+  },
+  {
+   "id": "mix-094",
+   "word": "before",
+   "zh": "在…之前",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "Wash your hands before lunch.",
+   "sentence_zh": "吃午餐前要洗手。",
+   "emoji": "",
+   "distractors": [
+    "after",
+    "at",
+    "by"
+   ]
+  },
+  {
+   "id": "mix-095",
+   "word": "below",
+   "zh": "在…下方",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "The fish swim below the boat.",
+   "sentence_zh": "魚在船的下方游。",
+   "emoji": "⬇️",
+   "distractors": [
+    "above",
+    "near",
+    "out of"
+   ]
+  },
+  {
+   "id": "mix-096",
+   "word": "both",
+   "zh": "兩者都",
+   "topic": "mixed",
+   "pos": "det+pron",
+   "sentence": "Both answers are right!",
+   "sentence_zh": "兩個答案都對！",
+   "emoji": "",
+   "distractors": [
+    "all",
+    "every",
+    "another"
+   ]
+  },
+  {
+   "id": "mix-097",
+   "word": "by",
+   "zh": "搭乘；在…旁",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "We went to the city by train.",
+   "sentence_zh": "我們搭火車去城市。",
+   "emoji": "🚆",
+   "distractors": [
+    "at",
+    "on",
+    "into"
+   ]
+  },
+  {
+   "id": "mix-098",
+   "word": "down",
+   "zh": "向下",
+   "topic": "mixed",
+   "pos": "adv+prep",
+   "sentence": "The monkey climbed down the tree.",
+   "sentence_zh": "猴子從樹上爬下來。",
+   "emoji": "⬇️",
+   "distractors": [
+    "up",
+    "into",
+    "out"
+   ]
+  },
+  {
+   "id": "mix-099",
+   "word": "every",
+   "zh": "每一個",
+   "topic": "mixed",
+   "pos": "det",
+   "sentence": "I swim every Saturday.",
+   "sentence_zh": "我每個星期六游泳。",
+   "emoji": "",
+   "distractors": [
+    "any",
+    "both",
+    "all"
+   ]
+  },
+  {
+   "id": "mix-100",
+   "word": "everyone",
+   "zh": "每個人",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "Everyone loves the funfair.",
+   "sentence_zh": "每個人都愛遊樂園。",
+   "emoji": "👥",
+   "distractors": [
+    "someone",
+    "everything",
+    "nothing"
+   ]
+  },
+  {
+   "id": "mix-101",
+   "word": "everything",
+   "zh": "每件事；所有東西",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "Everything is ready for the party.",
+   "sentence_zh": "派對的一切都準備好了。",
+   "emoji": "",
+   "distractors": [
+    "something",
+    "everyone",
+    "nothing"
+   ]
+  },
+  {
+   "id": "mix-102",
+   "word": "how",
+   "zh": "如何",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "How do you spell your name?",
+   "sentence_zh": "你的名字怎麼拼？",
+   "emoji": "❓",
+   "distractors": [
+    "why",
+    "where",
+    "which"
+   ]
+  },
+  {
+   "id": "mix-103",
+   "word": "how much",
+   "zh": "多少",
+   "topic": "mixed",
+   "pos": "adv+int",
+   "sentence": "How much is this comic book?",
+   "sentence_zh": "這本漫畫書多少錢？",
+   "emoji": "💲",
+   "distractors": [
+    "how often",
+    "how",
+    "why"
+   ]
+  },
+  {
+   "id": "mix-104",
+   "word": "inside",
+   "zh": "在裡面",
+   "topic": "mixed",
+   "pos": "adv+n",
+   "sentence": "It's raining. Let's play inside.",
+   "sentence_zh": "下雨了，我們在室內玩吧。",
+   "emoji": "🏠",
+   "distractors": [
+    "outside",
+    "upstairs",
+    "downstairs"
+   ]
+  },
+  {
+   "id": "mix-105",
+   "word": "into",
+   "zh": "進入",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "The rabbit hopped into the box.",
+   "sentence_zh": "兔子跳進箱子裡。",
+   "emoji": "📥",
+   "distractors": [
+    "out of",
+    "around",
+    "along"
+   ]
+  },
+  {
+   "id": "mix-106",
+   "word": "more",
+   "zh": "更多",
+   "topic": "mixed",
+   "pos": "adv+det+pron",
+   "sentence": "Can I have more noodles, please?",
+   "sentence_zh": "請再給我一些麵好嗎？",
+   "emoji": "➕",
+   "distractors": [
+    "most",
+    "less",
+    "only"
+   ]
+  },
+  {
+   "id": "mix-107",
+   "word": "most",
+   "zh": "最多；大部分",
+   "topic": "mixed",
+   "pos": "adv+det+pron",
+   "sentence": "This is the most exciting game!",
+   "sentence_zh": "這是最刺激的遊戲！",
+   "emoji": "",
+   "distractors": [
+    "more",
+    "best",
+    "every"
+   ]
+  },
+  {
+   "id": "mix-108",
+   "word": "near",
+   "zh": "在…附近",
+   "topic": "mixed",
+   "pos": "adv+prep",
+   "sentence": "The school is near the park.",
+   "sentence_zh": "學校在公園附近。",
+   "emoji": "📍",
+   "distractors": [
+    "above",
+    "opposite",
+    "along"
+   ]
+  },
+  {
+   "id": "mix-109",
+   "word": "nothing",
+   "zh": "什麼都沒有",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "There is nothing in the box.",
+   "sentence_zh": "箱子裡什麼都沒有。",
+   "emoji": "🈳",
+   "distractors": [
+    "something",
+    "everything",
+    "someone"
+   ]
+  },
+  {
+   "id": "mix-110",
+   "word": "off",
+   "zh": "離開；脫離",
+   "topic": "mixed",
+   "pos": "adv+prep",
+   "sentence": "The cat jumped off the roof.",
+   "sentence_zh": "貓從屋頂跳下來。",
+   "emoji": "",
+   "distractors": [
+    "on",
+    "out",
+    "down"
+   ]
+  },
+  {
+   "id": "mix-111",
+   "word": "on",
+   "zh": "在（星期）",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "We play football on Saturday.",
+   "sentence_zh": "我們星期六踢足球。",
+   "emoji": "",
+   "distractors": [
+    "at",
+    "by",
+    "off"
+   ]
+  },
+  {
+   "id": "mix-112",
+   "word": "opposite",
+   "zh": "在…對面",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "The café is opposite the cinema.",
+   "sentence_zh": "咖啡廳在電影院對面。",
+   "emoji": "↔️",
+   "distractors": [
+    "near",
+    "above",
+    "along"
+   ]
+  },
+  {
+   "id": "mix-113",
+   "word": "out",
+   "zh": "外出；出去",
+   "topic": "mixed",
+   "pos": "adv",
+   "sentence": "Let's go out and play!",
+   "sentence_zh": "我們出去玩吧！",
+   "emoji": "🚪",
+   "distractors": [
+    "in",
+    "off",
+    "up"
+   ]
+  },
+  {
+   "id": "mix-114",
+   "word": "out of",
+   "zh": "從…出來",
+   "topic": "mixed",
+   "pos": "prep",
+   "sentence": "The dolphin jumped out of the water.",
+   "sentence_zh": "海豚跳出水面。",
+   "emoji": "",
+   "distractors": [
+    "into",
+    "off",
+    "down"
+   ]
+  },
+  {
+   "id": "mix-115",
+   "word": "outside",
+   "zh": "在外面",
+   "topic": "mixed",
+   "pos": "adv+n+prep",
+   "sentence": "The children are playing outside.",
+   "sentence_zh": "孩子們在外面玩。",
+   "emoji": "🌳",
+   "distractors": [
+    "inside",
+    "upstairs",
+    "out"
+   ]
+  },
+  {
+   "id": "mix-116",
+   "word": "someone",
+   "zh": "某個人",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "Someone is at the door.",
+   "sentence_zh": "有人在門口。",
+   "emoji": "👤",
+   "distractors": [
+    "everyone",
+    "something",
+    "nothing"
+   ]
+  },
+  {
+   "id": "mix-117",
+   "word": "something",
+   "zh": "某件東西",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "There is something in my shoe!",
+   "sentence_zh": "我的鞋子裡有東西！",
+   "emoji": "",
+   "distractors": [
+    "someone",
+    "nothing",
+    "everything"
+   ]
+  },
+  {
+   "id": "mix-118",
+   "word": "than",
+   "zh": "比",
+   "topic": "mixed",
+   "pos": "conj+prep",
+   "sentence": "A whale is bigger than a dolphin.",
+   "sentence_zh": "鯨魚比海豚大。",
+   "emoji": "⚖️",
+   "distractors": [
+    "then",
+    "because",
+    "when"
+   ]
+  },
+  {
+   "id": "mix-119",
+   "word": "up",
+   "zh": "向上",
+   "topic": "mixed",
+   "pos": "adv+prep",
+   "sentence": "Look up at the sky!",
+   "sentence_zh": "抬頭看天空！",
+   "emoji": "⬆️",
+   "distractors": [
+    "down",
+    "out",
+    "off"
+   ]
+  },
+  {
+   "id": "mix-120",
+   "word": "when",
+   "zh": "何時；當…時",
+   "topic": "mixed",
+   "pos": "adv+conj+int",
+   "sentence": "When is your birthday?",
+   "sentence_zh": "你的生日是什麼時候？",
+   "emoji": "❓",
+   "distractors": [
+    "where",
+    "why",
+    "who"
+   ]
+  },
+  {
+   "id": "mix-121",
+   "word": "where",
+   "zh": "哪裡",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "Where is my other sock?",
+   "sentence_zh": "我的另一隻襪子在哪裡？",
+   "emoji": "❓",
+   "distractors": [
+    "when",
+    "who",
+    "which"
+   ]
+  },
+  {
+   "id": "mix-122",
+   "word": "which",
+   "zh": "哪一個",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "Which cake do you want?",
+   "sentence_zh": "你想要哪一個蛋糕？",
+   "emoji": "❓",
+   "distractors": [
+    "where",
+    "who",
+    "why"
+   ]
+  },
+  {
+   "id": "mix-123",
+   "word": "who",
+   "zh": "誰",
+   "topic": "mixed",
+   "pos": "pron",
+   "sentence": "Who is that tall man?",
+   "sentence_zh": "那個高高的男人是誰？",
+   "emoji": "❓",
+   "distractors": [
+    "which",
+    "where",
+    "when"
+   ]
+  },
+  {
+   "id": "mix-124",
+   "word": "why",
+   "zh": "為什麼",
+   "topic": "mixed",
+   "pos": "int",
+   "sentence": "Why are you laughing?",
+   "sentence_zh": "你為什麼在笑？",
+   "emoji": "❓",
+   "distractors": [
+    "how",
+    "when",
+    "where"
+   ]
+  },
+  {
+   "id": "mix-125",
+   "word": "all",
+   "zh": "全部",
+   "topic": "mixed",
+   "pos": "adj+adv+det+pron",
+   "sentence": "We ate all the pancakes.",
+   "sentence_zh": "我們把鬆餅全吃光了。",
+   "emoji": "💯",
+   "distractors": [
+    "both",
+    "every",
+    "any"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,436 @@
+/* Base Styles */
+:root {
+    --bg-color: #f0f8ff;
+    --text-color: #333;
+    --primary: #4CAF50;
+    --primary-hover: #45a049;
+    --danger: #f44336;
+    --danger-hover: #da190b;
+    --gray: #9e9e9e;
+    --gold: #FFD700;
+    --card-bg: #fff;
+}
+
+* {
+    box-sizing: border-box;
+    font-family: 'Noto Sans TC', sans-serif;
+    user-select: none;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    overflow: hidden;
+}
+
+#game-container {
+    width: 100vw;
+    height: 100vh;
+    max-width: 1366px;
+    max-height: 768px;
+    background-color: var(--bg-color);
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+    box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    display: flex;
+    flex-direction: column;
+}
+
+.pixel-text {
+    font-family: 'Press Start 2P', monospace, 'Noto Sans TC';
+    line-height: 1.5;
+}
+
+/* Utilities */
+.hidden { display: none !important; }
+.text-center { text-align: center; }
+.text-success { color: var(--primary); }
+.mt-4 { margin-top: 1rem; }
+
+/* Buttons */
+button {
+    cursor: pointer;
+    border: none;
+    border-radius: 12px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    transition: transform 0.1s, filter 0.1s;
+    outline: none;
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.big-btn {
+    width: 90%;
+    max-width: 300px;
+    min-height: 64px; /* >= 64px requirement */
+    padding: 16px 24px;
+    background-color: var(--primary);
+    color: white;
+    margin: 8px auto;
+    box-shadow: 0 4px 0 #2e7d32;
+    display: block;
+}
+
+.btn-danger {
+    background-color: var(--danger);
+    box-shadow: 0 4px 0 #c62828;
+}
+
+.btn-gray {
+    background-color: var(--gray);
+    box-shadow: 0 4px 0 #616161;
+}
+
+.small-btn {
+    min-height: 48px;
+    padding: 8px 16px;
+    background-color: var(--gray);
+    color: white;
+}
+
+.action-btn {
+    min-height: 64px;
+    padding: 12px 24px;
+    background-color: #2196F3;
+    color: white;
+    box-shadow: 0 4px 0 #1565C0;
+    margin: 8px;
+}
+
+/* Option Buttons for Quiz */
+.option-btn {
+    min-height: 80px;
+    font-size: 1.2rem;
+    background-color: white;
+    color: var(--text-color);
+    border: 3px solid var(--primary);
+    box-shadow: 0 4px 0 #ccc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    word-break: break-word;
+}
+
+/* Layouts */
+.screen {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: var(--bg-color);
+    overflow-y: auto;
+    padding: 10px;
+}
+
+.overlay {
+    background-color: rgba(0,0,0,0.8);
+    z-index: 100;
+}
+
+.menu-box {
+    background: var(--card-bg);
+    padding: 32px 16px;
+    border-radius: 16px;
+    border: 4px solid var(--primary);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 90%;
+    max-width: 400px;
+    margin: auto;
+}
+
+/* Top Bar */
+#top-bar {
+    min-height: 64px;
+    background-color: #333;
+    color: white;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    align-items: center;
+    padding: 8px 16px;
+    z-index: 50;
+    position: relative;
+}
+
+.stats span {
+    margin-right: 12px;
+    font-size: 1rem;
+    font-weight: bold;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.nav-btn {
+    min-height: 48px;
+    background-color: #555;
+    color: white;
+    padding: 8px 12px;
+}
+
+/* Title Screen */
+#screen-title h1 {
+    font-size: 2.5rem;
+    text-align: center;
+    color: var(--primary);
+    text-shadow: 2px 2px 0px #333;
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+.save-controls {
+    margin-top: 32px;
+}
+
+/* Map Screen */
+#map-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    padding: 16px;
+    width: 100%;
+    max-width: 1000px;
+    overflow-y: auto;
+    max-height: 80vh;
+}
+
+.map-node {
+    background-color: #e0e0e0;
+    border: 4px solid #9e9e9e;
+    border-radius: 16px;
+    padding: 16px 8px;
+    text-align: center;
+    cursor: pointer;
+    min-height: 100px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    transition: transform 0.2s;
+}
+
+.map-node.unlocked {
+    background-color: #c8e6c9;
+    border-color: var(--primary);
+}
+
+.map-node:hover {
+    transform: scale(1.05);
+}
+
+/* Study Screen */
+.study-card {
+    background: white;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.1);
+    width: 90%;
+    max-width: 400px;
+    margin-bottom: 16px;
+}
+
+.emoji-large img.emoji, .emoji-large {
+    width: 100px;
+    height: 100px;
+    font-size: 80px;
+    margin: 0 auto;
+}
+
+.word-text {
+    font-size: 2rem;
+    color: var(--primary);
+    margin: 16px 0 8px 0;
+}
+
+.zh-text {
+    font-size: 1.2rem;
+    color: #666;
+    margin: 0 0 16px 0;
+}
+
+.sentence-box {
+    background: #f5f5f5;
+    padding: 12px;
+    border-radius: 8px;
+    margin-top: 16px;
+    font-size: 1rem;
+}
+
+.study-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    width: 100%;
+}
+
+.study-controls .big-btn {
+    min-width: 120px;
+    width: auto;
+}
+
+/* Battle Screen */
+.battle-top {
+    height: 40%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+#battle-sprite {
+    width: 150px;
+    height: 150px;
+    image-rendering: pixelated; /* For Pokemon sprites */
+}
+
+#battle-progress {
+    display: flex;
+    gap: 8px;
+    margin-top: 16px;
+    height: 32px;
+}
+
+.progress-ball {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background-color: #ccc;
+    border: 2px solid #999;
+}
+
+.progress-ball.filled {
+    background-color: var(--primary);
+    border-color: #2e7d32;
+}
+
+#battle-question-area {
+    height: 60%;
+    width: 100%;
+    background-color: #fff;
+    border-top: 4px solid var(--primary);
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#question-prompt {
+    font-size: 2rem;
+    margin-bottom: 24px;
+    min-height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#question-prompt img.emoji {
+    width: 80px;
+    height: 80px;
+}
+
+.options-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    width: 100%;
+    max-width: 800px;
+}
+
+.feedback-msg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 3rem;
+    font-weight: bold;
+    padding: 24px 48px;
+    border-radius: 16px;
+    z-index: 200;
+    text-shadow: 2px 2px 0 #fff;
+}
+
+.feedback-miss {
+    color: var(--danger);
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    25% { transform: translate(-55%, -50%) rotate(-5deg); }
+    50% { transform: translate(-45%, -50%) rotate(5deg); }
+    75% { transform: translate(-55%, -50%) rotate(-5deg); }
+    100% { transform: translate(-50%, -50%) rotate(0deg); }
+}
+
+/* Pokedex */
+.pokedex-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+    gap: 16px;
+    width: 100%;
+    max-width: 1000px;
+    padding: 24px;
+    overflow-y: auto;
+    max-height: 80%;
+}
+
+.dex-entry {
+    background: #fff;
+    border: 3px solid #ccc;
+    border-radius: 12px;
+    padding: 8px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.dex-entry.caught {
+    border-color: var(--primary);
+}
+
+.dex-entry img {
+    width: 80px;
+    height: 80px;
+    image-rendering: pixelated;
+}
+
+.dex-entry .unknown {
+    font-size: 3rem;
+    color: #ccc;
+    line-height: 80px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 16px;
+    right: 16px;
+    background: transparent;
+    font-size: 2rem;
+    box-shadow: none;
+    min-width: auto;
+    min-height: auto;
+    padding: 0;
+}

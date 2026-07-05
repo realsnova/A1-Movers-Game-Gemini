@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>A1 Movers 單字冒險</title>
+    <!-- INJECT_CSS -->
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;700&family=Press+Start+2P&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@twemoji/api@15.1.0/dist/twemoji.min.js"></script>
+</head>
+<body>
+    <div id="game-container">
+        <!-- Error Reporter -->
+        <div id="error-reporter" style="display:none; position:absolute; top:0; left:0; right:0; background:red; color:white; z-index:9999; padding:20px; font-size:20px;"></div>
+        <script>
+            window.onerror = function(msg, url, lineNo, columnNo, error) {
+                var el = document.getElementById('error-reporter');
+                el.style.display = 'block';
+                el.innerHTML += '<p>' + msg + ' (Line: ' + lineNo + ')</p>';
+                return false;
+            };
+        </script>
+        
+        <!-- Top Bar -->
+        <div id="top-bar" class="hidden">
+            <div class="stats">
+                <span id="stat-caught" title="收服的寶可夢">🔴 0</span>
+                <span id="stat-words" title="學會的單字">📖 0</span>
+                <span id="stat-gold" title="金幣">💰 0</span>
+                <span id="stat-badges" title="徽章">🎖️ 0</span>
+            </div>
+            <div class="nav-buttons">
+                <button id="btn-sound-toggle" class="nav-btn pixel-text" onclick="Game.toggleSound()">🔊</button>
+                <button class="nav-btn pixel-text" onclick="Game.showScreen('map')">地圖</button>
+                <button class="nav-btn pixel-text" onclick="Game.showScreen('pokedex')">圖鑑</button>
+                <button class="nav-btn pixel-text" onclick="Game.showScreen('shop')">商店</button>
+                <button class="nav-btn pixel-text" onclick="Game.showScreen('dashboard')">儀表板</button>
+            </div>
+        </div>
+
+        <!-- Title Screen -->
+        <div id="screen-title" class="screen">
+            <h1 class="pixel-text">A1 Movers<br>單字冒險</h1>
+            <button class="big-btn pixel-text" onclick="Game.startAdventure()">開始冒險</button>
+            <div class="save-controls">
+                <button class="small-btn btn-danger pixel-text" onclick="Game.resetProgress()">重置進度</button>
+            </div>
+        </div>
+        
+        <!-- Story Screen -->
+        <div id="screen-story" class="screen hidden">
+            <div class="menu-box" style="max-width: 600px;">
+                <h2 id="story-title" class="pixel-text"></h2>
+                <p id="story-text" class="pixel-text" style="font-size: 1.2rem; line-height: 2; text-align: left;"></p>
+                <button class="big-btn mt-4" onclick="Game.endStory()">繼續</button>
+            </div>
+        </div>
+
+        <!-- Map Screen -->
+        <div id="screen-map" class="screen hidden">
+            <h2 class="pixel-text">選擇區域</h2>
+            <div id="map-grid">
+                <!-- Dynamically generated regions -->
+            </div>
+        </div>
+
+        <!-- Region Menu Overlay -->
+        <div id="screen-region-menu" class="screen overlay hidden">
+            <div class="menu-box">
+                <h2 id="menu-region-name" class="pixel-text">區域名稱</h2>
+                <button class="big-btn" onclick="Game.startStudy()">📖 學習單字</button>
+                <button class="big-btn btn-danger" onclick="Game.startBattle()">⚔️ 野外戰鬥</button>
+                <button id="btn-gym" class="big-btn" style="background-color: #9c27b0;" onclick="Game.startGym()">🏛️ 挑戰道館</button>
+                <button class="small-btn mt-4" onclick="Game.showScreen('map')">返回</button>
+            </div>
+        </div>
+
+        <!-- Study Screen -->
+        <div id="screen-study" class="screen hidden">
+            <div style="width: 100%; max-width: 600px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
+                <button class="small-btn btn-danger" onclick="Game.showScreen('map')">❌ 離開</button>
+                <span id="study-progress-text" class="pixel-text" style="font-size: 1rem; color: #666;">進度: 1/1</span>
+            </div>
+            <div class="study-card">
+                <div id="study-emoji" class="emoji-large"></div>
+                <h1 id="study-word" class="pixel-text text-primary"></h1>
+                <h2 id="study-zh" class="pixel-text text-secondary"></h2>
+                <p id="study-sentence"></p>
+                <button class="big-btn mt-4" onclick="Game.studyPlayAudio()">🔊 發音</button>
+            </div>
+            <div class="study-controls">
+                <button class="big-btn btn-gray" onclick="Game.studyPrev()">◀ 上一個</button>
+                <button class="big-btn" onclick="Game.studyPlayAudio()">🔊 發音</button>
+                <button class="big-btn btn-gray" onclick="Game.studyNext()">下一個 ▶</button>
+            </div>
+        </div>
+
+        <!-- Battle & Gym Screen -->
+        <div id="screen-battle" class="screen hidden">
+            <div id="battle-header" style="width: 90%; max-width: 600px; text-align: center; margin-bottom: 10px;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
+                    <span class="pixel-text" style="font-size: 1rem; color: #333;">怪獸 HP</span>
+                    <span id="battle-progress-text" class="pixel-text" style="font-size: 0.8rem; color: #666;">剩餘: 5/5</span>
+                </div>
+                <!-- Monster Health Bar -->
+                <div style="width: 100%; height: 20px; background-color: #ffebee; border-radius: 10px; overflow: hidden; border: 2px solid #b71c1c; margin-bottom: 8px;">
+                    <div id="monster-hp-bar" style="width: 100%; height: 100%; background-color: #4caf50; transition: width 0.5s ease-out, background-color 0.3s;"></div>
+                </div>
+                
+                <!-- Gym Timer Bar -->
+                <div style="display: flex; justify-content: flex-end; margin-bottom: 4px;">
+                    <span id="gym-timer" class="pixel-text hidden" style="font-size: 0.8rem; color: #c62828;">⏳ 20s</span>
+                </div>
+                <div id="gym-timer-container" class="hidden" style="width: 100%; height: 15px; background-color: #e0e0e0; border-radius: 8px; overflow: hidden; border: 2px solid #c62828;">
+                    <div id="gym-timer-bar" style="width: 100%; height: 100%; background-color: var(--danger); transition: width 1s linear, background-color 0.3s;"></div>
+                </div>
+            </div>
+            
+            <div id="battle-monster" class="emoji-large" style="margin-bottom: 10px;">
+                <img id="battle-sprite" src="" alt="Monster" style="width:150px; height:150px; image-rendering: pixelated; filter: brightness(0); transition: filter 1s, transform 0.2s;">
+            </div>
+            
+            <!-- Consumable Item Button -->
+            <button id="btn-use-potion" class="small-btn hidden pixel-text" style="background-color: #ff9800; color: white; margin-bottom: 10px; border-radius: 20px;" onclick="Game.useHintPotion()">🧪 使用提示藥水</button>
+
+            <div id="battle-question-box" class="study-card" style="margin-bottom: 16px;">
+                <div id="battle-question-content" style="font-size: 1.5rem;"></div>
+            </div>
+            <!-- Options Grid (Type A, B, D) -->
+            <div id="battle-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 90%; max-width: 600px;"></div>
+            <!-- Spelling Area (Type C) -->
+            <div id="battle-spelling" class="hidden" style="width: 90%; max-width: 600px; text-align: center;">
+                <div id="spelling-answer" class="pixel-text" style="font-size: 2rem; min-height: 40px; margin-bottom: 16px; letter-spacing: 4px; border-bottom: 2px solid #333; padding-bottom: 8px;"></div>
+                <div id="spelling-letters" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px;"></div>
+                <div style="display: flex; gap: 8px; justify-content: center;">
+                    <button class="small-btn btn-danger" onclick="Game.spellingClear()">重來</button>
+                    <button class="small-btn" style="background-color: #ff9800; color: white;" onclick="Game.spellingBackspace()">⌫ 退格</button>
+                    <button id="btn-spelling-hint" class="small-btn btn-gray" onclick="Game.spellingHint()">提示 (5💰)</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Capture Result Screen -->
+        <div id="screen-capture" class="screen overlay hidden">
+            <div style="text-align: center;">
+                <h1 id="capture-title" class="pixel-text" style="color: var(--primary);">收服成功！</h1>
+                <div class="emoji-large" style="margin: 20px 0;">
+                    <img id="capture-sprite" src="" alt="Caught Monster" style="width:150px; height:150px; image-rendering: pixelated; filter: drop-shadow(0 0 10px gold);">
+                </div>
+                <h2 id="capture-name" class="pixel-text" style="margin-bottom: 20px;">BULBASAUR</h2>
+                <p id="capture-rewards" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
+                <button class="big-btn" onclick="Game.closeCapture()">繼續</button>
+            </div>
+        </div>
+
+        <!-- Pokedex Screen -->
+        <div id="screen-pokedex" class="screen hidden" style="justify-content: flex-start; padding-top: 20px;">
+            <h2 class="pixel-text text-center">寶可夢圖鑑</h2>
+            <div id="pokedex-grid" style="display: flex; flex-direction: column; gap: 16px; width: 90%; max-width: 800px; overflow-y: auto; max-height: 70vh;">
+                <!-- Dynamically generated -->
+            </div>
+        </div>
+
+        <!-- Shop Screen -->
+        <div id="screen-shop" class="screen hidden" style="justify-content: flex-start; padding-top: 20px;">
+            <h2 class="pixel-text text-center">道具商店</h2>
+            <div id="shop-gold-display" class="pixel-text text-center" style="font-size: 1.5rem; color: var(--gold); margin-bottom: 16px;">💰 0</div>
+            <div id="shop-items" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; width: 90%; max-width: 800px; overflow-y: auto;">
+                <!-- Dynamically generated -->
+            </div>
+        </div>
+        
+        <!-- Dashboard Screen -->
+        <div id="screen-dashboard" class="screen hidden" style="justify-content: flex-start; padding-top: 20px;">
+            <h2 class="pixel-text text-center">學習儀表板</h2>
+            <div class="menu-box" style="width: 90%; max-width: 800px;">
+                <h3 class="pixel-text text-center" style="color: var(--primary);">熟練度統計</h3>
+                <div id="dashboard-stats" style="text-align: left; width: 100%; font-size: 1.2rem; line-height: 2;"></div>
+            </div>
+        </div>
+
+    </div>
+    <!-- INJECT_DATA -->
+    <!-- INJECT_JS -->
+</body>
+</html>
