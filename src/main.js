@@ -1280,7 +1280,16 @@ const Game = {
             micBtn.style.color = '#fff';
         }
 
-        recognition.start();
+        try {
+            recognition.start();
+        } catch(e) {
+            this.ui.showToast("麥克風無法啟動，請確認瀏覽器權限或使用 HTTPS 環境！");
+            if (micBtn) {
+                micBtn.innerText = '🎤 語音輸入 (失敗)';
+                micBtn.style.background = 'var(--accent-red)';
+            }
+            return;
+        }
 
         recognition.onresult = (event) => {
             const speechResult = event.results[0][0].transcript.toLowerCase().trim();
@@ -1299,6 +1308,14 @@ const Game = {
             } else {
                 this.ui.showToast(`辨識結果: "${speechResult}"，再試一次！`);
             }
+        };
+
+        recognition.onerror = (event) => {
+            if (micBtn) {
+                micBtn.innerText = '🎤 語音輸入 (錯誤)';
+                micBtn.style.background = '';
+            }
+            this.ui.showToast(`語音錯誤: ${event.error}`);
         };
 
         recognition.onerror = (event) => {

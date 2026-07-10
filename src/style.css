@@ -853,14 +853,10 @@ input, select, textarea { font-family: inherit; }
 }
 
 .battle-bg {
-  position: absolute;
-  inset: 0;
   background:
     radial-gradient(ellipse at 50% 20%, rgba(239,68,68,0.08) 0%, transparent 50%),
     radial-gradient(ellipse at 50% 80%, rgba(168,85,247,0.06) 0%, transparent 50%),
     var(--bg-primary);
-  pointer-events: none;
-  z-index: 0;
 }
 
 .battle-header {
@@ -940,7 +936,7 @@ input, select, textarea { font-family: inherit; }
   flex-direction: column;
   gap: var(--sp-sm);
   position: relative;
-  z-index: var(--z-base);
+  z-index: 50; /* Ensure options are above everything else in battle */
 }
 
 /* Staggered option entrance */
@@ -1017,8 +1013,10 @@ input, select, textarea { font-family: inherit; }
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 6px;
+  gap: var(--sp-sm);
   margin-top: var(--sp-md);
+  position: relative;
+  z-index: 50;
 }
 
 .spelling-letters-grid button {
