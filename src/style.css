@@ -186,7 +186,7 @@ input, select, textarea { font-family: inherit; }
 
 /* ── 6. SCREEN SYSTEM ─────────────────────────────────────── */
 .screen {
-  display: none;
+  display: flex;
   flex-direction: column;
   padding: var(--sp-md);
   padding-top: 60px; /* room for top-bar */
@@ -627,7 +627,7 @@ input, select, textarea { font-family: inherit; }
 
 /* ── 11. TITLE SCREEN ─────────────────────────────────────── */
 #screen-title {
-  display: none;
+  display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
