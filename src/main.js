@@ -128,14 +128,21 @@ const Game = {
     },
 
     init() {
-        this.loadState();
-        this.migrateState();
-        this.applyEquipment();
-        this.renderMap();
-        this.updateTopBar();
-        this.updateSoundIcon();
-        this.detectTTS();
-        twemoji.parse(document.body);
+        try {
+            this.loadState();
+            this.migrateState();
+            this.applyEquipment();
+            this.renderMap();
+            this.updateTopBar();
+            this.updateSoundIcon();
+            this.detectTTS();
+            if (typeof twemoji !== 'undefined') {
+                twemoji.parse(document.body);
+            }
+        } catch (e) {
+            console.error(e);
+            alert("遊戲載入發生錯誤: " + e.message);
+        }
     },
 
     loadState() {
@@ -404,7 +411,13 @@ const Game = {
 
     // TTS 英文語音偵測
     detectTTS() {
+        if (typeof speechSynthesis === 'undefined') {
+            this.hasTTSEnglish = false;
+            return;
+        }
+        
         const checkVoices = () => {
+            if (typeof speechSynthesis === 'undefined') return;
             const voices = speechSynthesis.getVoices();
             this.hasTTSEnglish = voices.some(v => v.lang.startsWith('en'));
             // 若無英文語音，禁用發音按鈕
@@ -904,7 +917,9 @@ const Game = {
         const u = new SpeechSynthesisUtterance(text);
         u.lang = 'en-US';
         u.rate = 0.85;
-        speechSynthesis.speak(u);
+        if (typeof speechSynthesis !== 'undefined') {
+            speechSynthesis.speak(u);
+        }
     },
 
     // --- Battle & Gym ---
