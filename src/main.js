@@ -42,7 +42,8 @@ const Game = {
         shinyCaught: [],     // 異色寶可夢 id
         shinyNextBattle: false, // 下場野戰是否遇異色
         storySeen: [],
-        saveVersion: 5
+        dailyQuests: null,
+        saveVersion: 6
     },
 
     ui: {
@@ -120,7 +121,10 @@ const Game = {
         spellingTarget: "",
         spellingAnswer: [],
         letterBtnsMap: {},
-        answering: false // 防狂點鎖定
+        answering: false, // 防狂點鎖定
+        maxCombo: 0,
+        correctCount: 0,
+        wordResults: []
     },
 
     init() {
@@ -179,11 +183,15 @@ const Game = {
             const d = new Date(this.state.lastLogin);
             this.state.lastLogin = d.toISOString().slice(0, 10);
         }
+        if (this.state.saveVersion < 6) {
+            this.state.dailyQuests = this.state.dailyQuests || null;
+            this.state.saveVersion = 6;
+        }
         this.saveState();
     },
 
     saveState() {
-        this.state.saveVersion = 5;
+        this.state.saveVersion = 6;
         localStorage.setItem('A1MoversState', JSON.stringify(this.state));
         this.updateTopBar();
     },
@@ -438,6 +446,9 @@ const Game = {
         if (this.state.streak >= 3) {
             this.state.shinyNextBattle = true;
         }
+        // Generate Daily Quests
+        this.state.dailyQuests = this.generateDailyQuests();
+        
         this.state.lastLogin = today;
         this.saveState();
         
@@ -462,6 +473,44 @@ const Game = {
 
     closeDailyReward() {
         document.getElementById('screen-daily-reward').classList.add('hidden');
+    },
+
+    generateDailyQuests() {
+        const pool = [
+            { id: 'battle_3', desc: '完成 3 場戰鬥', type: 'battle', target: 3, current: 0, reward: 15, claimed: false },
+            { id: 'spell_5', desc: '成功拼出 5 個單字', type: 'spell', target: 5, current: 0, reward: 20, claimed: false },
+            { id: 'gym_1', desc: '挑戰道館並獲得勝利 1 次', type: 'gym', target: 1, current: 0, reward: 50, claimed: false },
+            { id: 'study_10', desc: '學習 10 個新單字或複習單字', type: 'study', target: 10, current: 0, reward: 15, claimed: false },
+            { id: 'potion_1', desc: '在戰鬥中使用 1 次提示藥水', type: 'potion', target: 1, current: 0, reward: 10, claimed: false }
+        ];
+        return pool.sort(() => 0.5 - Math.random()).slice(0, 3);
+    },
+
+    updateQuestProgress(type, amount = 1) {
+        if (!this.state.dailyQuests) return;
+        let changed = false;
+        this.state.dailyQuests.forEach(q => {
+            if (q.type === type && q.current < q.target) {
+                q.current += amount;
+                if (q.current > q.target) q.current = q.target;
+                changed = true;
+                if (q.current === q.target && !q.claimed) {
+                    this.ui.showToast(`✅ 每日任務完成: ${q.desc}！請至儀表板領取獎勵！`);
+                }
+            }
+        });
+        if (changed) this.saveState();
+    },
+
+    claimQuestReward(questId) {
+        const q = this.state.dailyQuests.find(x => x.id === questId);
+        if (q && q.current >= q.target && !q.claimed) {
+            q.claimed = true;
+            this.state.gold += q.reward;
+            this.saveState();
+            this.ui.showToast(`領取任務獎勵 ${q.reward} 💰！`);
+            this.renderDashboard();
+        }
     },
 
     applyEquipment() {
@@ -823,7 +872,11 @@ const Game = {
         document.getElementById('study-zh').innerText = wordObj.zh;
         
         if (wordObj.sentence && wordObj.sentence_zh) {
-            document.getElementById('study-sentence').innerHTML = `${wordObj.sentence}<br><small>${wordObj.sentence_zh}</small>`;
+            // Highlight target word in sentence
+            const escapedWord = wordObj.word.replace(/[-\/\\^$*+?.()|[\]{}]/g, '\\$&');
+            const wordRegex = new RegExp(`\\b(${escapedWord}(?:s|es|d|ed|ing)?)\\b`, 'gi');
+            const highlightedSentence = wordObj.sentence.replace(wordRegex, '<span style="color:var(--accent-gold); font-weight:bold;">$1</span>');
+            document.getElementById('study-sentence').innerHTML = `${highlightedSentence}<br><small class="text-secondary">${wordObj.sentence_zh}</small>`;
         } else {
             document.getElementById('study-sentence').innerHTML = '';
         }
@@ -833,6 +886,7 @@ const Game = {
     studyNext() {
         this.studyIndex = (this.studyIndex + 1) % this.studyWords.length;
         this.renderStudyCard();
+        this.updateQuestProgress('study', 1);
     },
 
     studyPrev() {
@@ -867,6 +921,13 @@ const Game = {
         this.battleState.isGym = isGym;
         this.battleState.gymCorrect = 0;
         this.battleState.answering = false;
+        this.battleState.combo = 0;
+        this.battleState.maxCombo = 0;
+        this.battleState.correctCount = 0;
+        this.battleState.wordResults = [];
+        
+        const comboEl = document.getElementById('battle-combo-text');
+        if (comboEl) comboEl.classList.add('hidden');
         
         let pool = this.getWordsForRegion(this.currentRegion);
         let count = isGym ? (this.currentRegion === 'mixed' ? 20 : 10) : 5;
@@ -1015,6 +1076,7 @@ const Game = {
         if (this.state.consumables.potion_hint > 0) {
             this.state.consumables.potion_hint--;
             this.saveState();
+            this.updateQuestProgress('potion', 1);
             const btnPotion = document.getElementById('btn-use-potion');
             btnPotion.innerText = `🧪 提示藥水 (剩餘: ${this.state.consumables.potion_hint})`;
             if (this.state.consumables.potion_hint === 0) btnPotion.classList.add('hidden');
@@ -1250,7 +1312,32 @@ const Game = {
         // 使用 SRS 系統更新單字狀態
         this.SRS.grade(this.state, wordObj.id, isCorrect);
 
+        let bonusGold = 0;
+        this.battleState.wordResults.push({ word: wordObj.word, zh: wordObj.zh, isCorrect: isCorrect });
+
         if (isCorrect) {
+            this.battleState.combo++;
+            this.battleState.correctCount++;
+            if (this.battleState.combo > this.battleState.maxCombo) {
+                this.battleState.maxCombo = this.battleState.combo;
+            }
+            
+            const comboEl = document.getElementById('battle-combo-text');
+            if (comboEl && this.battleState.combo > 1) {
+                comboEl.innerText = `🔥 Combo x${this.battleState.combo}`;
+                comboEl.classList.remove('hidden');
+                comboEl.style.transform = 'scale(1.5)';
+                setTimeout(() => comboEl.style.transform = 'scale(1)', 200);
+                
+                if (this.battleState.combo >= 3) {
+                    bonusGold = Math.floor(this.battleState.combo / 3);
+                }
+            }
+            
+            if (!document.getElementById('battle-spelling').classList.contains('hidden')) {
+                this.updateQuestProgress('spell', 1);
+            }
+
             card.style.backgroundColor = 'transparent'; // Let glassmorphism shine
             document.getElementById('game-container').classList.add('correct-flash');
             setTimeout(() => document.getElementById('game-container').classList.remove('correct-flash'), 600);
@@ -1276,6 +1363,10 @@ const Game = {
                 else hpBar.style.backgroundColor = 'var(--success)';
             }
         } else {
+            this.battleState.combo = 0;
+            const comboEl = document.getElementById('battle-combo-text');
+            if (comboEl) comboEl.classList.add('hidden');
+
             card.style.backgroundColor = 'transparent';
             document.getElementById('game-container').classList.add('shake');
             setTimeout(() => document.getElementById('game-container').classList.remove('shake'), 600);
@@ -1288,7 +1379,9 @@ const Game = {
             }
         }
         
-        this.state.gold += isCorrect ? 2 : 0;
+        this.state.gold += isCorrect ? (2 + bonusGold) : 0;
+        if (bonusGold > 0) this.ui.showToast(`🔥 Combo 加成! +${bonusGold} 💰`, 1500);
+        
         this.saveState();
         
         setTimeout(() => {
@@ -1400,6 +1493,38 @@ const Game = {
     },
 
     endBattle() {
+        this.updateQuestProgress('battle', 1);
+        this.showBattleSummary();
+    },
+
+    showBattleSummary() {
+        const total = this.battleState.words.length;
+        const pct = total > 0 ? this.battleState.correctCount / total : 0;
+        
+        let stars = "⭐";
+        if (pct >= 0.6) stars = "⭐⭐";
+        if (pct === 1.0) stars = "⭐⭐⭐";
+        
+        document.getElementById('summary-stars').innerText = stars;
+        document.getElementById('summary-stats').innerText = `答對: ${this.battleState.correctCount}/${total} | 最高連擊: ${this.battleState.maxCombo}`;
+        
+        let wordsHtml = '';
+        this.battleState.wordResults.forEach(r => {
+            wordsHtml += `<div style="display:flex; justify-content:space-between; margin-bottom: 8px; padding-bottom: 8px; border-bottom: 1px solid rgba(255,255,255,0.1); color: ${r.isCorrect ? 'var(--success)' : 'var(--danger)'};">
+                <span class="pixel-text" style="font-size: 1.2rem;">${r.isCorrect ? '✅' : '❌'} ${r.word}</span>
+                <span class="text-secondary">${r.zh}</span>
+            </div>`;
+        });
+        document.getElementById('summary-words').innerHTML = wordsHtml;
+        
+        if (pct === 1.0) this.play8BitSound('win');
+        else this.play8BitSound('correct');
+        
+        document.getElementById('screen-battle-summary').classList.remove('hidden');
+    },
+
+    closeBattleSummary() {
+        document.getElementById('screen-battle-summary').classList.add('hidden');
         if (this.battleState.isGym) {
             const required = this.currentRegion === 'mixed' ? 16 : 8;
             if (this.battleState.gymCorrect >= required) {
@@ -1447,6 +1572,8 @@ const Game = {
 
     triggerGymWin() {
         this.play8BitSound('win');
+        this.updateQuestProgress('gym', 1);
+        
         if (!this.state.badges.includes(this.currentRegion)) {
             this.state.badges.push(this.currentRegion);
             this.state.gold += 100;
@@ -1643,8 +1770,54 @@ const Game = {
                 <p>🎒 收服寶可夢：${this.state.caught.length}</p>
                 <p>🔥 連續登入：${this.state.streak} 天</p>
             </div>
-            <h4 class="pixel-text text-primary" style="margin-bottom:8px;">各區域精熟度</h4>
         `;
+        
+        // Daily Quests UI
+        if (this.state.dailyQuests) {
+            html += `<h4 class="pixel-text text-primary" style="margin-bottom:8px;">📜 每日任務</h4>`;
+            this.state.dailyQuests.forEach(q => {
+                const isDone = q.current >= q.target;
+                const isClaimed = q.claimed;
+                const pct = Math.min((q.current / q.target) * 100, 100);
+                html += `
+                    <div class="card-base" style="margin-bottom:12px; padding:12px; display:flex; flex-direction:column; gap:8px; border: 2px solid ${isClaimed ? 'var(--success)' : (isDone ? 'var(--accent-gold)' : 'transparent')};">
+                        <div style="display:flex; justify-content:space-between;">
+                            <span class="pixel-text">${q.desc}</span>
+                            <span class="text-secondary">${q.current}/${q.target}</span>
+                        </div>
+                        <div class="progress-bar-container">
+                            <div class="progress-bar-fill" style="width:${pct}%; background-color: var(--accent-gold);"></div>
+                        </div>
+                        ${isClaimed ? '<p class="text-success pixel-text" style="text-align:right;">已領取</p>' : (isDone ? `<button class="small-btn btn-primary ripple" onclick="Game.claimQuestReward('${q.id}')">領取獎勵 ${q.reward} 💰</button>` : '')}
+                    </div>
+                `;
+            });
+        }
+
+        // Mistake Book
+        const mistakes = Object.keys(this.state.wordStats)
+            .filter(id => this.state.wordStats[id].wrong > 0)
+            .map(id => ({ id, stat: this.state.wordStats[id] }))
+            .sort((a, b) => b.stat.wrong - a.stat.wrong)
+            .slice(0, 5); // top 5 mistakes
+
+        if (mistakes.length > 0) {
+            html += `<h4 class="pixel-text text-danger" style="margin-top:16px; margin-bottom:8px;">⚠️ 錯題本 (最易錯單字)</h4>`;
+            html += `<div class="card-base" style="margin-bottom:16px;">`;
+            mistakes.forEach(m => {
+                const wordObj = WORDS_ALL.find(w => w.id === m.id);
+                if (wordObj) {
+                    html += `<div style="display:flex; justify-content:space-between; margin-bottom:8px; padding-bottom:8px; border-bottom: 1px solid rgba(0,0,0,0.1);">
+                                <span class="pixel-text text-danger">${wordObj.word} <small class="text-secondary">(${wordObj.zh})</small></span>
+                                <span>❌ ${m.stat.wrong} 次</span>
+                             </div>`;
+                }
+            });
+            html += `<button class="big-btn btn-danger ripple mt-4" style="width:100%;" onclick="Game.startWeaknessTraining()">🔥 弱點特訓</button>`;
+            html += `</div>`;
+        }
+
+        html += `<h4 class="pixel-text text-primary" style="margin-bottom:8px;">各區域精熟度</h4>`;
         
         REGION_KEYS.forEach(key => {
             const regionWords = this.getWordsForRegion(key);
@@ -1681,6 +1854,38 @@ const Game = {
         statsDiv.innerHTML = html;
     },
 
+    startWeaknessTraining() {
+        const poolIds = Object.keys(this.state.wordStats).filter(id => this.state.wordStats[id].wrong > 0);
+        let pool = WORDS_ALL.filter(w => poolIds.includes(w.id));
+        if (pool.length === 0) return;
+        
+        document.getElementById('screen-region-menu').classList.add('hidden');
+        document.getElementById('screen-dashboard').classList.add('hidden');
+        
+        this.battleState.isGym = false;
+        this.battleState.gymCorrect = 0;
+        this.battleState.answering = false;
+        this.battleState.combo = 0;
+        const comboEl = document.getElementById('battle-combo-text');
+        if (comboEl) comboEl.classList.add('hidden');
+        
+        pool = pool.sort((a, b) => this.state.wordStats[b.id].wrong - this.state.wordStats[a.id].wrong).slice(0, 10);
+        this.battleState.words = pool.sort(() => 0.5 - Math.random());
+        this.battleState.currentIndex = 0;
+        
+        const allMonsters = MONSTERS.regions['mixed'].monsters;
+        this.battleState.monster = allMonsters[Math.floor(Math.random() * allMonsters.length)];
+        this.battleState.isShiny = false;
+        document.getElementById('battle-sprite').src = SPRITE_BASE + this.battleState.monster.chain[0] + ".png";
+        
+        document.getElementById('gym-timer-container').classList.add('hidden');
+        document.getElementById('gym-timer').classList.add('hidden');
+        
+        document.getElementById('screen-battle').dataset.region = 'mixed';
+        this.showScreen('battle');
+        this.nextBattleQuestion();
+    },
+
     // 匯出學習紀錄到剪貼簿
     exportProgress() {
         let text = 'A1 Movers 單字冒險 — 學習紀錄\n';
@@ -1697,7 +1902,7 @@ const Game = {
         
         if (navigator.clipboard && navigator.clipboard.writeText) {
             navigator.clipboard.writeText(text).then(() => {
-                alert('✅ 學習紀錄已複製到剪貼簿！');
+                this.ui.showToast('✅ 學習紀錄已複製到剪貼簿！');
             }).catch(() => {
                 this.showExportFallback(text);
             });
@@ -1712,8 +1917,9 @@ const Game = {
         ta.style.cssText = 'position:fixed; top:10%; left:10%; width:80%; height:60%; z-index:9999; font-size:12px;';
         document.body.appendChild(ta);
         ta.select();
-        alert('請手動全選複製 (Ctrl+A → Ctrl+C)，然後關閉此視窗。');
-        ta.addEventListener('blur', () => ta.remove());
+        this.ui.showModal('手動複製', '請手動全選複製 (Ctrl+A → Ctrl+C)，然後關閉此視窗。', '確定', () => {
+            ta.remove();
+        });
     },
 
     // === 史詩結局動畫 (Phase 6) ===

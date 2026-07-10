@@ -126,6 +126,7 @@
             <div id="battle-header" class="battle-header">
                 <div class="battle-header-top">
                     <span class="pixel-text">怪獸 HP</span>
+                    <span id="battle-combo-text" class="pixel-text text-danger hidden" style="font-size: 1.2rem; text-shadow: 0 0 5px orange; transition: transform 0.2s;">🔥 Combo x2</span>
                     <span id="battle-progress-text" class="pixel-text battle-progress-text">剩餘: 5/5</span>
                 </div>
                 <!-- Monster Health Bar -->
@@ -178,6 +179,21 @@
                 <h2 id="capture-name" class="capture-name pixel-text">BULBASAUR</h2>
                 <p id="capture-rewards" class="capture-rewards"></p>
                 <button class="big-btn btn-primary ripple" onclick="Game.closeCapture()">繼續</button>
+            </div>
+        </div>
+
+        <!-- Battle Summary Screen -->
+        <div id="screen-battle-summary" class="screen overlay hidden">
+            <div class="menu-box card-base" style="width: 90%; max-width: 500px; text-align: center;">
+                <h1 id="summary-title" class="pixel-text text-primary">戰鬥結算</h1>
+                <div id="summary-stars" style="font-size: 3rem; margin: 10px 0; text-shadow: 0 0 10px var(--accent-gold);">⭐⭐⭐</div>
+                <div id="summary-stats" class="text-secondary" style="margin-bottom: 15px; font-weight: bold;">
+                    答對: 5/5 | 最高連擊: 5
+                </div>
+                <div id="summary-words" style="text-align: left; background: rgba(0,0,0,0.2); padding: 10px; border-radius: 8px; max-height: 150px; overflow-y: auto; margin-bottom: 20px;">
+                    <!-- words review injected here -->
+                </div>
+                <button class="big-btn btn-primary ripple" onclick="Game.closeBattleSummary()">完成</button>
             </div>
         </div>
 
