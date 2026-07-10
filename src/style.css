@@ -690,15 +690,27 @@ input, select, textarea { font-family: inherit; }
   pointer-events: none;
 }
 
+.cinematic-text-container {
+  background: rgba(0, 0, 0, 0.6);
+  padding: var(--sp-lg);
+  border-radius: var(--radius-lg);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+  max-width: 80%;
+  margin-bottom: var(--sp-xl);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
 .cinematic-text {
   font-family: var(--font-pixel);
-  font-size: 0.85rem;
+  font-size: 1.3rem;
   color: var(--text-primary);
   text-align: center;
   line-height: 2.2;
-  max-width: 320px;
+  max-width: 800px;
   animation: fadeIn 1s var(--ease-smooth);
-  text-shadow: 0 0 12px rgba(59,130,246,0.4);
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
 }
 
 
@@ -1831,6 +1843,16 @@ input, select, textarea { font-family: inherit; }
 
   .screen-title-logo {
     font-size: 1.2rem;
+  }
+
+  .cinematic-text {
+    font-size: 0.85rem;
+    line-height: 1.8;
+  }
+  
+  .cinematic-text-container {
+    padding: var(--sp-sm);
+    max-width: 95%;
   }
 
   .pokedex-grid {
