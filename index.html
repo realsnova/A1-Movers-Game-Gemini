@@ -256,6 +256,7 @@ input, select, textarea { font-family: inherit; }
 
 .nav-buttons {
   display: flex;
+  flex-wrap: wrap;
   gap: var(--sp-sm);
 }
 
@@ -264,9 +265,10 @@ input, select, textarea { font-family: inherit; }
   border: 1px solid var(--glass-border);
   border-radius: var(--radius-sm);
   color: var(--text-primary);
-  font-size: 1.15rem;
-  width: 36px;
+  font-size: 1rem;
+  padding: 0 var(--sp-sm);
   height: 36px;
+  width: auto;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -883,6 +885,8 @@ input, select, textarea { font-family: inherit; }
   filter: drop-shadow(0 4px 16px rgba(0,0,0,0.5));
   animation: popIn 0.5s var(--ease-bounce);
   text-align: center;
+  max-height: 180px;
+  object-fit: contain;
 }
 
 /* HP Bar */
