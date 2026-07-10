@@ -523,6 +523,11 @@ input, select, textarea { font-family: inherit; }
 
 /* ── 9. RIPPLE EFFECT ─────────────────────────────────────── */
 .ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-circle {
   position: absolute;
   border-radius: 50%;
   background: rgba(255,255,255,0.35);
@@ -2846,9 +2851,9 @@ const Game = {
                     if (isBadged) {
                         html += `<div class="map-badge">🎖️ 已獲得徽章</div>`;
                     }
-                    node.onclick = () => {
+                    node.onclick = (e) => {
                         const ripple = document.createElement('div');
-                        ripple.className = 'ripple';
+                        ripple.className = 'ripple-circle';
                         ripple.style.position = 'absolute';
                         node.appendChild(ripple);
                         setTimeout(() => this.openRegionMenu(key), 300);

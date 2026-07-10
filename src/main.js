@@ -697,9 +697,9 @@ const Game = {
                     if (isBadged) {
                         html += `<div class="map-badge">🎖️ 已獲得徽章</div>`;
                     }
-                    node.onclick = () => {
+                    node.onclick = (e) => {
                         const ripple = document.createElement('div');
-                        ripple.className = 'ripple';
+                        ripple.className = 'ripple-circle';
                         ripple.style.position = 'absolute';
                         node.appendChild(ripple);
                         setTimeout(() => this.openRegionMenu(key), 300);

@@ -515,6 +515,11 @@ input, select, textarea { font-family: inherit; }
 
 /* ── 9. RIPPLE EFFECT ─────────────────────────────────────── */
 .ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.ripple-circle {
   position: absolute;
   border-radius: 50%;
   background: rgba(255,255,255,0.35);
