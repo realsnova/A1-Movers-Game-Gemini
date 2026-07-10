@@ -3,6 +3,7 @@ import os
 import io
 
 def build():
+    # Load JSON data
     with open('wordlist.json', 'r', encoding='utf-8') as f:
         words_data = json.load(f)
     words_all = json.dumps(words_data.get('words', []), ensure_ascii=False)
@@ -11,6 +12,7 @@ def build():
         monsters_data = json.load(f)
     monsters_all = json.dumps(monsters_data, ensure_ascii=False)
     
+    # Load source files
     css_content = ""
     if os.path.exists('src/style.css'):
         with open('src/style.css', 'r', encoding='utf-8') as f:
@@ -26,11 +28,17 @@ def build():
         with open('src/index.html', 'r', encoding='utf-8') as f:
             html_template = f.read()
             
-    data_snippet = f"const WORDS_ALL = {words_all};\nconst MONSTERS = {monsters_all};"
+    # Inject data into JS snippet
+    data_snippet = f"""
+    const WORDS_ALL = {words_all};
+    const MONSTERS = {monsters_all};
+    """
     
+    # Inject CSS, JS, and Data into HTML
     output = html_template.replace('<!-- INJECT_CSS -->', f"<style>\n{css_content}\n</style>")
     output = output.replace('<!-- INJECT_DATA -->', f"<script>\n{data_snippet}\n</script>")
     
+    # Inject BGM
     import base64
     bgm_source_web = '<source src="BGM_no1.mp3" type="audio/mp3">'
     bgm_source_local = '<source src="https://upload.wikimedia.org/wikipedia/commons/4/4b/Kevin_MacLeod_-_Fantasy_Intro.ogg" type="audio/ogg">'
@@ -42,6 +50,7 @@ def build():
     output_web = output.replace('<!-- INJECT_BGM -->', bgm_source_web)
     output_local = output.replace('<!-- INJECT_BGM -->', bgm_source_local)
     
+    # Inject 4 BG Images for cinematic
     intro_images_web = []
     intro_images_local = []
     for i in range(1, 13):
@@ -64,13 +73,13 @@ def build():
     output_web = output_web.replace('<!-- INJECT_BG_IMG -->', '')
     output_local = output_local.replace('<!-- INJECT_BG_IMG -->', '')
     
-    with io.open('³æ¦r«_ÀI_Gemini.html', 'w', encoding='utf-8') as f:
+    with open('å–®å­—å†’éšª_Gemini.html', 'w', encoding='utf-8') as f:
         f.write(output_local)
-    
-    with io.open('index.html', 'w', encoding='utf-8') as f:
+        
+    with open('index.html', 'w', encoding='utf-8') as f:
         f.write(output_web)
         
-    print("Build complete: ³æ¦r«_ÀI_Gemini.html (Local Offline) and index.html (Web) generated.")
+    print("Build complete: å–®å­—å†’éšª_Gemini.html (Local Offline) and index.html (Web) generated.")
 
 if __name__ == "__main__":
     build()
