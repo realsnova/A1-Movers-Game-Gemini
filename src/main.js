@@ -45,6 +45,61 @@ const Game = {
         saveVersion: 5
     },
 
+    ui: {
+        showModal(title, text, actionLabel = '確定', onConfirm = null) {
+            const modal = document.getElementById('game-modal');
+            if(!modal) return alert(text);
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerHTML = text;
+            const actions = document.getElementById('modal-actions');
+            actions.innerHTML = '';
+            const btn = document.createElement('button');
+            btn.className = 'big-btn btn-primary ripple';
+            btn.innerText = actionLabel;
+            btn.onclick = () => {
+                modal.classList.add('hidden');
+                if (onConfirm) onConfirm();
+            };
+            actions.appendChild(btn);
+            modal.classList.remove('hidden');
+        },
+        showConfirm(title, text, confirmLabel, cancelLabel, onConfirm) {
+            const modal = document.getElementById('game-modal');
+            if(!modal) {
+                if(confirm(text)) onConfirm();
+                return;
+            }
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-text').innerHTML = text;
+            const actions = document.getElementById('modal-actions');
+            actions.innerHTML = '';
+            
+            const btnCancel = document.createElement('button');
+            btnCancel.className = 'small-btn btn-ghost ripple';
+            btnCancel.innerText = cancelLabel;
+            btnCancel.onclick = () => modal.classList.add('hidden');
+            
+            const btnConfirm = document.createElement('button');
+            btnConfirm.className = 'small-btn btn-danger ripple';
+            btnConfirm.innerText = confirmLabel;
+            btnConfirm.onclick = () => {
+                modal.classList.add('hidden');
+                onConfirm();
+            };
+            
+            actions.appendChild(btnCancel);
+            actions.appendChild(btnConfirm);
+            modal.classList.remove('hidden');
+        },
+        showToast(message, duration = 3000) {
+            const toast = document.getElementById('game-toast');
+            if(!toast) return;
+            toast.innerText = message;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), duration);
+        }
+    },
+
     pendingEndingStory: false,
     pendingEvolutions: [], // 進化佇列
     hasTTSEnglish: true,   // TTS 英文語音是否可用
@@ -134,10 +189,10 @@ const Game = {
     },
 
     resetProgress() {
-        if (confirm('確定要重置所有進度嗎？這將會清除所有已解鎖的徽章與收集到的寶可夢，且無法復原！\n(如果您想保留進度，請先點擊「備份進度」)')) {
+        this.ui.showConfirm('重置進度', '確定要重置所有進度嗎？這將會清除所有已解鎖的徽章與收集到的寶可夢，且無法復原！<br>(如果您想保留進度，請先點擊「備份進度」)', '確定重置', '取消', () => {
             localStorage.removeItem('A1MoversState');
             window.location.reload();
-        }
+        });
     },
 
     downloadSaveFile() {
@@ -152,7 +207,7 @@ const Game = {
         a.click();
         document.body.removeChild(a);
         URL.revokeObjectURL(url);
-        alert("進度已成功備份下載！請妥善保存該檔案。");
+        this.ui.showModal("備份成功", "進度已成功備份下載！請妥善保存該 JSON 檔案。");
     },
 
     handleSaveFileUpload(event) {
@@ -164,16 +219,17 @@ const Game = {
             try {
                 const importedState = JSON.parse(e.target.result);
                 if (importedState && typeof importedState === 'object') {
-                    if (confirm('確定要讀取此進度檔嗎？目前的進度將會被覆蓋！')) {
+                    this.ui.showConfirm('讀取進度', '確定要讀取此進度檔嗎？目前的進度將會被覆蓋！', '確定讀取', '取消', () => {
                         localStorage.setItem('A1MoversState', JSON.stringify(importedState));
-                        alert('讀取成功！遊戲即將重新載入。');
-                        window.location.reload();
-                    }
+                        this.ui.showModal('讀取成功', '讀取成功！遊戲即將重新載入。', '確定', () => {
+                            window.location.reload();
+                        });
+                    });
                 } else {
-                    alert('無效的存檔格式！');
+                    this.ui.showModal('讀取失敗', '無效的存檔格式！');
                 }
             } catch (err) {
-                alert('讀取失敗，存檔可能已損毀！');
+                this.ui.showModal('讀取失敗', '讀取失敗，存檔可能已損毀！');
                 console.error(err);
             }
         };
@@ -552,22 +608,42 @@ const Game = {
             REGION_KEYS.forEach((key, index) => {
                 const node = document.createElement('div');
                 const isUnlocked = this.state.unlockedRegions.includes(key);
-                node.className = 'map-node pixel-text ' + (isUnlocked ? 'unlocked' : '');
+                const isBadged = this.state.badges.includes(key);
+                node.className = 'map-node card-base ' + (isUnlocked ? '' : 'locked');
+                node.dataset.region = key;
+                node.style.animationDelay = `${index * 0.05}s`;
                 
-                let html = `<h3>${REGION_NAMES[key]}</h3>`;
+                const emojiMap = {
+                    'animals': '🌿', 'food': '🍔', 'body': '👂', 'school': '🏫', 'sports': '⚽',
+                    'home_family': '🏠', 'weather_world': '☔', 'places_transport': '🚌', 'time_numbers': '🕒', 'mixed': '🏆'
+                };
+                
+                let html = `
+                    <div class="map-icon">${emojiMap[key] || '🗺️'}</div>
+                    <h3 class="pixel-text">${REGION_NAMES[key]}</h3>
+                `;
+                
                 if (isUnlocked) {
-                    html += `<span>🔓 已解鎖</span>`;
-                    if (this.state.badges.includes(key)) html += `<br><span>🎖️ 已獲得徽章</span>`;
-                    node.onclick = () => this.openRegionMenu(key);
+                    if (isBadged) {
+                        html += `<div class="map-badge">🎖️ 已獲得徽章</div>`;
+                    }
+                    node.onclick = () => {
+                        const ripple = document.createElement('div');
+                        ripple.className = 'ripple';
+                        ripple.style.position = 'absolute';
+                        node.appendChild(ripple);
+                        setTimeout(() => this.openRegionMenu(key), 300);
+                    };
                 } else {
-                    html += `<span>🔒 需打敗前一道館</span>`;
-                    node.onclick = () => alert("請先通過前面的道館獲得徽章！");
+                    html += `<div class="map-badge" style="color:var(--text-muted);">🔒 未解鎖</div>`;
+                    node.onclick = () => this.ui.showToast("請先通過前面的道館獲得徽章！");
                 }
                 node.innerHTML = html;
                 grid.appendChild(node);
             });
+            twemoji.parse(grid);
         } catch (e) {
-            grid.innerHTML = `<div style="color:red; background:white; padding:20px;">渲染地圖失敗: ${e.message}</div>`;
+            grid.innerHTML = `<div class="pixel-text" style="color:var(--accent-red);">渲染地圖失敗: ${e.message}</div>`;
         }
     },
 
@@ -708,7 +784,7 @@ const Game = {
     startStudy() {
         let regionWords = this.getWordsForRegion(this.currentRegion);
         if (regionWords.length === 0) {
-            alert("此區域沒有單字！");
+            this.ui.showToast("此區域沒有單字！");
             return;
         }
         // 排序：新字與到期字優先
@@ -788,7 +864,7 @@ const Game = {
         let count = isGym ? (this.currentRegion === 'mixed' ? 20 : 10) : 5;
         
         if (pool.length < count) {
-            alert("此區域單字數量不足，無法戰鬥！");
+            this.ui.showToast("此區域單字數量不足，無法戰鬥！");
             return;
         }
 
@@ -978,14 +1054,14 @@ const Game = {
         // 無 emoji 時顯示中文字卡
         const displayContent = wordObj.emoji 
             ? `<div class="emoji-large">${wordObj.emoji}</div>` 
-            : `<div style="font-size:2.5rem; background:#fff; padding:20px; border-radius:12px; border:3px solid var(--primary); color:#333;">${wordObj.zh}</div>`;
-        document.getElementById('battle-question-content').innerHTML = `${displayContent}<div style="font-size:1.2rem; margin-top:10px;">這指的是哪個單字？</div>`;
+            : `<div class="pixel-text text-primary" style="font-size:2.5rem; background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; border:2px solid var(--accent-blue);">${wordObj.zh}</div>`;
+        document.getElementById('battle-question-content').innerHTML = `${displayContent}<div class="text-secondary" style="font-size:1.2rem; margin-top:10px;">這指的是哪個單字？</div>`;
         document.getElementById('battle-options').classList.remove('hidden');
         
         const opts = this.generateOptions(wordObj, 'word', 4);
         opts.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = 'option-btn pixel-text';
+            btn.className = 'option-btn pixel-text ripple';
             btn.dataset.id = opt.id;
             btn.innerText = opt.word;
             btn.onclick = () => this.checkAnswer(opt.id === wordObj.id, wordObj);
@@ -995,13 +1071,13 @@ const Game = {
     },
 
     renderTypeB(wordObj) {
-        document.getElementById('battle-question-content').innerHTML = `<div style="font-size:1.2rem; margin-bottom:10px;">聽音選圖</div><button class="big-btn" onclick="Game.playTTS('${wordObj.word}')">🔊 播放</button>`;
+        document.getElementById('battle-question-content').innerHTML = `<div class="text-secondary" style="font-size:1.2rem; margin-bottom:10px;">聽音選圖</div><button class="big-btn btn-primary ripple" onclick="Game.playTTS('${wordObj.word}')">🔊 播放</button>`;
         document.getElementById('battle-options').classList.remove('hidden');
         
         const opts = this.generateOptions(wordObj, 'emoji', 4);
         opts.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = 'option-btn emoji-large';
+            btn.className = 'option-btn emoji-large ripple';
             btn.dataset.id = opt.id;
             btn.style.fontSize = '40px';
             btn.innerText = opt.emoji || '❓';
@@ -1013,7 +1089,7 @@ const Game = {
     },
 
     renderTypeC(wordObj) {
-        document.getElementById('battle-question-content').innerHTML = `<div style="font-size:1.2rem;">請拼出：${wordObj.zh}</div>`;
+        document.getElementById('battle-question-content').innerHTML = `<div class="text-secondary" style="font-size:1.2rem;">請拼出：</div><div class="pixel-text text-primary" style="font-size:1.5rem; margin-top:8px;">${wordObj.zh}</div>`;
         document.getElementById('battle-spelling').classList.remove('hidden');
         
         this.battleState.spellingTarget = wordObj.word.replace(/\s+/g, '').toLowerCase();
@@ -1033,8 +1109,7 @@ const Game = {
             let chars = word.split('').sort(() => 0.5 - Math.random());
             chars.forEach((c, i) => {
                 const btn = document.createElement('button');
-                btn.className = 'small-btn pixel-text';
-                btn.style.fontSize = '1.5rem';
+                btn.className = 'spelling-tile ripple pixel-text';
                 btn.innerText = c;
                 btn.id = 'spell-btn-' + i;
                 btn.onclick = () => this.spellingClick(c, i);
@@ -1046,7 +1121,7 @@ const Game = {
     spellingClick(c, btnIndex) {
         this.battleState.spellingAnswer.push(c);
         this.battleState.letterBtnsMap[this.battleState.spellingAnswer.length - 1] = btnIndex; // Map answer index to btn index
-        document.getElementById('spell-btn-' + btnIndex).style.visibility = 'hidden';
+        document.getElementById('spell-btn-' + btnIndex).classList.add('used');
         document.getElementById('spelling-answer').innerText = this.battleState.spellingAnswer.join('');
         
         if (this.battleState.spellingAnswer.length === this.battleState.spellingTarget.length) {
@@ -1064,7 +1139,7 @@ const Game = {
             delete this.battleState.letterBtnsMap[ansIndex];
             
             if (btnIndex !== undefined) {
-                document.getElementById('spell-btn-' + btnIndex).style.visibility = 'visible';
+                document.getElementById('spell-btn-' + btnIndex).classList.remove('used');
             }
             document.getElementById('spelling-answer').innerText = this.battleState.spellingAnswer.join('');
         }
@@ -1074,7 +1149,7 @@ const Game = {
         this.battleState.spellingAnswer = [];
         this.battleState.letterBtnsMap = {};
         const btns = document.getElementById('spelling-letters').querySelectorAll('button');
-        btns.forEach(b => b.style.visibility = 'visible');
+        btns.forEach(b => b.classList.remove('used'));
         this.updateSpellingUI();
     },
 
@@ -1091,21 +1166,21 @@ const Game = {
 
             // find and click the first matching char that is still visible
             const btns = Array.from(document.getElementById('spelling-letters').querySelectorAll('button'));
-            const targetBtn = btns.find(b => b.innerText === targetChar && b.style.visibility !== 'hidden');
+            const targetBtn = btns.find(b => b.innerText === targetChar && !b.classList.contains('used'));
             if (targetBtn) targetBtn.click();
         } else {
-            alert("金幣不足！需要 5 💰");
+            this.ui.showToast("金幣不足！需要 5 💰");
         }
     },
 
     renderTypeD(wordObj, precomputedSentence) {
-        document.getElementById('battle-question-content').innerHTML = `<div style="font-size: 1.2rem; line-height:1.5;">${precomputedSentence}<br><small style="color:#666;">${wordObj.sentence_zh}</small></div>`;
+        document.getElementById('battle-question-content').innerHTML = `<div style="font-size: 1.2rem; line-height:1.5;">${precomputedSentence}<br><small class="text-secondary">${wordObj.sentence_zh}</small></div>`;
         document.getElementById('battle-options').classList.remove('hidden');
         
         const opts = this.generateOptions(wordObj, 'word', 3);
         opts.forEach(opt => {
             const btn = document.createElement('button');
-            btn.className = 'option-btn pixel-text';
+            btn.className = 'option-btn pixel-text ripple';
             btn.dataset.id = opt.id;
             btn.innerText = opt.word;
             btn.onclick = () => this.checkAnswer(opt.id === wordObj.id, wordObj);
@@ -1318,7 +1393,7 @@ const Game = {
             if (this.battleState.gymCorrect >= required) {
                 this.triggerGymWin();
             } else {
-                alert(`挑戰失敗！答對 ${this.battleState.gymCorrect} 題，需要 ${required} 題。`);
+                this.ui.showModal('道館挑戰失敗', `挑戰失敗！答對 ${this.battleState.gymCorrect} 題，需要 ${required} 題才能獲得徽章。再接再厲！`);
                 this.showScreen('map');
             }
         } else {
@@ -1401,11 +1476,7 @@ const Game = {
         const grid = document.getElementById('pokedex-grid');
         grid.innerHTML = '';
         
-        grid.style.display = 'grid';
-        grid.style.gridTemplateColumns = 'repeat(auto-fit, minmax(120px, 1fr))';
-        grid.style.gap = '16px';
-        grid.style.width = '100%';
-        grid.style.padding = '16px';
+        // CSS handles grid styling
 
         let totalMonsters = 0;
         let caughtIds = this.state.caught.map(c => c.id);
@@ -1442,35 +1513,35 @@ const Game = {
             const isShiny = this.state.shinyCaught.includes(baseId);
             
             const box = document.createElement('div');
-            box.style.display = 'flex';
-            box.style.flexDirection = 'column';
-            box.style.alignItems = 'center';
-            box.style.background = 'white';
-            box.style.padding = '10px';
-            box.style.borderRadius = '12px';
-            box.style.boxShadow = '0 4px 8px rgba(0,0,0,0.1)';
+            box.className = 'dex-entry card-pokemon card-base';
             
             let displayId = baseId;
-            let imgStyle = 'width:80px; height:80px; image-rendering:pixelated;';
-            let nameHtml = `<div class="pixel-text" style="color:#ccc; font-size:1rem; margin-top:8px;">???</div>`;
+            let nameHtml = `<div class="pixel-text dex-name text-muted" style="margin-top:8px;">???</div>`;
             
             if (isCaught) {
                 displayId = isCaught.id; // 使用進化後的 id
+                box.classList.add('caught');
+                
+                // Rarity border based on evolved stage / shiny
+                if (isShiny) box.classList.add('rarity-rainbow');
+                else if (isCaught.evolvedStage >= 2) box.classList.add('rarity-gold');
+                else if (isCaught.evolvedStage === 1) box.classList.add('rarity-silver');
+
                 // 顯示綁定的第一個單字
                 const firstWordId = Array.isArray(isCaught.words) ? isCaught.words[0] : null;
                 const wordObj = firstWordId ? WORDS_ALL.find(w => w.id === firstWordId) : null;
-                nameHtml = `<div class="pixel-text" style="color:var(--primary); font-size:1rem; margin-top:8px;">${wordObj ? wordObj.word : m.names ? m.names[0] : '???'}</div>
-                            <div style="color:#666; font-size:0.8rem;">${wordObj ? wordObj.zh : ''}</div>
-                            ${isCaught.evolvedStage > 0 ? '<div style="color:gold; font-size:0.8rem;">🌟</div>' : ''}
-                            ${isShiny ? '<div style="font-size:0.8rem;">✨ 異色</div>' : ''}`;
-            } else {
-                // Silhouette
-                imgStyle += ' filter: brightness(0); opacity: 0.5;';
+                nameHtml = `<div class="pixel-text dex-name text-primary" style="margin-top:8px;">${wordObj ? wordObj.word : m.names ? m.names[0] : '???'}</div>
+                            <div class="text-secondary" style="font-size:0.8rem;">${wordObj ? wordObj.zh : ''}</div>
+                            ${isCaught.evolvedStage > 0 ? '<div class="pixel-text" style="color:var(--accent-gold); font-size:0.8rem;">🌟</div>' : ''}
+                            ${isShiny ? '<div class="pixel-text" style="color:var(--accent-purple); font-size:0.8rem;">✨ 異色</div>' : ''}`;
             }
 
             const imgEl = document.createElement('img');
             imgEl.src = SPRITE_BASE + displayId + '.png';
-            imgEl.setAttribute('style', imgStyle);
+            if (!isCaught) {
+                 imgEl.style.filter = 'brightness(0)';
+                 imgEl.style.opacity = '0.5';
+            }
             imgEl.onerror = function() { this.style.display='none'; this.parentElement.insertAdjacentHTML('afterbegin', '<div style="font-size:3rem;">👾</div>'); };
             box.appendChild(imgEl);
             box.insertAdjacentHTML('beforeend', nameHtml);
@@ -1493,23 +1564,20 @@ const Game = {
             }
             
             const box = document.createElement('div');
-            box.className = 'study-card';
-            box.style.minWidth = '0';
-            box.style.padding = '16px';
+            box.className = 'card-shop card-base';
             
             box.innerHTML = `
-                <div style="font-size: 3rem;">${item.icon ? item.icon : '🖼️'}</div>
-                <h3 class="pixel-text" style="font-size:1rem; margin:8px 0;">${item.name}</h3>
-                ${item.desc ? `<p style="font-size:0.8rem; color:#666; margin-bottom:8px;">${item.desc}</p>` : ''}
-                <p class="pixel-text text-success" style="font-size: 0.9rem;">${ownedText}</p>
+                <div class="emoji-large">${item.icon ? item.icon : '🖼️'}</div>
+                <h3 class="pixel-text text-primary" style="margin:8px 0;">${item.name}</h3>
+                ${item.desc ? `<p class="text-secondary" style="font-size:0.8rem; margin-bottom:8px;">${item.desc}</p>` : ''}
+                <p class="pixel-text text-success">${ownedText}</p>
             `;
             
             const btn = document.createElement('button');
-            btn.className = 'small-btn pixel-text';
+            btn.className = 'small-btn ripple ' + (isEquipped ? 'btn-ghost' : (isOwned ? 'btn-primary' : 'btn-accent'));
             if (isEquipped) {
                 btn.innerText = '已裝備';
                 btn.disabled = true;
-                btn.style.opacity = 0.5;
             } else if (isOwned) {
                 btn.innerText = '裝備';
                 btn.onclick = () => this.equipItem(item);
@@ -1533,9 +1601,9 @@ const Game = {
             }
             this.saveState();
             this.renderShop();
-            alert(`成功購買 ${item.name}！`);
+            this.ui.showToast(`成功購買 ${item.name}！`);
         } else {
-            alert('金幣不足！');
+            this.ui.showToast('金幣不足！');
         }
     },
 
@@ -1556,14 +1624,14 @@ const Game = {
         let learnedAll = Object.keys(this.state.wordStats).filter(k => this.state.wordStats[k].correct > 0).length;
         
         let html = `
-            <div style="margin-bottom:16px; padding:12px; background:rgba(212,175,55,0.1); border-radius:8px;">
-                <p>📊 <b>總覽</b></p>
+            <div class="card-base" style="margin-bottom:16px; background:rgba(212,175,55,0.05); border: 1px solid rgba(212,175,55,0.2);">
+                <p class="pixel-text text-primary">📊 總覽</p>
                 <p>🎯 學習進度：${learnedAll} / ${totalAll} 字</p>
                 <p>🏆 獲得徽章：${this.state.badges.length} / 10</p>
                 <p>🎒 收服寶可夢：${this.state.caught.length}</p>
                 <p>🔥 連續登入：${this.state.streak} 天</p>
             </div>
-            <h4 style="color:var(--primary); margin-bottom:8px;">各區域精熟度</h4>
+            <h4 class="pixel-text text-primary" style="margin-bottom:8px;">各區域精熟度</h4>
         `;
         
         REGION_KEYS.forEach(key => {
@@ -1582,23 +1650,22 @@ const Game = {
                 }
             });
             const masteryPct = total > 0 ? Math.round((masterySum / total) * 100) : 0;
-            const barColor = masteryPct >= 80 ? '#4caf50' : masteryPct >= 40 ? '#ff9800' : '#f44336';
             const hasBadge = this.state.badges.includes(key) ? ' 🏅' : '';
             
             html += `
-                <div style="margin-bottom:10px;">
-                    <div style="display:flex; justify-content:space-between; font-size:0.9rem;">
-                        <span>${REGION_NAMES[key]}${hasBadge}</span>
-                        <span>${learnedCount}/${total} 字 | ${masteryPct}%</span>
+                <div style="margin-bottom:12px;">
+                    <div style="display:flex; justify-content:space-between; font-size:0.9rem; margin-bottom:4px;">
+                        <span class="pixel-text">${REGION_NAMES[key]}${hasBadge}</span>
+                        <span class="text-secondary">${learnedCount}/${total} 字 | ${masteryPct}%</span>
                     </div>
-                    <div style="width:100%; height:12px; background:#e0e0e0; border-radius:6px; overflow:hidden;">
-                        <div style="width:${masteryPct}%; height:100%; background:${barColor}; transition:width 0.5s;"></div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar-fill" style="width:${masteryPct}%; background-color: var(--region-color, var(--accent-blue));" data-region="${key}"></div>
                     </div>
                 </div>
             `;
         });
         
-        html += `<button class="big-btn mt-4" onclick="Game.exportProgress()" style="max-width:250px;">📋 匯出學習紀錄</button>`;
+        html += `<button class="big-btn btn-ghost mt-4 ripple" onclick="Game.exportProgress()">📋 匯出學習紀錄</button>`;
         statsDiv.innerHTML = html;
     },
 

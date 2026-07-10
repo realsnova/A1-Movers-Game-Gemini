@@ -17,14 +17,15 @@
 
     <div id="game-container">
         <!-- Cinematic Intro Screen -->
-        <div id="screen-intro-cinematic" class="screen hidden" style="background-size: cover; background-position: center; align-items: center; justify-content: flex-end; padding-bottom: 10%; transition: background-image 1.5s ease-in-out; position: relative;">
-            <div id="cinematic-text-container" style="width: 80%; text-align: center; min-height: 150px; z-index: 2;">
-                <p id="cinematic-text" style="font-family: 'Cinzel', 'Noto Sans TC', serif; font-size: 2rem; color: #fff; text-shadow: 0 0 10px rgba(0,0,0,0.8), 2px 2px 4px #000; opacity: 0; transition: opacity 2s ease-in-out;"></p>
+        <div id="screen-intro-cinematic" class="screen cinematic-screen hidden">
+            <div id="cinematic-text-container" class="cinematic-text-container">
+                <p id="cinematic-text" class="cinematic-text pixel-text"></p>
             </div>
-            <button class="small-btn btn-gray" style="position: absolute; top: 20px; right: 20px; background: rgba(0,0,0,0.5);" onclick="Game.skipIntro()">跳過劇情 (Skip)</button>
+            <button class="small-btn btn-ghost skip-btn" onclick="Game.skipIntro()">跳過劇情 (Skip)</button>
         </div>
+        
         <!-- Error Reporter -->
-        <div id="error-reporter" style="display:none; position:absolute; top:0; left:0; right:0; background:red; color:white; z-index:9999; padding:20px; font-size:20px;"></div>
+        <div id="error-reporter" class="error-reporter" style="display:none;"></div>
         <script>
             window.onerror = function(msg, url, lineNo, columnNo, error) {
                 var el = document.getElementById('error-reporter');
@@ -43,33 +44,33 @@
                 <span id="stat-badges" title="徽章">🎖️ 0</span>
             </div>
             <div class="nav-buttons">
-                <button id="btn-sound-toggle" class="nav-btn pixel-text" onclick="Game.toggleSound()">🔊</button>
-                <button class="nav-btn pixel-text" onclick="Game.showScreen('map')">地圖</button>
-                <button class="nav-btn pixel-text" onclick="Game.showScreen('pokedex')">圖鑑</button>
-                <button class="nav-btn pixel-text" onclick="Game.showScreen('shop')">商店</button>
-                <button class="nav-btn pixel-text" onclick="Game.showScreen('dashboard')">儀表板</button>
+                <button id="btn-sound-toggle" class="nav-btn pixel-text ripple" onclick="Game.toggleSound()">🔊</button>
+                <button class="nav-btn pixel-text ripple" onclick="Game.showScreen('map')">地圖</button>
+                <button class="nav-btn pixel-text ripple" onclick="Game.showScreen('pokedex')">圖鑑</button>
+                <button class="nav-btn pixel-text ripple" onclick="Game.showScreen('shop')">商店</button>
+                <button class="nav-btn pixel-text ripple" onclick="Game.showScreen('dashboard')">儀表板</button>
             </div>
         </div>
 
         <!-- Title Screen -->
         <div id="screen-title" class="screen">
-            <h1 class="pixel-text">A1 Movers<br>單字冒險</h1>
-            <button class="big-btn pixel-text" onclick="Game.startAdventure()">開始冒險</button>
-            <div class="save-controls" style="display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:20px;">
-                <button class="small-btn btn-secondary pixel-text" onclick="Game.replayIntro()">🎬 重看開場</button>
-                <button class="small-btn btn-primary pixel-text" onclick="Game.downloadSaveFile()">💾 備份進度</button>
-                <button class="small-btn btn-primary pixel-text" onclick="document.getElementById('save-file-input').click()">📂 讀取進度</button>
-                <button class="small-btn btn-danger pixel-text" onclick="Game.resetProgress()">重置進度</button>
+            <h1 class="screen-title-logo pixel-text title-text">A1 Movers<br>單字冒險</h1>
+            <button class="big-btn btn-primary pixel-text ripple" onclick="Game.startAdventure()">開始冒險</button>
+            <div class="save-controls">
+                <button class="small-btn btn-ghost pixel-text ripple" onclick="Game.replayIntro()">🎬 重看開場</button>
+                <button class="small-btn btn-secondary pixel-text ripple" onclick="Game.downloadSaveFile()">💾 備份進度</button>
+                <button class="small-btn btn-secondary pixel-text ripple" onclick="document.getElementById('save-file-input').click()">📂 讀取進度</button>
+                <button class="small-btn btn-danger pixel-text ripple" onclick="Game.resetProgress()">重置進度</button>
             </div>
             <input type="file" id="save-file-input" style="display:none" accept=".json" onchange="Game.handleSaveFileUpload(event)">
         </div>
         
         <!-- Story Screen -->
         <div id="screen-story" class="screen hidden">
-            <div class="menu-box" style="max-width: 600px;">
+            <div class="menu-box card-base">
                 <h2 id="story-title" class="pixel-text"></h2>
-                <p id="story-text" class="pixel-text" style="font-size: 1.2rem; line-height: 2; text-align: left;"></p>
-                <button class="big-btn mt-4" onclick="Game.endStory()">繼續</button>
+                <p id="story-text" class="pixel-text story-text"></p>
+                <button class="big-btn btn-primary mt-4 ripple" onclick="Game.endStory()">繼續</button>
             </div>
         </div>
 
@@ -83,160 +84,176 @@
 
         <!-- Region Menu Overlay -->
         <div id="screen-region-menu" class="screen overlay hidden">
-            <div class="menu-box">
+            <div class="region-menu-box card-base">
                 <h2 id="menu-region-name" class="pixel-text">區域名稱</h2>
-                <div id="mixed-chapters" class="hidden" style="margin-bottom: 16px;">
-                    <label class="pixel-text" style="color: #333; display: block; margin-bottom: 8px;">選擇冠軍之路章節：</label>
-                    <select id="mixed-chapter-select" style="font-family: inherit; font-size: 1.2rem; padding: 4px 8px; border: 3px solid var(--primary); border-radius: 8px; cursor: pointer;">
+                <div id="mixed-chapters" class="hidden mixed-chapters-container">
+                    <label class="pixel-text">選擇冠軍之路章節：</label>
+                    <select id="mixed-chapter-select" class="chapter-selector">
                         <option value="1">第一章 (第 1-42 字)</option>
                         <option value="2">第二章 (第 43-84 字)</option>
                         <option value="3">第三章 (第 85-125 字)</option>
                     </select>
                 </div>
-                <button class="big-btn" onclick="Game.startStudy()">📖 學習單字</button>
-                <button class="big-btn btn-danger" onclick="Game.startBattle()">⚔️ 野外戰鬥</button>
-                <button id="btn-gym" class="big-btn" style="background-color: #9c27b0;" onclick="Game.startGym()">🏛️ 挑戰道館</button>
-                <button class="small-btn mt-4" onclick="Game.showScreen('map')">返回</button>
+                <button class="big-btn btn-primary ripple" onclick="Game.startStudy()">📖 學習單字</button>
+                <button class="big-btn btn-danger ripple" onclick="Game.startBattle()">⚔️ 野外戰鬥</button>
+                <button id="btn-gym" class="big-btn btn-gym ripple" onclick="Game.startGym()">🏛️ 挑戰道館</button>
+                <button class="small-btn btn-ghost mt-4 ripple" onclick="Game.showScreen('map')">返回</button>
             </div>
         </div>
 
         <!-- Study Screen -->
         <div id="screen-study" class="screen hidden">
-            <div style="width: 100%; max-width: 600px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;">
-                <button class="small-btn btn-danger" onclick="Game.showScreen('map')">❌ 離開</button>
-                <span id="study-progress-text" class="pixel-text" style="font-size: 1rem; color: #666;">進度: 1/1</span>
+            <div class="study-header">
+                <button class="small-btn btn-danger ripple" onclick="Game.showScreen('map')">❌ 離開</button>
+                <span id="study-progress-text" class="pixel-text study-progress">進度: 1/1</span>
             </div>
-            <div class="study-card">
+            <div class="study-card card-base">
                 <div id="study-emoji" class="emoji-large"></div>
                 <h1 id="study-word" class="pixel-text text-primary"></h1>
                 <h2 id="study-zh" class="pixel-text text-secondary"></h2>
                 <p id="study-sentence"></p>
-                <button class="big-btn mt-4" onclick="Game.studyPlayAudio()">🔊 發音</button>
+                <button class="big-btn btn-secondary mt-4 ripple" onclick="Game.studyPlayAudio()">🔊 發音</button>
             </div>
             <div class="study-controls">
-                <button class="big-btn btn-gray" onclick="Game.studyPrev()">◀ 上一個</button>
-                <button class="big-btn" onclick="Game.studyPlayAudio()">🔊 發音</button>
-                <button class="big-btn btn-gray" onclick="Game.studyNext()">下一個 ▶</button>
+                <button class="big-btn btn-ghost ripple" onclick="Game.studyPrev()">◀ 上一個</button>
+                <button class="big-btn btn-primary ripple" onclick="Game.studyPlayAudio()">🔊 發音</button>
+                <button class="big-btn btn-ghost ripple" onclick="Game.studyNext()">下一個 ▶</button>
             </div>
         </div>
 
         <!-- Battle & Gym Screen -->
-        <div id="screen-battle" class="screen hidden">
-            <div id="battle-header" style="width: 90%; max-width: 600px; text-align: center; margin-bottom: 10px;">
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;">
-                    <span class="pixel-text" style="font-size: 1rem; color: #333;">怪獸 HP</span>
-                    <span id="battle-progress-text" class="pixel-text" style="font-size: 0.8rem; color: #666;">剩餘: 5/5</span>
+        <div id="screen-battle" class="screen battle-bg hidden">
+            <div id="battle-header" class="battle-header">
+                <div class="battle-header-top">
+                    <span class="pixel-text">怪獸 HP</span>
+                    <span id="battle-progress-text" class="pixel-text battle-progress-text">剩餘: 5/5</span>
                 </div>
                 <!-- Monster Health Bar -->
-                <div style="width: 100%; height: 20px; background-color: #ffebee; border-radius: 10px; overflow: hidden; border: 2px solid #b71c1c; margin-bottom: 8px;">
-                    <div id="monster-hp-bar" style="width: 100%; height: 100%; background-color: #4caf50; transition: width 0.5s ease-out, background-color 0.3s;"></div>
+                <div class="hp-bar-container">
+                    <div id="monster-hp-bar" class="hp-bar-fill"></div>
                 </div>
                 
                 <!-- Gym Timer Bar -->
-                <div style="display: flex; justify-content: flex-end; margin-bottom: 4px;">
-                    <span id="gym-timer" class="pixel-text hidden" style="font-size: 0.8rem; color: #c62828;">⏳ 20s</span>
+                <div class="gym-timer-label-container">
+                    <span id="gym-timer" class="pixel-text hidden gym-timer-text">⏳ 20s</span>
                 </div>
-                <div id="gym-timer-container" class="hidden" style="width: 100%; height: 15px; background-color: #e0e0e0; border-radius: 8px; overflow: hidden; border: 2px solid #c62828;">
-                    <div id="gym-timer-bar" style="width: 100%; height: 100%; background-color: var(--danger); transition: width 1s linear, background-color 0.3s;"></div>
+                <div id="gym-timer-container" class="timer-bar-container hidden">
+                    <div id="gym-timer-bar" class="timer-bar-fill"></div>
                 </div>
             </div>
             
-            <div id="battle-monster" class="emoji-large" style="margin-bottom: 10px;">
-                <img id="battle-sprite" src="" alt="Monster" style="width:150px; height:150px; image-rendering: pixelated; filter: brightness(0); transition: filter 1s, transform 0.2s;">
+            <div id="battle-monster" class="emoji-large">
+                <img id="battle-sprite" src="" alt="Monster">
             </div>
             
             <!-- Consumable Item Button -->
-            <button id="btn-use-potion" class="small-btn hidden pixel-text" style="background-color: #ff9800; color: white; margin-bottom: 10px; border-radius: 20px;" onclick="Game.useHintPotion()">🧪 使用提示藥水</button>
+            <button id="btn-use-potion" class="small-btn btn-potion hidden pixel-text ripple" onclick="Game.useHintPotion()">🧪 使用提示藥水</button>
 
-            <div id="battle-question-box" class="study-card" style="margin-bottom: 16px;">
-                <div id="battle-question-content" style="font-size: 1.5rem;"></div>
+            <div id="battle-question-box" class="battle-question card-base">
+                <div id="battle-question-content"></div>
             </div>
+            
             <!-- Options Grid (Type A, B, D) -->
-            <div id="battle-options" style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; width: 90%; max-width: 600px;"></div>
+            <div id="battle-options" class="battle-options-grid"></div>
+            
             <!-- Spelling Area (Type C) -->
-            <div id="battle-spelling" class="hidden" style="width: 90%; max-width: 600px; text-align: center;">
-                <div id="spelling-answer" class="pixel-text" style="font-size: 2rem; min-height: 40px; margin-bottom: 16px; letter-spacing: 4px; border-bottom: 2px solid #333; padding-bottom: 8px;"></div>
-                <div id="spelling-letters" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-bottom: 16px;"></div>
-                <div style="display: flex; gap: 8px; justify-content: center;">
-                    <button class="small-btn btn-danger" onclick="Game.spellingClear()">重來</button>
-                    <button class="small-btn" style="background-color: #ff9800; color: white;" onclick="Game.spellingBackspace()">⌫ 退格</button>
-                    <button id="btn-spelling-hint" class="small-btn btn-gray" onclick="Game.spellingHint()">提示 (5💰)</button>
+            <div id="battle-spelling" class="battle-spelling-area hidden">
+                <div id="spelling-answer" class="pixel-text spelling-answer-display"></div>
+                <div id="spelling-letters" class="spelling-letters-grid"></div>
+                <div class="spelling-controls">
+                    <button class="small-btn btn-danger ripple" onclick="Game.spellingClear()">重來</button>
+                    <button class="small-btn btn-accent ripple" onclick="Game.spellingBackspace()">⌫ 退格</button>
+                    <button id="btn-spelling-hint" class="small-btn btn-ghost ripple" onclick="Game.spellingHint()">提示 (5💰)</button>
                 </div>
             </div>
         </div>
 
         <!-- Capture Result Screen -->
         <div id="screen-capture" class="screen overlay hidden">
-            <div style="text-align: center;">
-                <h1 id="capture-title" class="pixel-text" style="color: var(--primary);">收服成功！</h1>
-                <div class="emoji-large" style="margin: 20px 0;">
-                    <img id="capture-sprite" src="" alt="Caught Monster" style="width:150px; height:150px; image-rendering: pixelated; filter: drop-shadow(0 0 10px gold);">
+            <div class="capture-container">
+                <h1 id="capture-title" class="capture-title pixel-text text-primary">收服成功！</h1>
+                <div class="emoji-large capture-sprite-wrapper">
+                    <img id="capture-sprite" class="capture-sprite" src="" alt="Caught Monster">
                 </div>
-                <h2 id="capture-name" class="pixel-text" style="margin-bottom: 20px;">BULBASAUR</h2>
-                <p id="capture-rewards" style="font-size: 1.2rem; margin-bottom: 30px;"></p>
-                <button class="big-btn" onclick="Game.closeCapture()">繼續</button>
+                <h2 id="capture-name" class="capture-name pixel-text">BULBASAUR</h2>
+                <p id="capture-rewards" class="capture-rewards"></p>
+                <button class="big-btn btn-primary ripple" onclick="Game.closeCapture()">繼續</button>
             </div>
         </div>
 
         <!-- Pokedex Screen -->
-        <div id="screen-pokedex" class="screen hidden" style="justify-content: flex-start; padding-top: 20px;">
+        <div id="screen-pokedex" class="screen pokedex-page hidden">
             <h2 class="pixel-text text-center">寶可夢圖鑑</h2>
-            <div id="pokedex-grid" style="display: flex; flex-direction: column; gap: 16px; width: 90%; max-width: 800px; overflow-y: auto; max-height: 70vh;">
+            <div id="pokedex-grid" class="pokedex-grid">
                 <!-- Dynamically generated -->
             </div>
         </div>
 
         <!-- Shop Screen -->
-        <div id="screen-shop" class="screen hidden" style="justify-content: flex-start; padding-top: 20px;">
+        <div id="screen-shop" class="screen shop-page hidden">
             <h2 class="pixel-text text-center">道具商店</h2>
-            <div id="shop-gold-display" class="pixel-text text-center" style="font-size: 1.5rem; color: var(--gold); margin-bottom: 16px;">💰 0</div>
-            <div id="shop-items" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 16px; width: 90%; max-width: 800px; overflow-y: auto;">
+            <div id="shop-gold-display" class="pixel-text text-center shop-gold">💰 0</div>
+            <div id="shop-items" class="shop-grid">
                 <!-- Dynamically generated -->
             </div>
         </div>
         
         <!-- Dashboard Screen -->
-        <div id="screen-dashboard" class="screen hidden" style="justify-content: flex-start; padding-top: 20px;">
+        <div id="screen-dashboard" class="screen dashboard-page hidden">
             <h2 class="pixel-text text-center">學習儀表板</h2>
-            <div class="menu-box" style="width: 90%; max-width: 800px; max-height: 70vh; overflow-y: auto;">
-                <h3 class="pixel-text text-center" style="color: var(--primary);">熟練度統計</h3>
-                <div id="dashboard-stats" style="text-align: left; width: 100%; font-size: 1.2rem; line-height: 2;"></div>
+            <div class="menu-box dashboard-box card-base">
+                <h3 class="pixel-text text-center text-primary">熟練度統計</h3>
+                <div id="dashboard-stats" class="dashboard-stats-content"></div>
             </div>
         </div>
 
         <!-- 每日獎勵彈窗 -->
-        <div id="screen-daily-reward" class="screen overlay hidden" style="z-index: 1000;">
-            <div class="menu-box" style="max-width: 400px; text-align: center; border-color: gold; border-width: 3px;">
-                <h2 class="pixel-text" style="color: var(--gold);">🎁 每日獎勵</h2>
-                <p id="daily-reward-streak" class="pixel-text" style="font-size: 1.5rem; margin: 16px 0;">🔥 連續登入 1 天</p>
-                <p id="daily-reward-gold" class="pixel-text" style="font-size: 2rem; color: var(--gold); margin: 16px 0;">+10 💰</p>
-                <p id="daily-reward-shiny" class="pixel-text hidden" style="font-size: 1rem; color: #9c27b0; margin: 8px 0;">✨ 下場野戰將遇到異色寶可夢！</p>
-                <button class="big-btn mt-4" onclick="Game.closeDailyReward()">領取！</button>
+        <div id="screen-daily-reward" class="screen overlay hidden">
+            <div class="menu-box daily-reward-box card-base">
+                <div class="daily-reward-chest">🎁</div>
+                <h2 class="pixel-text reward-title">每日獎勵</h2>
+                <p id="daily-reward-streak" class="pixel-text reward-streak">🔥 連續登入 1 天</p>
+                <p id="daily-reward-gold" class="pixel-text reward-gold">+10 💰</p>
+                <p id="daily-reward-shiny" class="pixel-text reward-shiny hidden">✨ 下場野戰將遇到異色寶可夢！</p>
+                <button class="big-btn btn-primary mt-4 ripple" onclick="Game.closeDailyReward()">領取！</button>
             </div>
         </div>
 
         <!-- 進化動畫 Overlay -->
-        <div id="screen-evolution" class="screen overlay hidden" style="z-index: 1001;">
-            <div style="text-align: center;">
-                <h2 class="pixel-text" style="color: var(--gold); margin-bottom: 20px;">進化中...</h2>
-                <div style="margin: 30px 0;">
-                    <img id="evo-sprite" src="" alt="Evolution" style="width:180px; height:180px; image-rendering:pixelated; filter:drop-shadow(0 0 15px gold); transition: filter 0.3s;">
+        <div id="screen-evolution" class="screen overlay hidden">
+            <div class="evolution-container">
+                <h2 class="evo-title pixel-text">進化中...</h2>
+                <div class="evo-sprite-container">
+                    <img id="evo-sprite" src="" alt="Evolution">
                 </div>
-                <p id="evo-text" class="pixel-text" style="font-size: 1.5rem; color: #fff; text-shadow: 0 0 10px gold; min-height: 40px; margin: 20px 0;"></p>
-                <button id="evo-close-btn" class="big-btn mt-4" onclick="Game.closeEvolution()">太棒了！</button>
+                <p id="evo-text" class="evo-text pixel-text"></p>
+                <button id="evo-close-btn" class="big-btn btn-primary mt-4 ripple" onclick="Game.closeEvolution()">太棒了！</button>
             </div>
         </div>
+
         <!-- 史詩結局動畫 Overlay -->
-        <div id="screen-epic-ending" class="screen overlay hidden" style="z-index: 2000; background: rgba(0,0,0,0.9); flex-direction: column; justify-content: center;">
-            <h1 id="epic-ending-title" class="title-text" style="font-size: 4rem; text-align: center; margin-bottom: 20px;">名人堂</h1>
-            <div id="epic-badge-grid" style="display: flex; flex-wrap: wrap; justify-content: center; gap: 20px; max-width: 800px; margin: 40px auto;">
+        <div id="screen-epic-ending" class="screen overlay epic-ending hidden">
+            <h1 id="epic-ending-title" class="title-text epic-title">名人堂</h1>
+            <div id="epic-badge-grid" class="epic-badge-grid">
                 <!-- Badges will be injected here -->
             </div>
-            <div id="epic-ending-text" class="hidden" style="text-align: center; margin-top: 40px;">
-                <h2 class="pixel-text" style="color: var(--gold); font-size: 2.5rem; text-shadow: 0 0 20px var(--gold);">👑 恭喜成為單字大師！</h2>
-                <p class="pixel-text" style="color: white; font-size: 1.2rem; margin-top: 20px;">自由挑戰模式已開啟，請點擊畫面繼續冒險</p>
+            <div id="epic-ending-text" class="epic-ending-text hidden">
+                <h2 class="pixel-text">👑 恭喜成為單字大師！</h2>
+                <p class="pixel-text">自由挑戰模式已開啟，請點擊畫面繼續冒險</p>
             </div>
         </div>
+
+        <!-- Game Modal (replaces alert/confirm) -->
+        <div id="game-modal" class="game-modal hidden">
+            <div class="game-modal-box card-base">
+                <h3 id="modal-title" class="game-modal-title pixel-text">通知</h3>
+                <p id="modal-text" class="game-modal-text"></p>
+                <div id="modal-actions" class="game-modal-actions"></div>
+            </div>
+        </div>
+
+        <!-- Toast Notification -->
+        <div id="game-toast" class="game-toast"></div>
 
     </div>
     <!-- INJECT_DATA -->
