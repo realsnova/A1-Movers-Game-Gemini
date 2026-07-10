@@ -420,8 +420,13 @@ const Game = {
             if (typeof speechSynthesis === 'undefined') return;
             const voices = speechSynthesis.getVoices();
             this.hasTTSEnglish = voices.some(v => v.lang.startsWith('en'));
-            // 若無英文語音，禁用發音按鈕
-            if (!this.hasTTSEnglish) {
+            if (this.hasTTSEnglish) {
+                // Find a preferred high quality voice
+                this.preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Female') || v.name.includes('Hazel') || v.name.includes('Zira'))) 
+                                   || voices.find(v => v.lang.startsWith('en-GB')) 
+                                   || voices.find(v => v.lang.startsWith('en'));
+            } else {
+                // 若無英文語音，禁用發音按鈕
                 document.querySelectorAll('[onclick*="studyPlayAudio"]').forEach(b => {
                     b.style.opacity = 0.4;
                     b.title = '此裝置無英文語音';
@@ -915,7 +920,12 @@ const Game = {
     playTTS(text) {
         if (!this.state.soundEnabled || !this.hasTTSEnglish) return;
         const u = new SpeechSynthesisUtterance(text);
-        u.lang = 'en-US';
+        if (this.preferredVoice) {
+            u.voice = this.preferredVoice;
+            u.lang = this.preferredVoice.lang;
+        } else {
+            u.lang = 'en-US';
+        }
         u.rate = 0.85;
         if (typeof speechSynthesis !== 'undefined') {
             speechSynthesis.speak(u);
@@ -1143,7 +1153,11 @@ const Game = {
         const displayContent = wordObj.emoji 
             ? `<div class="emoji-large">${wordObj.emoji}</div>` 
             : `<div class="pixel-text text-primary" style="font-size:2.5rem; background:rgba(255,255,255,0.05); padding:20px; border-radius:12px; border:2px solid var(--accent-blue);">${wordObj.zh}</div>`;
-        document.getElementById('battle-question-content').innerHTML = `${displayContent}<div class="text-secondary" style="font-size:1.2rem; margin-top:10px;">這指的是哪個單字？</div>`;
+        
+        let micHtml = (window.SpeechRecognition || window.webkitSpeechRecognition) ? 
+            `<button id="mic-btn" class="small-btn btn-secondary ripple mt-4" onclick="Game.startSpeechRecognition('${wordObj.id}')">🎤 語音輸入</button>` : '';
+            
+        document.getElementById('battle-question-content').innerHTML = `${displayContent}<div class="text-secondary" style="font-size:1.2rem; margin-top:10px;">這指的是哪個單字？</div>${micHtml}`;
         document.getElementById('battle-options').classList.remove('hidden');
         
         const opts = this.generateOptions(wordObj, 'word', 4);
@@ -1159,7 +1173,10 @@ const Game = {
     },
 
     renderTypeB(wordObj) {
-        document.getElementById('battle-question-content').innerHTML = `<div class="text-secondary" style="font-size:1.2rem; margin-bottom:10px;">聽音選圖</div><button class="big-btn btn-primary ripple" onclick="Game.playTTS('${wordObj.word}')">🔊 播放</button>`;
+        let micHtml = (window.SpeechRecognition || window.webkitSpeechRecognition) ? 
+            `<button id="mic-btn" class="small-btn btn-secondary ripple mt-4" style="margin-left: 10px;" onclick="Game.startSpeechRecognition('${wordObj.id}')">🎤 語音輸入</button>` : '';
+            
+        document.getElementById('battle-question-content').innerHTML = `<div class="text-secondary" style="font-size:1.2rem; margin-bottom:10px;">聽音選圖</div><div><button class="big-btn btn-primary ripple" style="display:inline-block; width:auto;" onclick="Game.playTTS('${wordObj.word}')">🔊 播放</button>${micHtml}</div>`;
         document.getElementById('battle-options').classList.remove('hidden');
         
         const opts = this.generateOptions(wordObj, 'emoji', 4);
@@ -1177,7 +1194,10 @@ const Game = {
     },
 
     renderTypeC(wordObj) {
-        document.getElementById('battle-question-content').innerHTML = `<div class="text-secondary" style="font-size:1.2rem;">請拼出：</div><div class="pixel-text text-primary" style="font-size:1.5rem; margin-top:8px;">${wordObj.zh}</div>`;
+        let micHtml = (window.SpeechRecognition || window.webkitSpeechRecognition) ? 
+            `<button id="mic-btn" class="small-btn btn-secondary ripple mt-4" onclick="Game.startSpeechRecognition('${wordObj.id}')">🎤 語音拼字</button>` : '';
+            
+        document.getElementById('battle-question-content').innerHTML = `<div class="text-secondary" style="font-size:1.2rem;">請拼出：</div><div class="pixel-text text-primary" style="font-size:1.5rem; margin-top:8px;">${wordObj.zh}</div>${micHtml}`;
         document.getElementById('battle-spelling').classList.remove('hidden');
         
         this.battleState.spellingTarget = wordObj.word.replace(/\s+/g, '').toLowerCase();
@@ -1195,9 +1215,14 @@ const Game = {
         if (wordObj) {
             lettersDiv.innerHTML = '';
             let chars = word.split('').sort(() => 0.5 - Math.random());
+            const vowels = ['a', 'e', 'i', 'o', 'u'];
             chars.forEach((c, i) => {
                 const btn = document.createElement('button');
-                btn.className = 'spelling-tile ripple pixel-text';
+                btn.className = 'spelling-tile ripple-circle pixel-text';
+                // Phonics Scaffolding: Highlight vowels
+                if (vowels.includes(c)) {
+                    btn.classList.add('vowel-tile');
+                }
                 btn.innerText = c;
                 btn.id = 'spell-btn-' + i;
                 btn.onclick = () => this.spellingClick(c, i);
@@ -1231,6 +1256,64 @@ const Game = {
             }
             document.getElementById('spelling-answer').innerText = this.battleState.spellingAnswer.join('');
         }
+    },
+
+    startSpeechRecognition(wordId) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        if (!SpeechRecognition) {
+            this.ui.showModal("不支援", "您的瀏覽器不支援語音辨識，請使用 Chrome/Edge。");
+            return;
+        }
+        
+        const wordObj = this.battleState.words.find(w => w.id === wordId);
+        if (!wordObj) return;
+
+        const recognition = new SpeechRecognition();
+        recognition.lang = 'en-US';
+        recognition.interimResults = false;
+        recognition.maxAlternatives = 1;
+
+        const micBtn = document.getElementById('mic-btn');
+        if (micBtn) {
+            micBtn.innerText = '🔴 聆聽中...';
+            micBtn.style.background = 'var(--accent-red)';
+            micBtn.style.color = '#fff';
+        }
+
+        recognition.start();
+
+        recognition.onresult = (event) => {
+            const speechResult = event.results[0][0].transcript.toLowerCase().trim();
+            const targetWord = wordObj.word.toLowerCase().trim();
+            const cleanSpeech = speechResult.replace(/[.,!?]/g, '');
+            const cleanTarget = targetWord.replace(/[.,!?]/g, '');
+
+            if (micBtn) {
+                micBtn.innerText = '🎤 語音輸入';
+                micBtn.style.background = '';
+            }
+
+            if (cleanSpeech === cleanTarget || cleanSpeech.includes(cleanTarget)) {
+                this.ui.showToast('🎙️ 完美發音！直接破壞防線！');
+                this.checkAnswer(true, wordObj);
+            } else {
+                this.ui.showToast(`辨識結果: "${speechResult}"，再試一次！`);
+            }
+        };
+
+        recognition.onerror = (event) => {
+            if (micBtn) {
+                micBtn.innerText = '🎤 語音輸入';
+                micBtn.style.background = '';
+            }
+            if (event.error !== 'no-speech') {
+                this.ui.showToast('語音辨識發生錯誤: ' + event.error);
+            }
+        };
+        
+        recognition.onspeechend = () => {
+            recognition.stop();
+        };
     },
 
     spellingClear() {

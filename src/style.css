@@ -122,8 +122,9 @@ input, select, textarea { font-family: inherit; }
 
 /* ── 3. GAME CONTAINER ────────────────────────────────────── */
 #game-container {
-  max-width: 480px;
+  max-width: 1200px;
   margin: 0 auto;
+  padding: 0 var(--sp-md);
   min-height: 100vh;
   position: relative;
   overflow: hidden;
@@ -672,7 +673,10 @@ input, select, textarea { font-family: inherit; }
   align-items: center;
   justify-content: center;
   min-height: 100vh;
-  background: #000;
+  background-color: #000;
+  background-size: contain !important;
+  background-position: center top !important;
+  background-repeat: no-repeat !important;
   position: relative;
   overflow: hidden;
 }
@@ -705,7 +709,7 @@ input, select, textarea { font-family: inherit; }
 
 #map-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--sp-md);
   padding: var(--sp-sm) 0;
 }
@@ -1110,7 +1114,7 @@ input, select, textarea { font-family: inherit; }
 
 .pokedex-grid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(90px, 1fr));
   gap: var(--sp-sm);
 }
 
@@ -1223,7 +1227,7 @@ input, select, textarea { font-family: inherit; }
 
 .shop-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
   gap: var(--sp-md);
 }
 
@@ -1748,12 +1752,12 @@ input, select, textarea { font-family: inherit; }
   }
 
   .pokedex-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
     gap: 8px;
   }
 
   .shop-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
   }
 }
 
@@ -1801,7 +1805,7 @@ input, select, textarea { font-family: inherit; }
   }
 
   #map-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
   }
 
@@ -1830,7 +1834,7 @@ input, select, textarea { font-family: inherit; }
   }
 
   .pokedex-grid {
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(auto-fit, minmax(70px, 1fr));
     gap: 6px;
   }
 
@@ -1852,7 +1856,7 @@ input, select, textarea { font-family: inherit; }
   }
 
   .shop-grid {
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
     gap: 10px;
   }
 
