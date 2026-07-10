@@ -252,8 +252,16 @@ const Game = {
     },
 
     showScreen(screenId) {
-        document.querySelectorAll('.screen').forEach(s => s.classList.add('hidden'));
-        document.getElementById('screen-' + screenId).classList.remove('hidden');
+        document.querySelectorAll('.screen').forEach(s => {
+            s.classList.add('hidden');
+            s.classList.remove('active');
+        });
+        const targetScreen = document.getElementById('screen-' + screenId);
+        targetScreen.classList.remove('hidden');
+        // Trigger reflow for CSS animation restart
+        void targetScreen.offsetWidth;
+        targetScreen.classList.add('active');
+        
         if (screenId !== 'title' && screenId !== 'story' && screenId !== 'intro-cinematic') {
             document.getElementById('top-bar').classList.remove('hidden');
         } else {
@@ -910,6 +918,9 @@ const Game = {
             document.getElementById('gym-timer').classList.add('hidden');
         }
         
+        // Apply regional background theme
+        document.getElementById('screen-battle').dataset.region = this.currentRegion;
+        
         this.showScreen('battle');
         this.nextBattleQuestion();
     },
@@ -930,9 +941,9 @@ const Game = {
             if (pct <= 30) {
                 hpBar.style.backgroundColor = 'var(--danger)';
             } else if (pct <= 60) {
-                hpBar.style.backgroundColor = '#ff9800';
+                hpBar.style.backgroundColor = 'var(--warning)';
             } else {
-                hpBar.style.backgroundColor = '#4caf50';
+                hpBar.style.backgroundColor = 'var(--success)';
             }
         }
         document.getElementById('battle-progress-text').innerText = `剩餘: ${remaining}/${total} 題`;
@@ -1261,7 +1272,8 @@ const Game = {
             if (hpBar) {
                 hpBar.style.width = pct + '%';
                 if (pct <= 30) hpBar.style.backgroundColor = 'var(--danger)';
-                else if (pct <= 60) hpBar.style.backgroundColor = '#ff9800';
+                else if (pct <= 60) hpBar.style.backgroundColor = 'var(--warning)';
+                else hpBar.style.backgroundColor = 'var(--success)';
             }
         } else {
             card.style.backgroundColor = 'transparent';
