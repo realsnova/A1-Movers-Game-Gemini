@@ -2570,8 +2570,9 @@ const Game = {
             
             // Unlock SpeechSynthesis for mobile Safari/Chrome
             if (window.speechSynthesis) {
-                const utterance = new SpeechSynthesisUtterance("");
+                const utterance = new SpeechSynthesisUtterance(" ");
                 utterance.volume = 0;
+                utterance.rate = 10;
                 window.speechSynthesis.speak(utterance);
             }
         } catch (e) {}
@@ -3474,6 +3475,7 @@ const Game = {
         }
 
         try {
+            if (window.speechSynthesis) window.speechSynthesis.cancel();
             recognition.start();
         } catch(e) {
             this.ui.showToast("麥克風無法啟動，請確認瀏覽器權限或使用 HTTPS 環境！");
