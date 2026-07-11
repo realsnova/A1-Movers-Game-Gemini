@@ -2568,7 +2568,12 @@ const Game = {
             osc.start(audioCtx.currentTime);
             osc.stop(audioCtx.currentTime + 0.01);
             
-            // 移除這裡自動播放 BGM 的邏輯，避免在不需要 BGM 的主頁/地圖也播音樂
+            // Unlock SpeechSynthesis for mobile Safari/Chrome
+            if (window.speechSynthesis) {
+                const utterance = new SpeechSynthesisUtterance("");
+                utterance.volume = 0;
+                window.speechSynthesis.speak(utterance);
+            }
         } catch (e) {}
     },
 
@@ -3442,9 +3447,14 @@ const Game = {
     },
 
     startSpeechRecognition(wordId) {
+        if (navigator.userAgent.match('CriOS')) {
+            this.ui.showModal("不支援的瀏覽器", "蘋果 (Apple) 限制了 iOS 版 Chrome 的語音辨識功能。\\n\\n💡 請改用 **Safari 瀏覽器** 開啟本遊戲，即可正常使用語音輸入功能！");
+            return;
+        }
+
         const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
         if (!SpeechRecognition) {
-            this.ui.showModal("不支援", "您的瀏覽器不支援語音辨識，請使用 Chrome/Edge。");
+            this.ui.showModal("不支援", "您的瀏覽器不支援語音辨識，建議使用 Chrome 或 Edge 瀏覽器。");
             return;
         }
         
