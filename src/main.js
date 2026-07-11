@@ -421,29 +421,30 @@ const Game = {
             this.hasTTSEnglish = false;
             return;
         }
+        this.hasTTSEnglish = true; // 預設為 true，避免 Android 延遲載入語音導致誤判
         
         const checkVoices = () => {
             if (typeof speechSynthesis === 'undefined') return;
             const voices = speechSynthesis.getVoices();
-            this.hasTTSEnglish = voices.some(v => v.lang.startsWith('en'));
-            if (this.hasTTSEnglish) {
+            if (voices.length > 0) {
                 // Find a preferred high quality voice
                 this.preferredVoice = voices.find(v => v.lang.startsWith('en') && (v.name.includes('Google') || v.name.includes('Female') || v.name.includes('Hazel') || v.name.includes('Zira'))) 
                                    || voices.find(v => v.lang.startsWith('en-GB')) 
                                    || voices.find(v => v.lang.startsWith('en'));
-            } else {
-                // 若無英文語音，禁用發音按鈕
-                document.querySelectorAll('[onclick*="studyPlayAudio"]').forEach(b => {
-                    b.style.opacity = 0.4;
-                    b.title = '此裝置無英文語音';
-                });
             }
         };
-        if (speechSynthesis.getVoices().length > 0) {
-            checkVoices();
-        } else {
-            speechSynthesis.addEventListener('voiceschanged', checkVoices, { once: true });
-        }
+        
+        // 嘗試多次檢查，解決 Android Chrome `voiceschanged` 不觸發的問題
+        let attempts = 0;
+        const interval = setInterval(() => {
+            if (speechSynthesis.getVoices().length > 0 || attempts > 10) {
+                clearInterval(interval);
+                checkVoices();
+            }
+            attempts++;
+        }, 500);
+        
+        speechSynthesis.addEventListener('voiceschanged', checkVoices);
     },
 
     // === 每日登入獎勵（Phase 3）===
@@ -934,6 +935,7 @@ const Game = {
         }
         u.rate = 0.85;
         if (typeof speechSynthesis !== 'undefined') {
+            window._currentUtterance = u; // 解決 Chrome Android 的 GC 導致語音中斷 Bug
             speechSynthesis.speak(u);
         }
     },
